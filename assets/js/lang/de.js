@@ -195,7 +195,7 @@ window.CICLIFT_I18N.de = {
     "footer.terms": "Nutzungsbedingungen",
     "footer.manage": "Cookie-Einstellungen",
     "footer.contact": "Kontakt",
-    "footer.copy": "Produkt in Entwicklung. Abbildungen unverbindlich.",
+    "footer.copy": "Produkt in Entwicklung. Abbildungen unverbindlich, teilweise KI-generiert.",
 
     "thanks.title": "Danke für deine Anmeldung!",
     "thanks.text": "Wir haben dir gerade eine Bestätigungs-E-Mail geschickt. Klicke auf den Link darin, um deine Anmeldung zu bestätigen (schau auch in deinen Spam-Ordner).",

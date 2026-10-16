@@ -195,7 +195,7 @@ window.CICLIFT_I18N.en = {
     "footer.terms": "Terms of use",
     "footer.manage": "Manage cookies",
     "footer.contact": "Contact",
-    "footer.copy": "Product in development. Images are for illustration only.",
+    "footer.copy": "Product in development. Images are for illustration only, partly AI-generated.",
 
     "thanks.title": "Thank you for signing up!",
     "thanks.text": "A confirmation email has just been sent to you. Click the link inside to confirm your sign-up (remember to check your spam folder).",

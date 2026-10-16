@@ -201,7 +201,11 @@
         box.classList.add("has-photo");
       }
       fig.querySelector("img").alt = svg ? svg.getAttribute("aria-label") : "";
-      fig.querySelector("figcaption").textContent = t("photo.ai");
+      // Pastille discrète « IA » ; le texte complet reste lisible au survol et par les lecteurs d'écran
+      var cap = fig.querySelector("figcaption");
+      cap.textContent = "IA";
+      cap.title = t("photo.ai");
+      cap.setAttribute("aria-label", t("photo.ai"));
     });
   }
   renderPhotos();
@@ -243,10 +247,33 @@
   bar.className = "progress";
   bar.setAttribute("aria-hidden", "true");
   document.body.appendChild(bar);
+  // Fond vivant (halos de couleur) piloté par la position dans la page
+  var fx = document.createElement("div");
+  fx.className = "bg-fx";
+  fx.setAttribute("aria-hidden", "true");
+  fx.innerHTML = '<div class="orb-wrap w1"><div class="orb"></div></div><div class="orb-wrap w2"><div class="orb"></div></div><div class="orb-wrap w3"><div class="orb"></div></div>';
+  document.body.insertBefore(fx, document.body.firstChild);
+
+  var touch = window.matchMedia && window.matchMedia("(hover: none)").matches;
+  var glowEls = document.querySelectorAll(".card, .version, .bike-type, .poll");
+
   var ticking = false;
   function updateBar() {
     var max = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
+    var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    bar.style.transform = "scaleX(" + p + ")";
+    document.documentElement.style.setProperty("--p", p.toFixed(4));
+    // Sur téléphone : le halo de chaque carte visible glisse pendant le défilement
+    if (touch) {
+      var h = window.innerHeight;
+      glowEls.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > h) return;
+        var k = (h - r.top) / (h + r.height); // 0 → 1 pendant que la carte traverse l'écran
+        el.style.setProperty("--mx", (r.width * (0.15 + 0.7 * k)) + "px");
+        el.style.setProperty("--my", (r.height * (1 - k)) + "px");
+      });
+    }
     ticking = false;
   }
   window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(updateBar); } }, { passive: true });

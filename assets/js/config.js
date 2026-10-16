@@ -27,7 +27,7 @@ window.CICLIFT_CONFIG = {
     before: "",      // avant : garage encombré par les vélos
     after: "",       // après : garage dégagé, vélos en hauteur
     vertical: "vertical.jpg",      // version verticale
-    horizontal: "horizontal.jpg",  // version horizontale
+    horizontal: "",                // version horizontale (photo à refaire : vélo plus réaliste)
     vtt: "vtt.jpg",                // VTT
     ville: "ville.jpg",            // vélo de ville
     vae: "vae.jpg"                 // vélo électrique

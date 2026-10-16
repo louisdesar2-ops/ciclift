@@ -195,7 +195,7 @@ window.CICLIFT_I18N.nl = {
     "footer.terms": "Gebruiksvoorwaarden",
     "footer.manage": "Cookies beheren",
     "footer.contact": "Contact",
-    "footer.copy": "Product in ontwikkeling. Afbeeldingen ter illustratie.",
+    "footer.copy": "Product in ontwikkeling. Afbeeldingen ter illustratie, deels door AI gegenereerd.",
 
     "thanks.title": "Bedankt voor je inschrijving!",
     "thanks.text": "We hebben je zojuist een bevestigingsmail gestuurd. Klik op de link erin om je inschrijving te bevestigen (kijk ook in je spammap).",

@@ -31,7 +31,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: transparent;
   color: var(--ink);
   font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -87,7 +87,7 @@ a:hover { color: var(--green); }
 /* ---------- Sections ---------- */
 section { position: relative; padding: 72px 0; }
 @media (min-width: 720px) { section { padding: 104px 0; } }
-.section-alt { background: var(--bg-2); }
+.section-alt { background: rgba(10, 16, 23, .55); }
 /* Fine ligne lumineuse en haut de chaque section */
 section + section::before, .ribbon + section::before { content: ""; position: absolute; top: 0; left: 50%; width: min(720px, 80%); height: 1px; transform: translateX(-50%); background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .55), rgba(34, 197, 139, .55), transparent); }
 
@@ -187,8 +187,8 @@ h3 { font-size: 1.2rem; }
 .step-num { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--grad); color: var(--brand-ink); font-weight: 900; margin-bottom: 16px; box-shadow: 0 0 0 6px rgba(56, 189, 248, .12), 0 0 24px rgba(34, 197, 139, .35); }
 
 /* ---------- Sections teintées ---------- */
-.section-sun { background: radial-gradient(900px 400px at 15% 0%, rgba(34, 197, 139, .12), transparent 70%), var(--bg); }
-.section-sky { background: radial-gradient(900px 400px at 85% 0%, rgba(56, 189, 248, .12), transparent 70%), var(--bg-2); }
+.section-sun { background: radial-gradient(900px 400px at 15% 0%, rgba(34, 197, 139, .12), transparent 70%); }
+.section-sky { background: radial-gradient(900px 400px at 85% 0%, rgba(56, 189, 248, .12), transparent 70%), rgba(10, 16, 23, .55); }
 
 /* ---------- Deux versions ---------- */
 .versions { display: grid; gap: 22px; }
@@ -295,7 +295,7 @@ h3 { font-size: 1.2rem; }
 .faq details p { margin: 0 0 18px; color: var(--muted); }
 
 /* ---------- Pied de page ---------- */
-.site-footer { border-top: 1px solid var(--line); padding: 44px 0 30px; font-size: .93rem; color: var(--muted); background: var(--bg-2); }
+.site-footer { border-top: 1px solid var(--line); padding: 44px 0 30px; font-size: .93rem; color: var(--muted); background: rgba(10, 16, 23, .85); }
 .footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 .footer-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 20px; }
 .footer-links a, .link-btn { color: var(--muted); }
@@ -361,3 +361,30 @@ main { overflow-x: clip; }
 .js .reveal.is-visible.card, .js .reveal.is-visible.version, .js .reveal.is-visible.bike-type, .js .reveal.is-visible.poll { transition: opacity .8s ease, transform .3s ease, filter .8s ease, box-shadow .3s ease, background .3s ease; transition-delay: 0s; }
 @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; filter: none; } }
 @media print { .js .reveal { opacity: 1; transform: none; filter: none; } .consent, .progress, .ribbon { display: none; } }
+
+
+/* =========================================================
+   Fond vivant : halos de couleur qui bougent avec le défilement
+   (ordinateur ET téléphone). --p = progression de 0 à 1 dans la page.
+   ========================================================= */
+.bg-fx { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.bg-fx .orb-wrap { position: absolute; will-change: transform; transition: transform .25s linear; }
+.bg-fx .orb { width: 100%; height: 100%; border-radius: 50%; filter: blur(90px); opacity: .32; animation: breathe 12s ease-in-out infinite alternate; }
+.bg-fx .w1 { width: 46vmax; height: 46vmax; left: -14vmax; top: -10vmax; transform: translate(calc(var(--p, 0) * 55vw), calc(var(--p, 0) * 70vh)); }
+.bg-fx .w2 { width: 40vmax; height: 40vmax; right: -12vmax; top: 30vh; transform: translate(calc(var(--p, 0) * -50vw), calc(var(--p, 0) * -25vh)); }
+.bg-fx .w3 { width: 34vmax; height: 34vmax; left: 30vw; bottom: -18vmax; transform: translate(calc(var(--p, 0) * 20vw), calc(var(--p, 0) * -60vh)) scale(calc(.8 + var(--p, 0) * .5)); }
+.bg-fx .w1 .orb { background: #0f9d6c; }
+.bg-fx .w2 .orb { background: #0b78b8; animation-delay: -4s; }
+.bg-fx .w3 .orb { background: #14b8a6; animation-delay: -8s; opacity: .22; }
+@keyframes breathe { from { transform: scale(1); } to { transform: scale(1.18); } }
+/* Fine grille lumineuse qui défile très légèrement */
+.bg-fx::after { content: ""; position: absolute; inset: -50%; background-image: linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px); background-size: 64px 64px; transform: translateY(calc(var(--p, 0) * -64px * 6)); }
+@media (prefers-reduced-motion: reduce) { .bg-fx .orb-wrap { transform: none !important; } }
+
+/* Sur téléphone (pas de souris) : le halo des cartes suit le défilement */
+@media (hover: none) {
+  .card::before, .version::before, .bike-type::before, .poll::before { opacity: .9; }
+}
+
+/* Mention IA discrète sur les images */
+.photo figcaption { font-size: .66rem; font-weight: 800; letter-spacing: .06em; padding: 2px 7px; opacity: .85; }

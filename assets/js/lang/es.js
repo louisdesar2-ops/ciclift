@@ -195,7 +195,7 @@ window.CICLIFT_I18N.es = {
     "footer.terms": "Condiciones de uso",
     "footer.manage": "Gestionar cookies",
     "footer.contact": "Contacto",
-    "footer.copy": "Producto en desarrollo. Imágenes no contractuales.",
+    "footer.copy": "Producto en desarrollo. Imágenes no contractuales, en parte generadas por IA.",
 
     "thanks.title": "¡Gracias por suscribirte!",
     "thanks.text": "Te acabamos de enviar un correo de confirmación. Haz clic en el enlace que contiene para confirmar tu suscripción (revisa también la carpeta de spam).",
