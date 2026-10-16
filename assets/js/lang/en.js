@@ -46,6 +46,10 @@ window.CICLIFT_I18N.en = {
     "nav.how": "How it works",
     "nav.opinion": "Your opinion",
     "nav.versions": "The versions",
+    "nav.menu": "Menu",
+    "nav.bikes": "For every bike",
+    "nav.faq": "FAQ",
+    "swipe": "Swipe to see more",
 
     "ribbon.1": "One button, it's stored",
     "ribbon.2": "Even 25 kg e-bikes",

@@ -46,6 +46,10 @@ window.CICLIFT_I18N.es = {
     "nav.how": "Cómo funciona",
     "nav.opinion": "Tu opinión",
     "nav.versions": "Las versiones",
+    "nav.menu": "Menú",
+    "nav.bikes": "Para todas las bicis",
+    "nav.faq": "Preguntas frecuentes",
+    "swipe": "Desliza para ver más",
 
     "ribbon.1": "Un botón y listo",
     "ribbon.2": "Incluso bicis eléctricas de 25 kg",

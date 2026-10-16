@@ -46,6 +46,10 @@ window.CICLIFT_I18N.de = {
     "nav.how": "So funktioniert's",
     "nav.opinion": "Deine Meinung",
     "nav.versions": "Die Versionen",
+    "nav.menu": "Menü",
+    "nav.bikes": "Für alle Fahrräder",
+    "nav.faq": "Häufige Fragen",
+    "swipe": "Wischen, um mehr zu sehen",
 
     "ribbon.1": "Ein Knopf, schon verstaut",
     "ribbon.2": "Auch E-Bikes mit 25 kg",

@@ -428,3 +428,37 @@ main { overflow-x: clip; }
 .bt-visual .photo figcaption { right: 6px; bottom: 6px; }
 /* Constellation (dessinée par main.js) */
 .bg-fx .stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .9; }
+
+/* =========================================================
+   Menu à 3 barres (téléphone et tablette)
+   ========================================================= */
+.header-right { display: flex; align-items: center; gap: 10px; }
+.menu-toggle { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 0 11px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, .04); cursor: pointer; }
+.menu-toggle span { display: block; height: 2px; border-radius: 2px; background: var(--ink); transition: transform .3s ease, opacity .2s ease; }
+.menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (min-width: 980px) { .menu-toggle, .mobile-menu { display: none !important; } }
+.mobile-menu { position: absolute; top: 100%; left: 0; right: 0; display: grid; gap: 4px; padding: 14px 16px 22px; background: rgba(7, 11, 16, .97); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); box-shadow: 0 20px 40px rgba(0, 0, 0, .5); animation: menu-in .25s ease; max-height: calc(100vh - 64px); overflow-y: auto; }
+.mobile-menu a:not(.btn) { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 1.05rem; padding: 12px 6px; border-bottom: 1px solid var(--line); }
+.mobile-menu a:not(.btn):hover { color: var(--blue); }
+.mobile-menu .btn { margin-top: 12px; }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 400px) { .lang-switch button { min-width: 30px; padding: 8px 6px; } }
+
+/* =========================================================
+   Téléphone : cartes en carrousels qu'on fait glisser (page plus courte)
+   ========================================================= */
+@media (max-width: 719px) {
+  .bike-types, .cards, .versions {
+    display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    margin: 0 -16px; padding: 6px 16px 18px; scrollbar-width: none;
+  }
+  .bike-types::-webkit-scrollbar, .cards::-webkit-scrollbar, .versions::-webkit-scrollbar { display: none; }
+  .bike-types > *, .cards > *, .versions > * { flex: 0 0 82%; scroll-snap-align: center; }
+  .js .bike-types > .reveal, .js .cards > .reveal, .js .versions > .reveal { transform: none; }
+  .swipe-hint { display: flex; }
+}
+.swipe-hint { display: none; align-items: center; justify-content: center; gap: 8px; margin-top: 4px; font-size: .82rem; color: var(--muted); }
+.swipe-hint::after { content: "→"; animation: nudge 1.4s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }

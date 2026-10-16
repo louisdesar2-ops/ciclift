@@ -46,6 +46,10 @@ window.CICLIFT_I18N.nl = {
     "nav.how": "Hoe het werkt",
     "nav.opinion": "Jouw mening",
     "nav.versions": "De versies",
+    "nav.menu": "Menu",
+    "nav.bikes": "Voor elke fiets",
+    "nav.faq": "Veelgestelde vragen",
+    "swipe": "Veeg om meer te zien",
 
     "ribbon.1": "Eén knop, opgeborgen",
     "ribbon.2": "Ook e-bikes van 25 kg",

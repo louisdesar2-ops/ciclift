@@ -182,7 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610161745"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610161759"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -266,17 +266,25 @@
     fx.appendChild(canvas);
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Téléphone : moins de points, pas de halo flou (coûteux) et résolution limitée pour rester fluide
+    var dpr = Math.min(window.devicePixelRatio || 1, touch ? 1.5 : 2);
     var W = 0, H = 0, stars = [], dust = [], mouse = null, last = 0;
     var COLORS = ["110, 231, 183", "125, 211, 252", "230, 245, 255"];
     var LINK = 140;
 
     function resize() {
-      W = window.innerWidth; H = window.innerHeight;
+      var newW = window.innerWidth, newH = window.innerHeight;
+      // Sur téléphone, la barre d'adresse qui apparaît/disparaît change seulement la hauteur :
+      // on agrandit la zone de dessin sans recréer les étoiles (sinon elles « sautent »)
+      if (W && newW === W) {
+        H = newH; canvas.height = H * dpr; canvas.style.height = H + "px"; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        return;
+      }
+      W = newW; H = newH;
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = W + "px"; canvas.style.height = H + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var count = Math.round(Math.min(170, Math.max(60, W * H / 8000)));
+      var count = (touch ? Math.round(Math.min(70, Math.max(40, W * H / 7000))) : Math.round(Math.min(170, Math.max(60, W * H / 8000))));
       stars = [];
       for (var i = 0; i < count; i++) {
         stars.push({
@@ -287,7 +295,7 @@
         });
       }
       // Poussière d'étoiles : beaucoup de petits points qui montent doucement et scintillent
-      var n = Math.round(Math.min(650, Math.max(180, W * H / 2200)));
+      var n = (touch ? Math.round(Math.min(260, Math.max(140, W * H / 1600))) : Math.round(Math.min(650, Math.max(180, W * H / 2200))));
       dust = [];
       for (var q = 0; q < n; q++) {
         dust.push({
@@ -355,7 +363,7 @@
         var p = pts[k], tw = .65 + Math.sin(p.s.tw) * .35;
         ctx.fillStyle = "rgba(" + p.s.c + "," + (.85 * tw).toFixed(3) + ")";
         ctx.shadowColor = "rgba(" + p.s.c + ",.9)";
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = touch ? 0 : 8;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.s.r, 0, Math.PI * 2); ctx.fill();
       }
       ctx.shadowBlur = 0;
@@ -364,11 +372,11 @@
 
     resize();
     window.addEventListener("resize", resize);
-    // Souris (ordinateur) ou doigt (téléphone) : les étoiles s'y relient et la poussière s'écarte
-    window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
-    window.addEventListener("pointerdown", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
-    document.addEventListener("pointerleave", function () { mouse = null; });
-    if (touch) window.addEventListener("pointerup", function () { setTimeout(function () { mouse = null; }, 600); }, { passive: true });
+    // Souris (ordinateur uniquement) : les étoiles s'y relient et la poussière s'écarte
+    if (!touch) {
+      window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+      document.addEventListener("pointerleave", function () { mouse = null; });
+    }
     requestAnimationFrame(frame);
   })();
   var glowEls = document.querySelectorAll(".card, .version, .bike-type, .poll");
@@ -404,6 +412,20 @@
       el.style.setProperty("--mx", (e.clientX - r.left) + "px");
       el.style.setProperty("--my", (e.clientY - r.top) + "px");
     }, { passive: true });
+  }
+
+  // ---------- Menu à 3 barres (téléphone) ----------
+  var toggle = document.querySelector(".menu-toggle");
+  var menu = document.getElementById("mobile-menu");
+  if (toggle && menu) {
+    var setMenu = function (open) {
+      menu.hidden = !open;
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    toggle.addEventListener("click", function () { setMenu(menu.hidden); });
+    menu.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) { setMenu(false); toggle.focus(); } });
+    document.addEventListener("click", function (e) { if (!menu.hidden && !menu.contains(e.target) && !toggle.contains(e.target)) setMenu(false); });
   }
 
   // Année du pied de page

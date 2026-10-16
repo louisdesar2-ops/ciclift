@@ -30,12 +30,12 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/css/style.css?v=202610161745">
-  <script src="assets/js/config.js?v=202610161745" defer></script>
-  <script src="assets/js/lang/fr.js?v=202610161745" defer></script>
-  <script src="assets/js/i18n.js?v=202610161745" defer></script>
-  <script src="assets/js/consent.js?v=202610161745" defer></script>
-  <script src="assets/js/main.js?v=202610161745" defer></script>
+  <link rel="stylesheet" href="assets/css/style.css?v=202610161759">
+  <script src="assets/js/config.js?v=202610161759" defer></script>
+  <script src="assets/js/lang/fr.js?v=202610161759" defer></script>
+  <script src="assets/js/i18n.js?v=202610161759" defer></script>
+  <script src="assets/js/consent.js?v=202610161759" defer></script>
+  <script src="assets/js/main.js?v=202610161759" defer></script>
 </head>
 <body data-page="index">
   <a class="skip-link" href="#contenu" data-i18n="skip">Aller au contenu</a>
@@ -53,8 +53,23 @@
         <a href="#fonctionnement" data-i18n="nav.how">Comment ça marche</a>
         <a href="#avis" data-i18n="nav.opinion">Votre avis</a>
       </nav>
-      <div class="lang-switch" role="group" aria-label="Langue / Language"></div>
+      <div class="header-right">
+        <div class="lang-switch" role="group" aria-label="Langue / Language"></div>
+        <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Menu" data-i18n-attr="aria-label:nav.menu" hidden>
+      <a href="#concept" data-i18n="nav.concept">Le concept</a>
+      <a href="#versions" data-i18n="nav.versions">Les versions</a>
+      <a href="#velos" data-i18n="nav.bikes">Pour tous les vélos</a>
+      <a href="#avantages" data-i18n="nav.benefits">Avantages</a>
+      <a href="#fonctionnement" data-i18n="nav.how">Comment ça marche</a>
+      <a href="#avis" data-i18n="nav.opinion">Votre avis</a>
+      <a href="#faq" data-i18n="nav.faq">Questions fréquentes</a>
+      <a href="#inscription" class="btn btn-primary" data-i18n="hero.cta">Être prévenu du lancement</a>
+    </nav>
   </header>
 
   <main id="contenu">
@@ -198,6 +213,7 @@
             </ul>
           </article>
         </div>
+        <p class="swipe-hint" data-i18n="swipe">Faites glisser pour voir la suite</p>
       </div>
     </section>
 
@@ -247,6 +263,7 @@
             <p data-i18n="t3.text">Plus besoin de soulever 25 kg au-dessus de votre tête : c'est Ciclift qui fait l'effort.</p>
           </article>
         </div>
+        <p class="swipe-hint" data-i18n="swipe">Faites glisser pour voir la suite</p>
       </div>
     </section>
 
@@ -279,6 +296,7 @@
             <p data-i18n="b4.text">Se fixe au plafond et se règle tout seul à la première utilisation. Aucun réglage compliqué.</p>
           </article>
         </div>
+        <p class="swipe-hint" data-i18n="swipe">Faites glisser pour voir la suite</p>
       </div>
     </section>
 
@@ -294,6 +312,7 @@
           <article class="card reveal d2"><span class="step-num">2</span><h3 data-i18n="s2.title">Appuyez</h3><p data-i18n="s2.text">Accrochez votre vélo et appuyez sur le bouton de la télécommande.</p></article>
           <article class="card reveal d3"><span class="step-num">3</span><h3 data-i18n="s3.title">Profitez</h3><p data-i18n="s3.text">Votre vélo monte se ranger tout seul. Le sol est à vous.</p></article>
         </div>
+        <p class="swipe-hint" data-i18n="swipe">Faites glisser pour voir la suite</p>
       </div>
     </section>
 
