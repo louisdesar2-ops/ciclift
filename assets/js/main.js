@@ -182,7 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610161841"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610161848"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -270,7 +270,7 @@
     var dpr = Math.min(window.devicePixelRatio || 1, touch ? 1 : 2);
     var W = 0, H = 0, stars = [], dust = [], mouse = null, last = 0;
     var COLORS = ["110, 231, 183", "125, 211, 252", "230, 245, 255"];
-    var LINK = touch ? 110 : 140;
+    var LINK = touch ? 125 : 140;
 
     function resize() {
       var newW = window.innerWidth, newH = window.innerHeight;
@@ -284,7 +284,7 @@
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = W + "px"; canvas.style.height = H + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var count = (touch ? Math.round(Math.min(42, Math.max(30, W * H / 9000))) : Math.round(Math.min(170, Math.max(60, W * H / 8000))));
+      var count = (touch ? Math.round(Math.min(75, Math.max(55, W * H / 4500))) : Math.round(Math.min(170, Math.max(60, W * H / 8000))));
       stars = [];
       for (var i = 0; i < count; i++) {
         stars.push({
@@ -295,7 +295,7 @@
         });
       }
       // Poussière d'étoiles : beaucoup de petits points qui montent doucement et scintillent
-      var n = (touch ? Math.round(Math.min(110, Math.max(80, W * H / 3000))) : Math.round(Math.min(650, Math.max(180, W * H / 2200))));
+      var n = (touch ? Math.round(Math.min(170, Math.max(130, W * H / 1900))) : Math.round(Math.min(650, Math.max(180, W * H / 2200))));
       dust = [];
       for (var q = 0; q < n; q++) {
         dust.push({
@@ -349,8 +349,8 @@
         for (var b = a + 1; b < pts.length; b++) {
           var dx = pts[a].x - pts[b].x, dy = pts[a].y - pts[b].y, d = dx * dx + dy * dy;
           if (d < LINK * LINK) {
-            var al = (1 - Math.sqrt(d) / LINK) * .55;
-            ctx.strokeStyle = "rgba(" + pts[a].s.c + "," + al.toFixed(3) + ")";
+            var al = (1 - Math.sqrt(d) / LINK) * (touch ? .6 : .55);
+            ctx.strokeStyle = "rgba(" + (touch ? "235, 245, 255" : pts[a].s.c) + "," + al.toFixed(3) + ")"; // traits blancs sur téléphone
             ctx.lineWidth = .9;
             ctx.beginPath(); ctx.moveTo(pts[a].x, pts[a].y); ctx.lineTo(pts[b].x, pts[b].y); ctx.stroke();
           }
