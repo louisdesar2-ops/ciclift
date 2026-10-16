@@ -13,4 +13,4 @@ Propriétaire : débutant, francophone — répondre en français, simplement.
 - Réglages (nom, email, codes services) uniquement dans `assets/js/config.js`.
 - Mode discret : balise robots noindex (« MODE DISCRET ») sur les pages, à retirer au lancement.
 - Aperçu : `tools/serve.ps1` → http://localhost:8080/
-- Avant chaque publication : lancer `tools/version.ps1` (anti-cache, numéro de version sur CSS/JS/photos).
+- Publier UNIQUEMENT avec `tools/publish.ps1 "message"` (version anti-cache + pull --rebase + push vérifié). Ne jamais masquer les erreurs de git push.
