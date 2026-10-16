@@ -23,11 +23,11 @@ window.CICLIFT_CONFIG = {
   // Images (générées par IA ou photos) : déposer le fichier dans assets/img/photos/ puis écrire son nom ici.
   // Tant qu'un nom est vide, c'est l'illustration dessinée qui s'affiche. Voir assets/img/photos/PROMPTS.md
   photos: {
-    hero: "",        // accroche : garage lumineux, vélo rangé en hauteur
+    hero: "hero.jpg",        // accroche : garage lumineux, vélo rangé en hauteur
     before: "",      // avant : garage encombré par les vélos
     after: "",       // après : garage dégagé, vélos en hauteur
     vertical: "vertical.jpg",      // version verticale
-    horizontal: "",                // version horizontale (photo à refaire : vélo plus réaliste)
+    horizontal: "horizontal.jpg",  // version horizontale
     vtt: "vtt.jpg",                // VTT
     ville: "ville.jpg",            // vélo de ville
     vae: "vae.jpg"                 // vélo électrique
