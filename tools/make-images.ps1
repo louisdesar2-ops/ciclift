@@ -17,24 +17,27 @@ function New-RoundedRect([float]$x, [float]$y, [float]$w, [float]$h, [float]$r) 
   return $p
 }
 
-# Dessine le logo (C + flèche) dans un carré de côté $s à la position ($ox, $oy)
+# Dessine le logo (C vert + roue à rayons blanche + fine flèche bleue) dans un carré de côté $s
 function Draw-Logo($g, [float]$ox, [float]$oy, [float]$s, [bool]$rounded) {
   $k = $s / 32
-  $bg = New-Object System.Drawing.SolidBrush $green
+  $bg = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(11, 17, 23))
   if ($rounded) { $g.FillPath($bg, (New-RoundedRect $ox $oy $s $s (8 * $k))) } else { $g.FillRectangle($bg, $ox, $oy, $s, $s) }
-  $pw = New-Object System.Drawing.Pen ([System.Drawing.Color]::White), (3.2 * $k)
-  $pw.StartCap = 'Round'; $pw.EndCap = 'Round'
-  # Arc du C : centre (16,16), rayon 8, ouvert à droite
-  $g.DrawArc($pw, $ox + 8 * $k, $oy + 8 * $k, 16 * $k, 16 * $k, 44, 272)
-  $py = New-Object System.Drawing.Pen $yellow, (2.6 * $k)
-  $py.StartCap = 'Round'; $py.EndCap = 'Round'; $py.LineJoin = 'Round'
-  $g.DrawLine($py, $ox + 15.5 * $k, $oy + 20 * $k, $ox + 15.5 * $k, $oy + 11.5 * $k)
-  $g.DrawLines($py, [System.Drawing.PointF[]]@(
-    (New-Object System.Drawing.PointF ($ox + 12.3 * $k), ($oy + 14.6 * $k)),
-    (New-Object System.Drawing.PointF ($ox + 15.5 * $k), ($oy + 11.4 * $k)),
-    (New-Object System.Drawing.PointF ($ox + 18.7 * $k), ($oy + 14.6 * $k))))
+  $green = [System.Drawing.Color]::FromArgb(34, 197, 139); $white = [System.Drawing.Color]::FromArgb(238, 244, 248); $blue = [System.Drawing.Color]::FromArgb(56, 189, 248)
+  $pc = New-Object System.Drawing.Pen $green, (4 * $k); $pc.StartCap = 'Round'; $pc.EndCap = 'Round'
+  $g.DrawArc($pc, $ox + 5 * $k, $oy + 5 * $k, 22 * $k, 22 * $k, 45, 270)
+  $ps = New-Object System.Drawing.Pen $white, (1.4 * $k); $ps.StartCap = 'Round'; $ps.EndCap = 'Round'
+  $cx = $ox + 16 * $k; $cy = $oy + 16 * $k
+  foreach ($a in 0, 45, 90, 135) { $r = [Math]::PI * $a / 180; $dx = [Math]::Cos($r) * 6 * $k; $dy = [Math]::Sin($r) * 6 * $k; $g.DrawLine($ps, $cx - $dx, $cy - $dy, $cx + $dx, $cy + $dy) }
+  $pw = New-Object System.Drawing.Pen $white, (2 * $k)
+  $g.DrawEllipse($pw, $cx - 6 * $k, $cy - 6 * $k, 12 * $k, 12 * $k)
+  $g.FillEllipse((New-Object System.Drawing.SolidBrush $white), $cx - 1.9 * $k, $cy - 1.9 * $k, 3.8 * $k, 3.8 * $k)
+  $pa = New-Object System.Drawing.Pen $blue, (1.8 * $k); $pa.StartCap = 'Round'; $pa.EndCap = 'Round'; $pa.LineJoin = 'Round'
+  $g.DrawLine($pa, $ox + 26.6 * $k, $oy + 20.5 * $k, $ox + 26.6 * $k, $oy + 11.5 * $k)
+  $g.DrawLines($pa, [System.Drawing.PointF[]]@(
+    (New-Object System.Drawing.PointF ($ox + 24.4 * $k), ($oy + 13.7 * $k)),
+    (New-Object System.Drawing.PointF ($ox + 26.6 * $k), ($oy + 11.5 * $k)),
+    (New-Object System.Drawing.PointF ($ox + 28.8 * $k), ($oy + 13.7 * $k))))
 }
-
 function Save-Icon([int]$size, [string]$name, [bool]$rounded) {
   $bmp = New-Object System.Drawing.Bitmap $size, $size
   $g = [System.Drawing.Graphics]::FromImage($bmp)

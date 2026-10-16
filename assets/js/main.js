@@ -182,7 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610161805"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610161808"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -267,10 +267,10 @@
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
     // Téléphone : moins de points, pas de halo flou (coûteux) et résolution limitée pour rester fluide
-    var dpr = Math.min(window.devicePixelRatio || 1, touch ? 1.5 : 2);
+    var dpr = Math.min(window.devicePixelRatio || 1, touch ? 1 : 2);
     var W = 0, H = 0, stars = [], dust = [], mouse = null, last = 0;
     var COLORS = ["110, 231, 183", "125, 211, 252", "230, 245, 255"];
-    var LINK = 140;
+    var LINK = touch ? 110 : 140;
 
     function resize() {
       var newW = window.innerWidth, newH = window.innerHeight;
@@ -284,7 +284,7 @@
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = W + "px"; canvas.style.height = H + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var count = (touch ? Math.round(Math.min(70, Math.max(40, W * H / 7000))) : Math.round(Math.min(170, Math.max(60, W * H / 8000))));
+      var count = (touch ? Math.round(Math.min(42, Math.max(30, W * H / 9000))) : Math.round(Math.min(170, Math.max(60, W * H / 8000))));
       stars = [];
       for (var i = 0; i < count; i++) {
         stars.push({
@@ -295,7 +295,7 @@
         });
       }
       // Poussière d'étoiles : beaucoup de petits points qui montent doucement et scintillent
-      var n = (touch ? Math.round(Math.min(260, Math.max(140, W * H / 1600))) : Math.round(Math.min(650, Math.max(180, W * H / 2200))));
+      var n = (touch ? Math.round(Math.min(110, Math.max(80, W * H / 3000))) : Math.round(Math.min(650, Math.max(180, W * H / 2200))));
       dust = [];
       for (var q = 0; q < n; q++) {
         dust.push({
@@ -308,6 +308,8 @@
     }
 
     function frame(time) {
+      // Téléphone : 30 images/s suffisent et économisent la batterie et le processeur
+      if (touch && time - last < 32) { requestAnimationFrame(frame); return; }
       var dt = Math.min(50, time - last || 16); last = time;
       var scroll = window.scrollY || 0;
       ctx.clearRect(0, 0, W, H);

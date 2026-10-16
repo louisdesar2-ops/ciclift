@@ -468,3 +468,24 @@ main { overflow-x: clip; }
 .ask-text { margin: 0 0 14px; color: var(--muted); }
 .ask textarea { width: 100%; min-height: 110px; padding: 12px 14px; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; resize: vertical; margin-bottom: 12px; }
 .ask textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(56, 189, 248, .25); }
+/* =========================================================
+   Téléphone : effets allégés pour rester fluide
+   (les flous en temps réel sont très coûteux pour un téléphone)
+   ========================================================= */
+@media (hover: none) {
+  .bg-fx .orb { filter: none; opacity: .5; animation: none; }
+  .bg-fx .w1 .orb { background: radial-gradient(circle, rgba(15, 157, 108, .55), transparent 65%); }
+  .bg-fx .w2 .orb { background: radial-gradient(circle, rgba(11, 120, 184, .55), transparent 65%); }
+  .bg-fx .w3 .orb { background: radial-gradient(circle, rgba(20, 184, 166, .4), transparent 65%); }
+  .bg-fx .orb-wrap { transition: none; }
+  .bg-fx::after { filter: none; }
+  .bg-fx::before { animation: none; }
+  .hero::before, .hero::after { filter: none; animation: none; opacity: .35; }
+  .hero::before { background: radial-gradient(circle, #0f8f63, transparent 65%); }
+  .hero::after { background: radial-gradient(circle, #0b6fa8, transparent 65%); }
+  .site-header, .mobile-menu, .consent, .photo figcaption { backdrop-filter: none; }
+  .site-header { background: rgba(7, 11, 16, .94); }
+  .js .reveal { filter: none; transition: opacity .6s ease, transform .6s ease; }
+  .ill-bike-up { filter: none; }
+  .card::before, .version::before, .bike-type::before, .poll::before { transition: none; }
+}
