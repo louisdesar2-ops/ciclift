@@ -197,7 +197,8 @@
         img.decoding = "async";
         fig.appendChild(img);
         fig.appendChild(document.createElement("figcaption"));
-        box.appendChild(fig);
+        // La photo prend la place exacte du dessin
+        if (svg) svg.parentNode.insertBefore(fig, svg); else box.appendChild(fig);
         box.classList.add("has-photo");
       }
       fig.querySelector("img").alt = svg ? svg.getAttribute("aria-label") : "";
