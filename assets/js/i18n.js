@@ -14,6 +14,9 @@
   // Active les animations (sans JavaScript, tout reste visible)
   document.documentElement.classList.add("js");
 
+  // Numéro de version des fichiers (anti-cache), repris de l'adresse de ce script : i18n.js?v=…
+  var VER = ((document.currentScript && document.currentScript.src) || "").split("?v=")[1] || "";
+
   var LANGS = { fr: "Français", en: "English", de: "Deutsch", nl: "Nederlands", es: "Español" };
   var DEFAULT = "fr";
   var STORE_KEY = "ciclift_lang";
@@ -64,7 +67,7 @@
     return new Promise(function (resolve) {
       if (lang === DEFAULT || dicts[lang]) return resolve();
       var s = document.createElement("script");
-      s.src = document.documentElement.getAttribute("data-root") + "assets/js/lang/" + lang + ".js";
+      s.src = document.documentElement.getAttribute("data-root") + "assets/js/lang/" + lang + ".js" + (VER ? "?v=" + VER : "");
       s.onload = function () { resolve(); };
       s.onerror = function () { resolve(); };
       document.head.appendChild(s);

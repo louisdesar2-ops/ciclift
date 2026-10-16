@@ -182,6 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
+  var PHOTO_VER = "202610161735"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -192,7 +193,7 @@
         fig = document.createElement("figure");
         fig.className = "photo";
         var img = document.createElement("img");
-        img.src = document.documentElement.getAttribute("data-root") + "assets/img/photos/" + file;
+        img.src = document.documentElement.getAttribute("data-root") + "assets/img/photos/" + file + (PHOTO_VER ? "?v=" + PHOTO_VER : "");
         img.loading = "lazy";
         img.decoding = "async";
         fig.appendChild(img);
@@ -259,7 +260,8 @@
 
   // ---------- Constellation animée (étoiles reliées par des traits lumineux) ----------
   (function constellation() {
-    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Si le téléphone demande « moins d'animations », on garde la constellation mais 3 fois plus lente
+    var slow = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 / 3 : 1;
     var canvas = document.createElement("canvas");
     canvas.className = "stars";
     fx.appendChild(canvas);
@@ -294,7 +296,7 @@
       var pts = [];
       for (var i = 0; i < stars.length; i++) {
         var s = stars[i];
-        if (!reduce) { s.x += s.vx * dt / 16; s.y += s.vy * dt / 16; s.tw += .02; }
+        s.x += s.vx * slow * dt / 16; s.y += s.vy * slow * dt / 16; s.tw += .02 * slow;
         if (s.x < -20) s.x = W + 20; else if (s.x > W + 20) s.x = -20;
         var span = H * 1.6;
         if (s.y < -20) s.y = span; else if (s.y > span) s.y = -20;
@@ -332,7 +334,7 @@
         ctx.beginPath(); ctx.arc(p.x, p.y, p.s.r, 0, Math.PI * 2); ctx.fill();
       }
       ctx.shadowBlur = 0;
-      if (!reduce) requestAnimationFrame(frame);
+      requestAnimationFrame(frame);
     }
 
     resize();
@@ -341,8 +343,7 @@
       window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
       document.addEventListener("pointerleave", function () { mouse = null; });
     }
-    if (reduce) { frame(0); window.addEventListener("scroll", function () { requestAnimationFrame(frame); }, { passive: true }); }
-    else requestAnimationFrame(frame);
+    requestAnimationFrame(frame);
   })();
   var glowEls = document.querySelectorAll(".card, .version, .bike-type, .poll");
 
