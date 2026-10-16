@@ -26,10 +26,10 @@ window.CICLIFT_CONFIG = {
     hero: "",        // accroche : garage lumineux, vélo rangé en hauteur
     before: "",      // avant : garage encombré par les vélos
     after: "",       // après : garage dégagé, vélos en hauteur
-    vertical: "",    // version verticale
-    horizontal: "",  // version horizontale
-    vtt: "",         // VTT
-    ville: "",       // vélo de ville
-    vae: ""          // vélo électrique
+    vertical: "vertical.jpg",      // version verticale
+    horizontal: "horizontal.jpg",  // version horizontale
+    vtt: "vtt.jpg",                // VTT
+    ville: "ville.jpg",            // vélo de ville
+    vae: "vae.jpg"                 // vélo électrique
   }
 };
