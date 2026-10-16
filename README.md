@@ -58,7 +58,7 @@ tools/serve.ps1         Serveur d'aperçu local
 | 1 | Page RGPD | ✅ `confidentialite.html` |
 | 2 | Page CGU | ✅ `cgu.html` |
 | 3 | Aucune clé secrète dans le code | ✅ aucune clé (GoatCounter et Brevo n'en exposent pas) |
-| 4 | HTTPS forcé | ✅ GitHub Pages + `upgrade-insecure-requests` (cocher « Enforce HTTPS » dans GitHub) |
+| 4 | HTTPS forcé | ✅ GitHub Pages, « Enforce HTTPS » coché (redirection automatique http → https) |
 | 5 | Bannière cookies | ✅ refus aussi simple que l'acceptation, choix redemandé tous les 6 mois |
 | 6 | Meta title | ✅ par page et par langue |
 | 7 | Image réseaux sociaux | ✅ `og-image.png` 1200×630 |
