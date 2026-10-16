@@ -433,11 +433,12 @@ main { overflow-x: clip; }
    Menu à 3 barres (téléphone et tablette)
    ========================================================= */
 .header-right { display: flex; align-items: center; gap: 10px; }
-.menu-toggle { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 0 11px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, .04); cursor: pointer; }
-.menu-toggle span { display: block; height: 2px; border-radius: 2px; background: var(--ink); transition: transform .3s ease, opacity .2s ease; }
-.menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-toggle { position: relative; display: block; flex: none; width: 44px; height: 44px; padding: 0; border-radius: 12px; border: 1px solid var(--line); background: rgba(255, 255, 255, .06); cursor: pointer; -webkit-appearance: none; appearance: none; }
+.menu-toggle span { position: absolute; left: 11px; width: 22px; height: 2px; border-radius: 2px; background: #eef4f8; transition: transform .3s ease, opacity .2s ease; }
+.menu-toggle span:nth-child(1) { top: 14px; } .menu-toggle span:nth-child(2) { top: 20px; } .menu-toggle span:nth-child(3) { top: 26px; }
+.menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 @media (min-width: 980px) { .menu-toggle, .mobile-menu { display: none !important; } }
 .mobile-menu { position: absolute; top: 100%; left: 0; right: 0; display: grid; gap: 4px; padding: 14px 16px 22px; background: rgba(7, 11, 16, .97); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); box-shadow: 0 20px 40px rgba(0, 0, 0, .5); animation: menu-in .25s ease; max-height: calc(100vh - 64px); overflow-y: auto; }
 .mobile-menu a:not(.btn) { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 1.05rem; padding: 12px 6px; border-bottom: 1px solid var(--line); }
@@ -487,5 +488,8 @@ main { overflow-x: clip; }
   .site-header { background: rgba(7, 11, 16, .94); }
   .js .reveal { filter: none; transition: opacity .6s ease, transform .6s ease; }
   .ill-bike-up { filter: none; }
-  .card::before, .version::before, .bike-type::before, .poll::before { transition: none; }
+  .card::before, .version::before, .bike-type::before, .poll::before { display: none; }
+  .bg-fx, .bg-fx .stars { will-change: transform; transform: translateZ(0); }
+  .bg-fx::before, .bg-fx::after { transform: none; }
+  .ribbon-track { animation-duration: 45s; }
 }

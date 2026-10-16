@@ -17,6 +17,8 @@ window.CICLIFT_I18N.nl = {
     "ask.subject": "Vraag over Ciclift",
     "ask.footer": "Verzonden via ciclift.fr",
     "ask.opened": "Je e-mailapp is geopend. Verschijnt er niets? Schrijf dan rechtstreeks naar {email}.",
+    "ask.needConsent": "Vink het vakje aan zodat we je kunnen antwoorden.",
+    "ask.sent": "Bedankt! Je vraag is verzonden. We antwoorden je per e-mail, meestal binnen een paar dagen.",
     "photo.ai": "Door AI gegenereerde illustratie",
     "consent.title": "Jouw cookiekeuzes",
     "consent.text": "We willen het bezoek aan de site anoniem meten (zonder cookies, je IP-adres wordt niet bewaard) om te zien of Ciclift interesse wekt. Zonder jouw toestemming wordt niets ingeschakeld.",
@@ -55,7 +57,9 @@ window.CICLIFT_I18N.nl = {
     "ask.label": "Je vraag",
     "ask.placeholder": "Bijvoorbeeld: werkt het ook met een bakfiets?",
     "ask.send": "Mijn vraag versturen",
-    "ask.note": "Je e-mailapp opent met het bericht klaar voor <span data-cfg=\"contactEmail\"></span>. Je adres wordt alleen gebruikt om je te antwoorden.",
+    "ask.note": "Je vraag komt rechtstreeks bij ons aan. We antwoorden persoonlijk, meestal binnen een paar dagen.",
+    "ask.emailLabel": "Je e-mailadres, zodat we kunnen antwoorden",
+    "ask.consent": "Ik ga ermee akkoord dat mijn e-mailadres en mijn vraag alleen worden gebruikt om mij te antwoorden. <a href=\"confidentialite.html\" data-keep-lang>Meer informatie</a>",
     "nav.menu": "Menu",
     "nav.bikes": "Voor elke fiets",
     "nav.faq": "Veelgestelde vragen",
@@ -277,11 +281,12 @@ window.CICLIFT_I18N.nl = {
         <tbody>
           <tr><td>Brevo (Sendinblue SAS, 9-17 rue Salneuve, 75017 Parijs, Frankrijk)</td><td>Beheer van inschrijvingen en verzending van e-mails</td><td>Europese Unie</td></tr>
           <tr><td>GoatCounter (dienst van Martin Tournoij, Ierland)</td><td>Bezoekersmeting zonder cookies</td><td>Servers in Duitsland en Finland</td></tr>
+          <tr><td>Web3Forms (Web3Creative, India)</td><td>Doorsturen per e-mail van vragen verzonden via het formulier "Heb je een vraag?"</td><td>Servers in de Verenigde Staten</td></tr>
           <tr><td>GitHub, Inc. (GitHub Pages)</td><td>Hosting van de website</td><td>Verenigde Staten</td></tr>
         </tbody>
       </table></div>
       <h2>6. Doorgifte buiten de Europese Unie</h2>
-      <p>De hostingprovider GitHub, Inc. is gevestigd in de Verenigde Staten. De daaruit voortvloeiende doorgifte van technische gegevens valt onder het EU-VS Data Privacy Framework en/of de modelcontractbepalingen van de Europese Commissie. Mocht een andere dienstverlener gegevens buiten de Europese Unie doorgeven, dan gebeurt dat met passende waarborgen in de zin van de AVG.</p>
+      <p>De hostingprovider GitHub, Inc. is gevestigd in de Verenigde Staten. Web3Forms, dat vragen via het formulier doorstuurt, gebruikt servers in de Verenigde Staten. Deze doorgifte, evenals de doorgifte van technische gegevens voor de hosting, valt onder het EU-VS Data Privacy Framework en/of de modelcontractbepalingen van de Europese Commissie. Mocht een andere dienstverlener gegevens buiten de Europese Unie doorgeven, dan gebeurt dat met passende waarborgen in de zin van de AVG.</p>
       <h2>7. Jouw rechten</h2>
       <p>Je hebt op elk moment de volgende rechten met betrekking tot je gegevens: inzage, rectificatie, wissing, beperking van de verwerking, bezwaar, overdraagbaarheid, intrekking van je toestemming (zonder dat dit afbreuk doet aan eerdere verwerkingen) en het recht om instructies te geven over je gegevens na je overlijden.</p>
       <p>Om ze uit te oefenen, schrijf je naar <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>. Je kunt je ook direct uitschrijven via de link in elke e-mail. We antwoorden binnen een maand. Bij redelijke twijfel over je identiteit kunnen we om een bewijs vragen.</p>

@@ -17,6 +17,8 @@ window.CICLIFT_I18N.es = {
     "ask.subject": "Pregunta sobre Ciclift",
     "ask.footer": "Enviado desde ciclift.fr",
     "ask.opened": "Se ha abierto tu aplicación de correo. Si no aparece nada, escribe directamente a {email}.",
+    "ask.needConsent": "Marca la casilla para que podamos responderte.",
+    "ask.sent": "¡Gracias! Tu pregunta se ha enviado. Te responderemos por correo, normalmente en unos días.",
     "photo.ai": "Ilustración generada por IA",
     "consent.title": "Tus preferencias de cookies",
     "consent.text": "Nos gustaría medir la audiencia del sitio de forma anónima (sin cookies y sin guardar tu dirección IP) para saber si Ciclift interesa. No se activa nada sin tu consentimiento.",
@@ -55,7 +57,9 @@ window.CICLIFT_I18N.es = {
     "ask.label": "Tu pregunta",
     "ask.placeholder": "Por ejemplo: ¿sirve para una bici de carga?",
     "ask.send": "Enviar mi pregunta",
-    "ask.note": "Tu aplicación de correo se abre con el mensaje listo para enviar a <span data-cfg=\"contactEmail\"></span>. Tu dirección solo se usa para responderte.",
+    "ask.note": "Tu pregunta nos llega directamente. Te respondemos personalmente, normalmente en unos días.",
+    "ask.emailLabel": "Tu correo, para que podamos responderte",
+    "ask.consent": "Acepto que mi correo y mi pregunta se usen únicamente para responderme. <a href=\"confidentialite.html\" data-keep-lang>Más información</a>",
     "nav.menu": "Menú",
     "nav.bikes": "Para todas las bicis",
     "nav.faq": "Preguntas frecuentes",
@@ -277,11 +281,12 @@ window.CICLIFT_I18N.es = {
         <tbody>
           <tr><td>Brevo (Sendinblue SAS, 9-17 rue Salneuve, 75017 París, Francia)</td><td>Gestión de suscripciones y envío de correos</td><td>Unión Europea</td></tr>
           <tr><td>GoatCounter (servicio de Martin Tournoij, Irlanda)</td><td>Medición de audiencia sin cookies</td><td>Servidores en Alemania y Finlandia</td></tr>
+          <tr><td>Web3Forms (Web3Creative, India)</td><td>Reenvío por correo de las preguntas enviadas mediante el formulario «¿Tienes alguna pregunta?»</td><td>Servidores en Estados Unidos</td></tr>
           <tr><td>GitHub, Inc. (GitHub Pages)</td><td>Alojamiento del sitio</td><td>Estados Unidos</td></tr>
         </tbody>
       </table></div>
       <h2>6. Transferencias fuera de la Unión Europea</h2>
-      <p>El proveedor de alojamiento, GitHub, Inc., está situado en Estados Unidos. Las transferencias de datos técnicos que de ello resultan están amparadas por el Marco de Privacidad de Datos UE-EE. UU. (Data Privacy Framework) y/o por las cláusulas contractuales tipo de la Comisión Europea. Si otro proveedor transfiriera datos fuera de la Unión Europea, dicha transferencia estaría sujeta a garantías adecuadas en el sentido del RGPD.</p>
+      <p>El proveedor de alojamiento, GitHub, Inc., está situado en Estados Unidos. Web3Forms, que reenvía las preguntas enviadas mediante el formulario, utiliza servidores en Estados Unidos. Estas transferencias, así como las de datos técnicos relacionadas con el alojamiento, están amparadas por el Marco de Privacidad de Datos UE-EE. UU. (Data Privacy Framework) y/o por las cláusulas contractuales tipo de la Comisión Europea. Si otro proveedor transfiriera datos fuera de la Unión Europea, dicha transferencia estaría sujeta a garantías adecuadas en el sentido del RGPD.</p>
       <h2>7. Tus derechos</h2>
       <p>Tienes en todo momento los siguientes derechos sobre tus datos: acceso, rectificación, supresión, limitación del tratamiento, oposición, portabilidad, retirada del consentimiento (sin que ello afecte a los tratamientos ya realizados) y el derecho a establecer directrices sobre tus datos tras tu fallecimiento.</p>
       <p>Para ejercerlos, escribe a <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>. También puedes darte de baja directamente con el enlace incluido en cada correo. Respondemos en el plazo de un mes. En caso de duda razonable sobre tu identidad, podremos pedirte un justificante.</p>

@@ -17,6 +17,8 @@ window.CICLIFT_I18N.de = {
     "ask.subject": "Frage zu Ciclift",
     "ask.footer": "Gesendet von ciclift.fr",
     "ask.opened": "Deine E-Mail-App wurde geöffnet. Falls nichts erscheint, schreib direkt an {email}.",
+    "ask.needConsent": "Bitte setz das Häkchen, damit wir dir antworten können.",
+    "ask.sent": "Danke! Deine Frage wurde gesendet. Wir antworten dir per E-Mail, meist innerhalb weniger Tage.",
     "photo.ai": "KI-generierte Illustration",
     "consent.title": "Deine Cookie-Einstellungen",
     "consent.text": "Wir möchten die Nutzung der Website anonym messen (ohne Cookies, deine IP-Adresse wird nicht gespeichert), um herauszufinden, ob Ciclift auf Interesse stößt. Ohne deine Zustimmung wird nichts aktiviert.",
@@ -55,7 +57,9 @@ window.CICLIFT_I18N.de = {
     "ask.label": "Deine Frage",
     "ask.placeholder": "Zum Beispiel: Passt das auch für ein Lastenrad?",
     "ask.send": "Frage senden",
-    "ask.note": "Deine E-Mail-App öffnet sich mit der fertigen Nachricht an <span data-cfg=\"contactEmail\"></span>. Deine Adresse wird nur für die Antwort verwendet.",
+    "ask.note": "Deine Frage kommt direkt bei uns an. Wir antworten persönlich, meist innerhalb weniger Tage.",
+    "ask.emailLabel": "Deine E-Mail-Adresse, damit wir antworten können",
+    "ask.consent": "Ich bin einverstanden, dass meine E-Mail-Adresse und meine Frage nur für die Antwort verwendet werden. <a href=\"confidentialite.html\" data-keep-lang>Mehr erfahren</a>",
     "nav.menu": "Menü",
     "nav.bikes": "Für alle Fahrräder",
     "nav.faq": "Häufige Fragen",
@@ -277,11 +281,12 @@ window.CICLIFT_I18N.de = {
         <tbody>
           <tr><td>Brevo (Sendinblue SAS, 9-17 rue Salneuve, 75017 Paris, Frankreich)</td><td>Verwaltung der Anmeldungen und E-Mail-Versand</td><td>Europäische Union</td></tr>
           <tr><td>GoatCounter (Dienst von Martin Tournoij, Irland)</td><td>Reichweitenmessung ohne Cookies</td><td>Server in Deutschland und Finnland</td></tr>
+          <tr><td>Web3Forms (Web3Creative, Indien)</td><td>Weiterleitung der über das Formular „Hast du eine Frage?" gesendeten Fragen per E-Mail</td><td>Server in den USA</td></tr>
           <tr><td>GitHub, Inc. (GitHub Pages)</td><td>Hosting der Website</td><td>USA</td></tr>
         </tbody>
       </table></div>
       <h2>6. Übermittlungen außerhalb der Europäischen Union</h2>
-      <p>Der Hoster GitHub, Inc. hat seinen Sitz in den USA. Die damit verbundenen Übermittlungen technischer Daten sind durch das EU-US Data Privacy Framework und/oder die Standardvertragsklauseln der Europäischen Kommission abgesichert. Sollte ein anderer Dienstleister Daten außerhalb der Europäischen Union übermitteln, erfolgt dies mit geeigneten Garantien im Sinne der DSGVO.</p>
+      <p>Der Hoster GitHub, Inc. hat seinen Sitz in den USA. Web3Forms, das über das Formular gesendete Fragen weiterleitet, nutzt Server in den USA. Diese Übermittlungen sowie die Übermittlungen technischer Daten im Zusammenhang mit dem Hosting sind durch das EU-US Data Privacy Framework und/oder die Standardvertragsklauseln der Europäischen Kommission abgesichert. Sollte ein anderer Dienstleister Daten außerhalb der Europäischen Union übermitteln, erfolgt dies mit geeigneten Garantien im Sinne der DSGVO.</p>
       <h2>7. Deine Rechte</h2>
       <p>Du hast jederzeit folgende Rechte bezüglich deiner Daten: Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch, Datenübertragbarkeit, Widerruf deiner Einwilligung (ohne dass die Rechtmäßigkeit der bisherigen Verarbeitung berührt wird) sowie das Recht, Verfügungen für die Zeit nach deinem Tod festzulegen.</p>
       <p>Um sie auszuüben, schreib an <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>. Du kannst dich auch direkt über den Link in jeder E-Mail abmelden. Wir antworten innerhalb eines Monats. Bei begründeten Zweifeln an deiner Identität können wir einen Nachweis verlangen.</p>

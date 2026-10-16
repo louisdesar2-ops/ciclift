@@ -182,7 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610161808"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610161841"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -307,11 +307,16 @@
       }
     }
 
+    // Téléphone : on met l'animation en pause pendant le défilement (le défilement reste parfaitement fluide)
+    var scrolling = false, scrollTimer = null;
+    if (touch) window.addEventListener("scroll", function () { scrolling = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(function () { scrolling = false; }, 180); }, { passive: true });
+
     function frame(time) {
-      // Téléphone : 30 images/s suffisent et économisent la batterie et le processeur
-      if (touch && time - last < 32) { requestAnimationFrame(frame); return; }
+      // Téléphone : 30 images/s suffisent, et rien n'est redessiné pendant le défilement
+      if (touch && (scrolling || time - last < 32)) { requestAnimationFrame(frame); return; }
       var dt = Math.min(50, time - last || 16); last = time;
-      var scroll = window.scrollY || 0;
+      // Téléphone : pas d'effet de profondeur lié au défilement (évite que les étoiles « sautent » à la reprise)
+      var scroll = touch ? 0 : (window.scrollY || 0);
       ctx.clearRect(0, 0, W, H);
       // Poussière (sans halo, très légère à dessiner), qui s'écarte doucement de la souris
       for (var u = 0; u < dust.length; u++) {
@@ -388,9 +393,9 @@
     var max = document.documentElement.scrollHeight - window.innerHeight;
     var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
     bar.style.transform = "scaleX(" + p + ")";
-    document.documentElement.style.setProperty("--p", p.toFixed(4));
+    if (!touch) document.documentElement.style.setProperty("--p", p.toFixed(4));
     // Sur téléphone : le halo de chaque carte visible glisse pendant le défilement
-    if (touch) {
+    if (false) {
       var h = window.innerHeight;
       glowEls.forEach(function (el) {
         var r = el.getBoundingClientRect();
@@ -416,27 +421,61 @@
     }, { passive: true });
   }
 
-  // ---------- « Vous avez une question ? » : ouvre l'application email avec le message prêt ----------
+  // ---------- « Vous avez une question ? » : vrai formulaire (Web3Forms), repli sur l'application email ----------
   var ask = document.getElementById("ask-form");
   if (ask) {
     var askMsg = ask.querySelector("#ask-message");
+    var askEmail = ask.querySelector("#ask-email");
+    var askConsent = ask.querySelector("#ask-consent");
+    var askBtn = ask.querySelector("button[type=submit]");
     var askOut = ask.querySelector(".form-msg");
-    askMsg.addEventListener("input", function () { askOut.textContent = ""; askOut.className = "form-msg"; });
+    var askShown = Date.now();
+    var say = function (key, kind, email) {
+      askOut.textContent = key ? t(key).replace("{email}", email || "") : "";
+      askOut.className = "form-msg" + (kind ? " " + kind : "");
+    };
+    [askMsg, askEmail].forEach(function (el) { el.addEventListener("input", function () { el.removeAttribute("aria-invalid"); say("", ""); }); });
     ask.addEventListener("submit", function (e) {
       e.preventDefault();
       var cfg = window.CICLIFT_CONFIG || {};
-      var text = askMsg.value.trim();
-      if (text.length < 5) { askOut.textContent = t("ask.empty"); askOut.className = "form-msg error"; askMsg.focus(); return; }
-      if (!cfg.contactEmail) return;
-      C.track("question");
-      var subject = encodeURIComponent(t("ask.subject"));
-      var body = encodeURIComponent(text + "\n\n— " + t("ask.footer"));
-      window.location.href = "mailto:" + cfg.contactEmail + "?subject=" + subject + "&body=" + body;
-      askOut.textContent = t("ask.opened").replace("{email}", cfg.contactEmail);
-      askOut.className = "form-msg ok";
+      var text = askMsg.value.trim(), mail = askEmail.value.trim();
+      if (text.length < 5) { askMsg.setAttribute("aria-invalid", "true"); askMsg.focus(); return say("ask.empty", "error"); }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { askEmail.setAttribute("aria-invalid", "true"); askEmail.focus(); return say("form.badEmail", "error"); }
+      if (!askConsent.checked) { askConsent.focus(); return say("ask.needConsent", "error"); }
+      // Anti-spam : champ piège coché ou envoi trop rapide = robot
+      if (ask.querySelector("[name=botcheck]").checked || Date.now() - askShown < 3000) return say("ask.sent", "ok");
+      if (!cfg.web3formsKey) {
+        // Repli tant que le formulaire n'est pas branché : l'application email s'ouvre avec la question
+        if (!cfg.contactEmail) return;
+        window.location.href = "mailto:" + cfg.contactEmail + "?subject=" + encodeURIComponent(t("ask.subject")) + "&body=" + encodeURIComponent(text + "\n\n— " + mail);
+        return say("ask.opened", "ok", cfg.contactEmail);
+      }
+      askBtn.disabled = true;
+      say("form.sending", "");
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          access_key: cfg.web3formsKey,
+          subject: t("ask.subject") + " (" + I.lang().toUpperCase() + ")",
+          from_name: "Site Ciclift",
+          email: mail,
+          replyto: mail,
+          message: text,
+          botcheck: false
+        })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || !res.success) throw new Error("refus");
+          C.track("question");
+          ask.reset();
+          say("ask.sent", "ok");
+        })
+        .catch(function () { say("form.error", "error"); })
+        .then(function () { askBtn.disabled = false; });
     });
   }
-
   // ---------- Menu à 3 barres (téléphone) ----------
   var toggle = document.querySelector(".menu-toggle");
   var menu = document.getElementById("mobile-menu");

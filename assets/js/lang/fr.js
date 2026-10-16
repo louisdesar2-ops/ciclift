@@ -7,6 +7,8 @@ window.CICLIFT_I18N.fr = {
     "ask.subject": "Question sur Ciclift",
     "ask.footer": "Envoyé depuis ciclift.fr",
     "ask.opened": "Votre application email s'est ouverte. Si rien ne s'affiche, écrivez directement à {email}.",
+    "ask.needConsent": "Merci de cocher la case pour que l'on puisse vous répondre.",
+    "ask.sent": "Merci ! Votre question est bien envoyée. Nous vous répondons par email, en général sous quelques jours.",
     "photo.ai": "Illustration générée par IA",
     "consent.title": "Vos choix sur les cookies",
     "consent.text": "Nous aimerions mesurer l'audience du site de façon anonyme (sans cookie, sans conserver votre adresse IP) pour savoir si Ciclift intéresse. Rien n'est activé sans votre accord.",

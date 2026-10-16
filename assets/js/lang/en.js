@@ -17,6 +17,8 @@ window.CICLIFT_I18N.en = {
     "ask.subject": "Question about Ciclift",
     "ask.footer": "Sent from ciclift.fr",
     "ask.opened": "Your email app has opened. If nothing appears, write directly to {email}.",
+    "ask.needConsent": "Please tick the box so we can reply to you.",
+    "ask.sent": "Thank you! Your question has been sent. We'll reply by email, usually within a few days.",
     "photo.ai": "AI-generated illustration",
     "consent.title": "Your cookie choices",
     "consent.text": "We would like to measure site traffic anonymously (no cookies, your IP address is not stored) to find out whether Ciclift interests people. Nothing is enabled without your consent.",
@@ -55,7 +57,9 @@ window.CICLIFT_I18N.en = {
     "ask.label": "Your question",
     "ask.placeholder": "For example: does it work with a cargo bike?",
     "ask.send": "Send my question",
-    "ask.note": "Your email app opens with the message ready to send to <span data-cfg=\"contactEmail\"></span>. Your address is only used to reply to you.",
+    "ask.note": "Your question reaches us directly. We reply personally, usually within a few days.",
+    "ask.emailLabel": "Your email, so we can reply",
+    "ask.consent": "I agree that my email and my question will only be used to reply to me. <a href=\"confidentialite.html\" data-keep-lang>Learn more</a>",
     "nav.menu": "Menu",
     "nav.bikes": "For every bike",
     "nav.faq": "FAQ",
@@ -277,11 +281,12 @@ window.CICLIFT_I18N.en = {
         <tbody>
           <tr><td>Brevo (Sendinblue SAS, 9-17 rue Salneuve, 75017 Paris, France)</td><td>Managing sign-ups and sending emails</td><td>European Union</td></tr>
           <tr><td>GoatCounter (service run by Martin Tournoij, Ireland)</td><td>Cookie-free audience measurement</td><td>Servers in Germany and Finland</td></tr>
+          <tr><td>Web3Forms (Web3Creative, India)</td><td>Forwarding by email of questions sent via the "Do you have a question?" form</td><td>Servers in the United States</td></tr>
           <tr><td>GitHub, Inc. (GitHub Pages)</td><td>Website hosting</td><td>United States</td></tr>
         </tbody>
       </table></div>
       <h2>6. Transfers outside the European Union</h2>
-      <p>The host, GitHub, Inc., is located in the United States. The resulting transfers of technical data are governed by the EU–US Data Privacy Framework and/or the European Commission's standard contractual clauses. Should any other provider transfer data outside the European Union, such transfer would be subject to appropriate safeguards within the meaning of the GDPR.</p>
+      <p>The host, GitHub, Inc., is located in the United States. Web3Forms, which forwards questions sent via the form, uses servers in the United States. These transfers, as well as those of technical data related to hosting, are governed by the EU–US Data Privacy Framework and/or the European Commission's standard contractual clauses. Should any other provider transfer data outside the European Union, such transfer would be subject to appropriate safeguards within the meaning of the GDPR.</p>
       <h2>7. Your rights</h2>
       <p>You have the following rights over your data at any time: access, rectification, erasure, restriction of processing, objection, portability, withdrawal of your consent (without affecting processing already carried out), and the right to set instructions regarding your data after your death.</p>
       <p>To exercise them, write to <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>. You can also unsubscribe directly using the link included in every email. We reply within one month. If there is reasonable doubt about your identity, we may ask for proof of identity.</p>
