@@ -256,6 +256,94 @@
   document.body.insertBefore(fx, document.body.firstChild);
 
   var touch = window.matchMedia && window.matchMedia("(hover: none)").matches;
+
+  // ---------- Constellation animée (étoiles reliées par des traits lumineux) ----------
+  (function constellation() {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var canvas = document.createElement("canvas");
+    canvas.className = "stars";
+    fx.appendChild(canvas);
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0, stars = [], mouse = null, last = 0;
+    var COLORS = ["110, 231, 183", "125, 211, 252", "230, 245, 255"];
+    var LINK = 140;
+
+    function resize() {
+      W = window.innerWidth; H = window.innerHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + "px"; canvas.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var count = Math.round(Math.min(150, Math.max(55, W * H / 9500)));
+      stars = [];
+      for (var i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * W, y: Math.random() * H * 1.6,
+          vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18,
+          r: Math.random() * 1.8 + .7, c: COLORS[i % 3],
+          depth: Math.random() * .7 + .3, tw: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function frame(time) {
+      var dt = Math.min(50, time - last || 16); last = time;
+      var scroll = window.scrollY || 0;
+      ctx.clearRect(0, 0, W, H);
+      var pts = [];
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        if (!reduce) { s.x += s.vx * dt / 16; s.y += s.vy * dt / 16; s.tw += .02; }
+        if (s.x < -20) s.x = W + 20; else if (s.x > W + 20) s.x = -20;
+        var span = H * 1.6;
+        if (s.y < -20) s.y = span; else if (s.y > span) s.y = -20;
+        // Effet de profondeur : les étoiles proches défilent plus vite que les lointaines
+        var y = ((s.y - scroll * s.depth * .35) % span + span) % span - H * .3;
+        pts.push({ x: s.x, y: y, s: s });
+      }
+      // Traits entre étoiles proches
+      for (var a = 0; a < pts.length; a++) {
+        for (var b = a + 1; b < pts.length; b++) {
+          var dx = pts[a].x - pts[b].x, dy = pts[a].y - pts[b].y, d = dx * dx + dy * dy;
+          if (d < LINK * LINK) {
+            var al = (1 - Math.sqrt(d) / LINK) * .55;
+            ctx.strokeStyle = "rgba(" + pts[a].s.c + "," + al.toFixed(3) + ")";
+            ctx.lineWidth = .9;
+            ctx.beginPath(); ctx.moveTo(pts[a].x, pts[a].y); ctx.lineTo(pts[b].x, pts[b].y); ctx.stroke();
+          }
+        }
+        // Traits vers la souris
+        if (mouse) {
+          var mx = pts[a].x - mouse.x, my = pts[a].y - mouse.y, md = Math.sqrt(mx * mx + my * my);
+          if (md < LINK * 1.4) {
+            ctx.strokeStyle = "rgba(125, 211, 252," + ((1 - md / (LINK * 1.4)) * .5).toFixed(3) + ")";
+            ctx.lineWidth = .8;
+            ctx.beginPath(); ctx.moveTo(pts[a].x, pts[a].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+          }
+        }
+      }
+      // Étoiles (avec léger scintillement)
+      for (var k = 0; k < pts.length; k++) {
+        var p = pts[k], tw = .65 + Math.sin(p.s.tw) * .35;
+        ctx.fillStyle = "rgba(" + p.s.c + "," + (.85 * tw).toFixed(3) + ")";
+        ctx.shadowColor = "rgba(" + p.s.c + ",.9)";
+        ctx.shadowBlur = 8;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.s.r, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      if (!reduce) requestAnimationFrame(frame);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    if (!touch) {
+      window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+      document.addEventListener("pointerleave", function () { mouse = null; });
+    }
+    if (reduce) { frame(0); window.addEventListener("scroll", function () { requestAnimationFrame(frame); }, { passive: true }); }
+    else requestAnimationFrame(frame);
+  })();
   var glowEls = document.querySelectorAll(".card, .version, .bike-type, .poll");
 
   var ticking = false;
