@@ -182,7 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610161735"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610161739"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -260,15 +260,14 @@
 
   // ---------- Constellation animée (étoiles reliées par des traits lumineux) ----------
   (function constellation() {
-    // Si le téléphone demande « moins d'animations », on garde la constellation mais 3 fois plus lente
-    var slow = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 1 / 3 : 1;
+    var slow = 1;
     var canvas = document.createElement("canvas");
     canvas.className = "stars";
     fx.appendChild(canvas);
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W = 0, H = 0, stars = [], mouse = null, last = 0;
+    var W = 0, H = 0, stars = [], dust = [], mouse = null, last = 0;
     var COLORS = ["110, 231, 183", "125, 211, 252", "230, 245, 255"];
     var LINK = 140;
 
@@ -277,7 +276,7 @@
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = W + "px"; canvas.style.height = H + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var count = Math.round(Math.min(150, Math.max(55, W * H / 9500)));
+      var count = Math.round(Math.min(170, Math.max(60, W * H / 8000)));
       stars = [];
       for (var i = 0; i < count; i++) {
         stars.push({
@@ -287,12 +286,38 @@
           depth: Math.random() * .7 + .3, tw: Math.random() * Math.PI * 2
         });
       }
+      // Poussière d'étoiles : beaucoup de petits points qui montent doucement et scintillent
+      var n = Math.round(Math.min(650, Math.max(180, W * H / 2200)));
+      dust = [];
+      for (var q = 0; q < n; q++) {
+        dust.push({
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - .5) * .08, vy: -(Math.random() * .12 + .03),
+          r: Math.random() * 1.3 + .3, c: COLORS[q % 3], a: Math.random() * .5 + .3,
+          depth: Math.random() * .5 + .1, tw: Math.random() * Math.PI * 2, ox: 0, oy: 0
+        });
+      }
     }
 
     function frame(time) {
       var dt = Math.min(50, time - last || 16); last = time;
       var scroll = window.scrollY || 0;
       ctx.clearRect(0, 0, W, H);
+      // Poussière (sans halo, très légère à dessiner), qui s'écarte doucement de la souris
+      for (var u = 0; u < dust.length; u++) {
+        var g = dust[u];
+        g.x += g.vx * dt / 16; g.y += g.vy * dt / 16; g.tw += .03;
+        if (g.y < -10) { g.y = H + 10; g.x = Math.random() * W; }
+        if (g.x < -10) g.x = W + 10; else if (g.x > W + 10) g.x = -10;
+        var gy = ((g.y - scroll * g.depth * .25) % (H + 20) + H + 20) % (H + 20) - 10;
+        if (mouse) {
+          var ex = g.x + g.ox - mouse.x, ey = gy + g.oy - mouse.y, ed = Math.sqrt(ex * ex + ey * ey);
+          if (ed < 120 && ed > 0) { g.ox += ex / ed * (120 - ed) * .04; g.oy += ey / ed * (120 - ed) * .04; }
+        }
+        g.ox *= .94; g.oy *= .94;
+        ctx.fillStyle = "rgba(" + g.c + "," + (g.a * (.6 + Math.sin(g.tw) * .4)).toFixed(3) + ")";
+        ctx.fillRect(g.x + g.ox, gy + g.oy, g.r * 1.6, g.r * 1.6);
+      }
       var pts = [];
       for (var i = 0; i < stars.length; i++) {
         var s = stars[i];
@@ -339,10 +364,11 @@
 
     resize();
     window.addEventListener("resize", resize);
-    if (!touch) {
-      window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
-      document.addEventListener("pointerleave", function () { mouse = null; });
-    }
+    // Souris (ordinateur) ou doigt (téléphone) : les étoiles s'y relient et la poussière s'écarte
+    window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+    window.addEventListener("pointerdown", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+    document.addEventListener("pointerleave", function () { mouse = null; });
+    if (touch) window.addEventListener("pointerup", function () { setTimeout(function () { mouse = null; }, 600); }, { passive: true });
     requestAnimationFrame(frame);
   })();
   var glowEls = document.querySelectorAll(".card, .version, .bike-type, .poll");

@@ -27,7 +27,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--bg); }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+
 
 body {
   margin: 0;
@@ -143,7 +143,7 @@ h3 { font-size: 1.2rem; }
 .ribbon-track span { white-space: nowrap; display: inline-flex; align-items: center; gap: 40px; }
 .ribbon-track span::after { content: "✦"; opacity: .7; }
 @keyframes ribbon { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .ribbon-track { flex-wrap: wrap; width: auto; justify-content: center; } }
+
 
 /* ---------- Surfaces avec halo qui suit la souris ---------- */
 .card, .version, .bike-type, .poll, .compare figure {
@@ -358,7 +358,7 @@ main { overflow-x: clip; }
 .js .reveal.d4 { transition-delay: .4s; }
 /* Une fois apparues, les cartes réagissent vite au survol */
 .js .reveal.is-visible.card, .js .reveal.is-visible.version, .js .reveal.is-visible.bike-type, .js .reveal.is-visible.poll { transition: opacity .8s ease, transform .3s ease, filter .8s ease, box-shadow .3s ease, background .3s ease; transition-delay: 0s; }
-@media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; filter: none; } }
+
 @media print { .js .reveal { opacity: 1; transform: none; filter: none; } .consent, .progress, .ribbon { display: none; } }
 
 
