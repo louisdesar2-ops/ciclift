@@ -19,7 +19,7 @@ window.CICLIFT_CONFIG = {
 
   // Formulaire « Vous avez une question ? » : clé publique Web3Forms (reçue par email sur web3forms.com)
   // Vide = repli : l'application email du visiteur s'ouvre avec la question prête.
-  web3formsKey: "",
+  web3formsKey: "c27d7de1-7ec7-4d8c-bf3e-b29e32251fe9",
 
   // Date de dernière mise à jour des pages légales (AAAA-MM-JJ)
   legalUpdated: "2026-10-16",
