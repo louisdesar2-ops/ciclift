@@ -24,8 +24,8 @@ window.CICLIFT_CONFIG = {
   // Tant qu'un nom est vide, c'est l'illustration dessinée qui s'affiche. Voir assets/img/photos/PROMPTS.md
   photos: {
     hero: "hero.jpg",        // accroche : garage lumineux, vélo rangé en hauteur
-    before: "",      // avant : garage encombré par les vélos
-    after: "",       // après : garage dégagé, vélos en hauteur
+    before: "before.jpg",      // avant : garage encombré par les vélos
+    after: "after.jpg",       // après : garage dégagé, vélos en hauteur
     vertical: "vertical.jpg",      // version verticale
     horizontal: "horizontal.jpg",  // version horizontale
     vtt: "vtt.jpg",                // VTT
