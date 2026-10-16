@@ -377,7 +377,32 @@ main { overflow-x: clip; }
 .bg-fx .w3 .orb { background: #14b8a6; animation-delay: -8s; opacity: .22; }
 @keyframes breathe { from { transform: scale(1); } to { transform: scale(1.18); } }
 /* Fine grille lumineuse qui défile très légèrement */
-.bg-fx::after { content: ""; position: absolute; inset: -50%; background-image: linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px); background-size: 64px 64px; transform: translateY(calc(var(--p, 0) * -64px * 6)); }
+/* Poussière lumineuse (petits points flous verts et bleus) sur deux plans qui défilent à des vitesses différentes */
+.bg-fx::before, .bg-fx::after { content: ""; position: absolute; left: 0; right: 0; top: -20%; height: 260%; pointer-events: none; }
+.bg-fx::before {
+  background-image:
+    radial-gradient(2px 2px at 12% 18%, rgba(110, 231, 183, .55), transparent 60%),
+    radial-gradient(1.5px 1.5px at 78% 9%, rgba(125, 211, 252, .5), transparent 60%),
+    radial-gradient(2.5px 2.5px at 42% 63%, rgba(110, 231, 183, .35), transparent 60%),
+    radial-gradient(1.5px 1.5px at 88% 71%, rgba(125, 211, 252, .45), transparent 60%),
+    radial-gradient(2px 2px at 23% 88%, rgba(125, 211, 252, .35), transparent 60%),
+    radial-gradient(1.5px 1.5px at 61% 33%, rgba(255, 255, 255, .35), transparent 60%);
+  background-size: 520px 520px;
+  transform: translateY(calc(var(--p, 0) * -38%));
+  animation: twinkle 7s ease-in-out infinite alternate;
+}
+.bg-fx::after {
+  background-image:
+    radial-gradient(6px 6px at 30% 25%, rgba(34, 197, 139, .22), transparent 70%),
+    radial-gradient(8px 8px at 70% 55%, rgba(56, 189, 248, .2), transparent 70%),
+    radial-gradient(5px 5px at 15% 75%, rgba(56, 189, 248, .18), transparent 70%),
+    radial-gradient(7px 7px at 85% 15%, rgba(34, 197, 139, .16), transparent 70%);
+  background-size: 900px 900px;
+  filter: blur(1.5px);
+  transform: translateY(calc(var(--p, 0) * -18%));
+}
+@keyframes twinkle { from { opacity: .55; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .bg-fx::before, .bg-fx::after { transform: none; animation: none; } }
 @media (prefers-reduced-motion: reduce) { .bg-fx .orb-wrap { transform: none !important; } }
 
 /* Sur téléphone (pas de souris) : le halo des cartes suit le défilement */
@@ -387,3 +412,9 @@ main { overflow-x: clip; }
 
 /* Mention IA discrète sur les images */
 .photo figcaption { font-size: .66rem; font-weight: 800; letter-spacing: .06em; padding: 2px 7px; opacity: .85; }
+/* Pastille « IA » dans le coin du cadre (même rendu que l'avant/après) */
+.hero-visual .photo, .version-visual .photo, .bt-visual .photo { position: static; }
+.version-visual, .bike-type .bt-visual { position: relative; }
+.hero-visual .photo figcaption { right: 10px; bottom: 10px; }
+.version-visual .photo figcaption { right: 4px; bottom: 4px; }
+.bt-visual .photo figcaption { right: 6px; bottom: 6px; }
