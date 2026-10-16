@@ -1,0 +1,30 @@
+/* Ciclift — textes d'interface en français (le contenu des pages est directement dans le HTML). */
+window.CICLIFT_I18N = window.CICLIFT_I18N || {};
+window.CICLIFT_I18N.fr = {
+  ui: {
+    "cfg.missing": "[à compléter]",
+    "photo.ai": "Illustration générée par IA",
+    "consent.title": "Vos choix sur les cookies",
+    "consent.text": "Nous aimerions mesurer l'audience du site de façon anonyme (sans cookie, sans conserver votre adresse IP) pour savoir si Ciclift intéresse. Rien n'est activé sans votre accord.",
+    "consent.more": "En savoir plus",
+    "consent.accept": "Tout accepter",
+    "consent.reject": "Tout refuser",
+    "consent.customize": "Personnaliser",
+    "consent.save": "Enregistrer mes choix",
+    "consent.necessary": "Strictement nécessaires",
+    "consent.necessaryDesc": "Mémorisent vos choix (cookies, langue, réponses). Toujours actifs.",
+    "consent.analytics": "Mesure d'audience",
+    "consent.analyticsDesc": "Statistiques anonymes de visite et réponses au sondage (GoatCounter, sans cookie).",
+    "poll.thanks": "Merci, votre réponse est enregistrée !",
+    "poll.needConsent": "Pour compter votre réponse de façon anonyme, nous devons activer la mesure d'audience (sans cookie, sans adresse IP conservée).",
+    "poll.enable": "Activer et envoyer",
+    "poll.noThanks": "Non merci",
+    "poll.badHeight": "Indiquez une hauteur entre 1,50 et 8 m (ex. 2,50).",
+    "form.badEmail": "Merci d'indiquer une adresse email valide.",
+    "form.needConsent": "Merci de cocher la case pour accepter d'être prévenu.",
+    "form.notReady": "L'inscription ouvre très bientôt. Merci de revenir dans quelques jours !",
+    "form.sending": "Envoi en cours…",
+    "form.ok": "Merci !",
+    "form.error": "Une erreur est survenue. Merci de réessayer."
+  }
+};

@@ -1,0 +1,268 @@
+/*
+ * Ciclift — interactions : bouton d'intérêt, mini-sondage, formulaire d'inscription.
+ * Les réponses au sondage sont anonymes : elles ne sont jamais liées à l'adresse email.
+ */
+(function () {
+  "use strict";
+
+  var I = window.CicliftI18n;
+  var C = window.CicliftConsent;
+  var t = I.t;
+  var VOTES_KEY = "ciclift_votes";
+
+  function getVotes() {
+    try { return JSON.parse(localStorage.getItem(VOTES_KEY) || "{}"); } catch (e) { return {}; }
+  }
+  function saveVote(q, v) {
+    var votes = getVotes();
+    votes[q] = v;
+    try { localStorage.setItem(VOTES_KEY, JSON.stringify(votes)); } catch (e) { /* stockage bloqué */ }
+  }
+
+  // ---------- Sondage + bouton « ça m'intéresse » ----------
+  function lock(group, value) {
+    group.querySelectorAll("button[data-value]").forEach(function (b) {
+      b.disabled = true;
+      b.setAttribute("aria-pressed", b.getAttribute("data-value") === value ? "true" : "false");
+    });
+    var input = group.querySelector("[data-poll-input]");
+    if (input) {
+      input.disabled = true;
+      var send = group.querySelector("[data-poll-send]");
+      if (send) send.disabled = true;
+      var m = /^(\d+\.\d+)m$/.exec(value || "");
+      if (m) input.value = m[1].replace(".", I.lang() === "en" ? "." : ",");
+    }
+  }
+
+  // Saisie d'une mesure en mètres (ex. « 2,55 ») → « 2.55m », arrondi aux 5 cm, entre 1,50 et 8 m
+  function readMeters(raw) {
+    var n = parseFloat(String(raw).trim().replace(",", ".").replace(/\s*m$/i, ""));
+    if (!isFinite(n)) return null;
+    if (n > 15 && n < 800) n = n / 100; // saisie en centimètres (ex. 255)
+    if (n < 1.5 || n > 8) return null;
+    return (Math.round(n * 20) / 20).toFixed(2) + "m";
+  }
+
+  function showThanks(group) {
+    var fb = group.querySelector(".poll-feedback");
+    if (fb) { fb.classList.remove("warn"); fb.textContent = t("poll.thanks"); }
+  }
+
+  function askConsent(group, onYes) {
+    var box = group.querySelector(".consent-inline");
+    if (!box) {
+      box = document.createElement("div");
+      box.className = "consent-inline";
+      box.setAttribute("role", "group");
+      group.appendChild(box);
+    }
+    box.innerHTML = "";
+    var p = document.createElement("p");
+    p.textContent = t("poll.needConsent");
+    var row = document.createElement("div");
+    row.className = "row";
+    var yes = document.createElement("button");
+    yes.type = "button";
+    yes.className = "btn btn-primary";
+    yes.textContent = t("poll.enable");
+    yes.addEventListener("click", function () { C.accept(); box.remove(); onYes(); });
+    var no = document.createElement("button");
+    no.type = "button";
+    no.className = "btn btn-outline";
+    no.textContent = t("poll.noThanks");
+    no.addEventListener("click", function () { box.remove(); });
+    row.appendChild(yes);
+    row.appendChild(no);
+    box.appendChild(p);
+    box.appendChild(row);
+    yes.focus();
+  }
+
+  function vote(group, value) {
+    var q = group.getAttribute("data-poll");
+    function send() {
+      C.track("sondage-" + q + "-" + value);
+      saveVote(q, value);
+      lock(group, value);
+      showThanks(group);
+    }
+    if (C.hasAnalytics()) send(); else askConsent(group, send);
+  }
+
+  document.querySelectorAll("[data-poll]").forEach(function (group) {
+    var q = group.getAttribute("data-poll");
+    var done = getVotes()[q];
+    if (done) { lock(group, done); showThanks(group); }
+    group.querySelectorAll("button[data-value]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") || "false");
+      b.addEventListener("click", function () { if (!b.disabled) vote(group, b.getAttribute("data-value")); });
+    });
+    var input = group.querySelector("[data-poll-input]");
+    var send = group.querySelector("[data-poll-send]");
+    if (input && send) {
+      var submitMeasure = function () {
+        var value = readMeters(input.value);
+        var fb = group.querySelector(".poll-feedback");
+        if (!value) {
+          input.setAttribute("aria-invalid", "true");
+          fb.classList.add("warn");
+          fb.textContent = t("poll.badHeight");
+          input.focus();
+          return;
+        }
+        input.removeAttribute("aria-invalid");
+        fb.classList.remove("warn");
+        fb.textContent = "";
+        vote(group, value);
+      };
+      send.addEventListener("click", submitMeasure);
+      input.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); submitMeasure(); } });
+      input.addEventListener("input", function () { input.removeAttribute("aria-invalid"); });
+    }
+  });
+
+  I.onChange(function () {
+    document.querySelectorAll("[data-poll]").forEach(function (group) {
+      if (getVotes()[group.getAttribute("data-poll")]) showThanks(group);
+      var box = group.querySelector(".consent-inline");
+      if (box) box.remove();
+    });
+  });
+
+  // ---------- Formulaire d'inscription ----------
+  var form = document.getElementById("signup-form");
+  if (form) {
+    var shownAt = Date.now();
+    var email = form.querySelector("#email");
+    var consent = form.querySelector("#signup-consent");
+    var msg = form.querySelector(".form-msg");
+    var submit = form.querySelector("button[type=submit]");
+
+    function setMsg(key, kind) {
+      msg.textContent = key ? t(key) : "";
+      msg.className = "form-msg" + (kind ? " " + kind : "");
+    }
+
+    email.addEventListener("input", function () { email.removeAttribute("aria-invalid"); setMsg("", ""); });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var cfg = window.CICLIFT_CONFIG || {};
+      var value = email.value.trim();
+
+      // Anti-spam : champ piège invisible + délai minimum de remplissage
+      if (form.querySelector(".hp input").value || Date.now() - shownAt < 2500) { setMsg("form.ok", "ok"); return; }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value) || value.length > 254) {
+        email.setAttribute("aria-invalid", "true");
+        email.focus();
+        return setMsg("form.badEmail", "error");
+      }
+      if (!consent.checked) { consent.focus(); return setMsg("form.needConsent", "error"); }
+      if (!cfg.brevoFormAction) return setMsg("form.notReady", "error");
+
+      var data = new FormData();
+      // Champs attendus par le formulaire Brevo (EMAIL + champ piège + langue)
+      data.append("EMAIL", value);
+      data.append("email_address_check", "");
+      data.append("locale", I.lang());
+      submit.disabled = true;
+      setMsg("form.sending", "");
+
+      fetch(cfg.brevoFormAction, { method: "POST", body: data, mode: "no-cors" })
+        .then(function () {
+          C.track("inscription");
+          var root = document.documentElement.getAttribute("data-root");
+          location.href = root + "merci.html" + (I.lang() === "fr" ? "" : "?lang=" + I.lang());
+        })
+        .catch(function () { submit.disabled = false; setMsg("form.error", "error"); });
+    });
+  }
+
+  // ---------- Images (photos / images IA) déclarées dans config.js ----------
+  var photos = (window.CICLIFT_CONFIG || {}).photos || {};
+  function renderPhotos() {
+    document.querySelectorAll("[data-photo]").forEach(function (box) {
+      var file = photos[box.getAttribute("data-photo")];
+      if (!file) return;
+      var svg = box.querySelector("svg[aria-label]");
+      var fig = box.querySelector(".photo");
+      if (!fig) {
+        fig = document.createElement("figure");
+        fig.className = "photo";
+        var img = document.createElement("img");
+        img.src = document.documentElement.getAttribute("data-root") + "assets/img/photos/" + file;
+        img.loading = "lazy";
+        img.decoding = "async";
+        fig.appendChild(img);
+        fig.appendChild(document.createElement("figcaption"));
+        box.appendChild(fig);
+        box.classList.add("has-photo");
+      }
+      fig.querySelector("img").alt = svg ? svg.getAttribute("aria-label") : "";
+      fig.querySelector("figcaption").textContent = t("photo.ai");
+    });
+  }
+  renderPhotos();
+  I.onChange(renderPhotos);
+
+  // ---------- Apparition des blocs au défilement ----------
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+  var ioFired = false;
+  function show(el) { el.classList.add("is-visible"); }
+  function showAll() { revealEls.forEach(show); }
+  // Vérification directe : utile au chargement et en secours si l'observateur ne se déclenche pas
+  function checkInView() {
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    revealEls.forEach(function (el) {
+      if (el.classList.contains("is-visible")) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < h - 40 && r.bottom > 0) show(el);
+    });
+  }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      ioFired = true;
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    revealEls.forEach(function (el) { io.observe(el); });
+    window.addEventListener("scroll", checkInView, { passive: true });
+    // Sécurité : si l'observateur ne répond jamais (navigateur ancien, capture d'écran…), on affiche tout
+    setTimeout(function () { if (!ioFired) showAll(); }, 2500);
+  } else {
+    showAll();
+  }
+  checkInView();
+  window.addEventListener("beforeprint", showAll);
+
+  // ---------- Barre de progression de lecture ----------
+  var bar = document.createElement("div");
+  bar.className = "progress";
+  bar.setAttribute("aria-hidden", "true");
+  document.body.appendChild(bar);
+  var ticking = false;
+  function updateBar() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ")";
+    ticking = false;
+  }
+  window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(updateBar); } }, { passive: true });
+  updateBar();
+
+  // ---------- Halo lumineux qui suit la souris sur les cartes ----------
+  if (window.matchMedia && window.matchMedia("(hover: hover)").matches) {
+    document.addEventListener("pointermove", function (e) {
+      var el = e.target.closest && e.target.closest(".card, .version, .bike-type, .poll");
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      el.style.setProperty("--my", (e.clientY - r.top) + "px");
+    }, { passive: true });
+  }
+
+  // Année du pied de page
+  document.querySelectorAll("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
+})();
