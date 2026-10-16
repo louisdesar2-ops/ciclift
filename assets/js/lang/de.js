@@ -13,6 +13,10 @@ window.CICLIFT_I18N.de = {
   },
   ui: {
     "cfg.missing": "[noch zu ergänzen]",
+    "ask.empty": "Schreib deine Frage (mindestens ein paar Wörter).",
+    "ask.subject": "Frage zu Ciclift",
+    "ask.footer": "Gesendet von ciclift.fr",
+    "ask.opened": "Deine E-Mail-App wurde geöffnet. Falls nichts erscheint, schreib direkt an {email}.",
     "photo.ai": "KI-generierte Illustration",
     "consent.title": "Deine Cookie-Einstellungen",
     "consent.text": "Wir möchten die Nutzung der Website anonym messen (ohne Cookies, deine IP-Adresse wird nicht gespeichert), um herauszufinden, ob Ciclift auf Interesse stößt. Ohne deine Zustimmung wird nichts aktiviert.",
@@ -46,6 +50,12 @@ window.CICLIFT_I18N.de = {
     "nav.how": "So funktioniert's",
     "nav.opinion": "Deine Meinung",
     "nav.versions": "Die Versionen",
+    "ask.title": "Hast du eine Frage?",
+    "ask.text": "Schreib sie hier: Wir antworten dir persönlich per E-Mail.",
+    "ask.label": "Deine Frage",
+    "ask.placeholder": "Zum Beispiel: Passt das auch für ein Lastenrad?",
+    "ask.send": "Frage senden",
+    "ask.note": "Deine E-Mail-App öffnet sich mit der fertigen Nachricht an <span data-cfg=\"contactEmail\"></span>. Deine Adresse wird nur für die Antwort verwendet.",
     "nav.menu": "Menü",
     "nav.bikes": "Für alle Fahrräder",
     "nav.faq": "Häufige Fragen",
@@ -237,9 +247,9 @@ window.CICLIFT_I18N.de = {
       <h2>1. Verantwortlicher</h2>
       <p><strong data-cfg="ownerName"></strong>, Herausgeber der Website. Kontakt für alle Fragen zu deinen Daten: <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>.</p>
       <h2>2. Erhobene Daten</h2>
-      <ul>
+      <ul><li><strong>Einwilligungsnachweis
         <li><strong>Anmeldung zum Marktstart</strong>: deine E-Mail-Adresse, die Anzeigesprache der Website sowie Datum und Uhrzeit deiner Einwilligung (Nachweis deiner Zustimmung).</li>
-        <li><strong>Umfrage und Button „Das interessiert mich"</strong>: deine Antworten, anonym und zusammengefasst gezählt. Sie werden niemals mit deiner E-Mail-Adresse oder deiner Identität verknüpft.</li>
+        <li><strong>Per E-Mail gesendete Fragen</strong>: Wenn du uns schreibst (Button „Frage senden" oder contact@), erhalten wir deine E-Mail-Adresse und deine Nachricht, ausschließlich um dir zu antworten.</li><li><strong>Umfrage und Button „Das interessiert mich"</strong>: deine Antworten, anonym und zusammengefasst gezählt. Sie werden niemals mit deiner E-Mail-Adresse oder deiner Identität verknüpft.</li>
         <li><strong>Reichweitenmessung</strong> (nur mit deiner Zustimmung): Anzahl der Besuche, aufgerufene Seiten, verweisende Website, Browser- und Gerätetyp, Bildschirmgröße, Sprache und ungefähres Land. Es wird kein Cookie gesetzt und deine IP-Adresse wird nicht gespeichert.</li>
         <li><strong>Technische Protokolle des Hosters</strong>: Wie bei jeder Website speichert der Hoster technische Verbindungsdaten (einschließlich der IP-Adresse), um Sicherheit und Betrieb des Dienstes zu gewährleisten.</li>
       </ul>

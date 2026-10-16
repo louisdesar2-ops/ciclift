@@ -13,6 +13,10 @@ window.CICLIFT_I18N.en = {
   },
   ui: {
     "cfg.missing": "[to be completed]",
+    "ask.empty": "Write your question (at least a few words).",
+    "ask.subject": "Question about Ciclift",
+    "ask.footer": "Sent from ciclift.fr",
+    "ask.opened": "Your email app has opened. If nothing appears, write directly to {email}.",
     "photo.ai": "AI-generated illustration",
     "consent.title": "Your cookie choices",
     "consent.text": "We would like to measure site traffic anonymously (no cookies, your IP address is not stored) to find out whether Ciclift interests people. Nothing is enabled without your consent.",
@@ -46,6 +50,12 @@ window.CICLIFT_I18N.en = {
     "nav.how": "How it works",
     "nav.opinion": "Your opinion",
     "nav.versions": "The versions",
+    "ask.title": "Do you have a question?",
+    "ask.text": "Write it here: we'll reply to you personally by email.",
+    "ask.label": "Your question",
+    "ask.placeholder": "For example: does it work with a cargo bike?",
+    "ask.send": "Send my question",
+    "ask.note": "Your email app opens with the message ready to send to <span data-cfg=\"contactEmail\"></span>. Your address is only used to reply to you.",
     "nav.menu": "Menu",
     "nav.bikes": "For every bike",
     "nav.faq": "FAQ",
@@ -237,9 +247,9 @@ window.CICLIFT_I18N.en = {
       <h2>1. Data controller</h2>
       <p><strong data-cfg="ownerName"></strong>, publisher of the site. Contact for any question about your data: <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>.</p>
       <h2>2. Data collected</h2>
-      <ul>
+      <ul><li><strong>Proof of consent
         <li><strong>Launch sign-up</strong>: your email address, the display language of the site, and the date and time of your consent (proof of your agreement).</li>
-        <li><strong>Survey and "I'm interested" button</strong>: your answers, counted anonymously and in aggregate. They are never linked to your email address or your identity.</li>
+        <li><strong>Questions sent by email</strong>: if you write to us ("Send my question" button or contact@), we receive your email address and your message, only in order to reply to you.</li><li><strong>Survey and "I'm interested" button</strong>: your answers, counted anonymously and in aggregate. They are never linked to your email address or your identity.</li>
         <li><strong>Audience measurement</strong> (only if you accept it): number of visits, pages viewed, referring site, browser and device type, screen size, language and approximate country. No cookie is set and your IP address is not stored.</li>
         <li><strong>Host's technical logs</strong>: as for any website, the host records technical connection data (including IP address) to ensure the security and proper operation of the service.</li>
       </ul>

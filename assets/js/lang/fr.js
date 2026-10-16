@@ -3,6 +3,10 @@ window.CICLIFT_I18N = window.CICLIFT_I18N || {};
 window.CICLIFT_I18N.fr = {
   ui: {
     "cfg.missing": "[à compléter]",
+    "ask.empty": "Écrivez votre question (au moins quelques mots).",
+    "ask.subject": "Question sur Ciclift",
+    "ask.footer": "Envoyé depuis ciclift.fr",
+    "ask.opened": "Votre application email s'est ouverte. Si rien ne s'affiche, écrivez directement à {email}.",
     "photo.ai": "Illustration générée par IA",
     "consent.title": "Vos choix sur les cookies",
     "consent.text": "Nous aimerions mesurer l'audience du site de façon anonyme (sans cookie, sans conserver votre adresse IP) pour savoir si Ciclift intéresse. Rien n'est activé sans votre accord.",

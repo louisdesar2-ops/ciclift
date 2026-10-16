@@ -13,6 +13,10 @@ window.CICLIFT_I18N.es = {
   },
   ui: {
     "cfg.missing": "[por completar]",
+    "ask.empty": "Escribe tu pregunta (al menos unas palabras).",
+    "ask.subject": "Pregunta sobre Ciclift",
+    "ask.footer": "Enviado desde ciclift.fr",
+    "ask.opened": "Se ha abierto tu aplicación de correo. Si no aparece nada, escribe directamente a {email}.",
     "photo.ai": "Ilustración generada por IA",
     "consent.title": "Tus preferencias de cookies",
     "consent.text": "Nos gustaría medir la audiencia del sitio de forma anónima (sin cookies y sin guardar tu dirección IP) para saber si Ciclift interesa. No se activa nada sin tu consentimiento.",
@@ -46,6 +50,12 @@ window.CICLIFT_I18N.es = {
     "nav.how": "Cómo funciona",
     "nav.opinion": "Tu opinión",
     "nav.versions": "Las versiones",
+    "ask.title": "¿Tienes alguna pregunta?",
+    "ask.text": "Escríbela aquí: te responderemos personalmente por correo.",
+    "ask.label": "Tu pregunta",
+    "ask.placeholder": "Por ejemplo: ¿sirve para una bici de carga?",
+    "ask.send": "Enviar mi pregunta",
+    "ask.note": "Tu aplicación de correo se abre con el mensaje listo para enviar a <span data-cfg=\"contactEmail\"></span>. Tu dirección solo se usa para responderte.",
     "nav.menu": "Menú",
     "nav.bikes": "Para todas las bicis",
     "nav.faq": "Preguntas frecuentes",
@@ -237,9 +247,9 @@ window.CICLIFT_I18N.es = {
       <h2>1. Responsable del tratamiento</h2>
       <p><strong data-cfg="ownerName"></strong>, editor del sitio. Contacto para cualquier pregunta sobre tus datos: <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>.</p>
       <h2>2. Datos recogidos</h2>
-      <ul>
+      <ul><li><strong>Prueba del consentimiento
         <li><strong>Suscripción al lanzamiento</strong>: tu correo electrónico, el idioma de visualización del sitio y la fecha y hora de tu consentimiento (prueba de tu aceptación).</li>
-        <li><strong>Encuesta y botón «Sí, me interesa»</strong>: tus respuestas, contadas de forma anónima y agregada. Nunca se vinculan a tu correo electrónico ni a tu identidad.</li>
+        <li><strong>Preguntas enviadas por correo</strong>: si nos escribes (botón «Enviar mi pregunta» o contact@), recibimos tu correo electrónico y tu mensaje, únicamente para responderte.</li><li><strong>Encuesta y botón «Sí, me interesa»</strong>: tus respuestas, contadas de forma anónima y agregada. Nunca se vinculan a tu correo electrónico ni a tu identidad.</li>
         <li><strong>Medición de audiencia</strong> (solo si la aceptas): número de visitas, páginas vistas, sitio de procedencia, tipo de navegador y dispositivo, tamaño de pantalla, idioma y país aproximado. No se instala ninguna cookie y tu dirección IP no se conserva.</li>
         <li><strong>Registros técnicos del proveedor de alojamiento</strong>: como en cualquier sitio web, el proveedor registra datos técnicos de conexión (incluida la dirección IP) para garantizar la seguridad y el funcionamiento del servicio.</li>
       </ul>

@@ -30,12 +30,12 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/css/style.css?v=202610161759">
-  <script src="assets/js/config.js?v=202610161759" defer></script>
-  <script src="assets/js/lang/fr.js?v=202610161759" defer></script>
-  <script src="assets/js/i18n.js?v=202610161759" defer></script>
-  <script src="assets/js/consent.js?v=202610161759" defer></script>
-  <script src="assets/js/main.js?v=202610161759" defer></script>
+  <link rel="stylesheet" href="assets/css/style.css?v=202610161805">
+  <script src="assets/js/config.js?v=202610161805" defer></script>
+  <script src="assets/js/lang/fr.js?v=202610161805" defer></script>
+  <script src="assets/js/i18n.js?v=202610161805" defer></script>
+  <script src="assets/js/consent.js?v=202610161805" defer></script>
+  <script src="assets/js/main.js?v=202610161805" defer></script>
 </head>
 <body data-page="index">
   <a class="skip-link" href="#contenu" data-i18n="skip">Aller au contenu</a>
@@ -469,6 +469,16 @@
           <details><summary data-i18n="faq.q4">Où sera-t-il disponible ?</summary><p data-i18n="faq.a4">D'abord en France, puis dans d'autres pays d'Europe selon l'intérêt suscité.</p></details>
           <details><summary data-i18n="faq.q5">Que faites-vous de mes données ?</summary><p data-i18n="faq.a5">Votre email sert uniquement à vous prévenir du lancement. Les réponses au sondage sont anonymes. Tout est expliqué dans notre <a href="confidentialite.html" data-keep-lang>politique de confidentialité</a>.</p></details>
         </div>
+
+        <form id="ask-form" class="ask reveal" novalidate>
+          <h3 data-i18n="ask.title">Vous avez une question ?</h3>
+          <p class="ask-text" data-i18n="ask.text">Écrivez-la ici : nous vous répondrons personnellement par email.</p>
+          <label for="ask-message" class="visually-hidden" data-i18n="ask.label">Votre question</label>
+          <textarea id="ask-message" rows="4" maxlength="1500" placeholder="Par exemple : est-ce compatible avec un vélo cargo ?" data-i18n-attr="placeholder:ask.placeholder"></textarea>
+          <button type="submit" class="btn btn-primary" data-i18n="ask.send">Envoyer ma question</button>
+          <p class="form-msg" role="status" aria-live="polite"></p>
+          <p class="form-small" data-i18n="ask.note">Votre application email s'ouvre avec le message prêt à partir vers <span data-cfg="contactEmail"></span>. Votre adresse sert uniquement à vous répondre.</p>
+        </form>
       </div>
     </section>
   </main>

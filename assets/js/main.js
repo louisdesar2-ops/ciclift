@@ -182,7 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610161759"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610161805"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -412,6 +412,27 @@
       el.style.setProperty("--mx", (e.clientX - r.left) + "px");
       el.style.setProperty("--my", (e.clientY - r.top) + "px");
     }, { passive: true });
+  }
+
+  // ---------- « Vous avez une question ? » : ouvre l'application email avec le message prêt ----------
+  var ask = document.getElementById("ask-form");
+  if (ask) {
+    var askMsg = ask.querySelector("#ask-message");
+    var askOut = ask.querySelector(".form-msg");
+    askMsg.addEventListener("input", function () { askOut.textContent = ""; askOut.className = "form-msg"; });
+    ask.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var cfg = window.CICLIFT_CONFIG || {};
+      var text = askMsg.value.trim();
+      if (text.length < 5) { askOut.textContent = t("ask.empty"); askOut.className = "form-msg error"; askMsg.focus(); return; }
+      if (!cfg.contactEmail) return;
+      C.track("question");
+      var subject = encodeURIComponent(t("ask.subject"));
+      var body = encodeURIComponent(text + "\n\n— " + t("ask.footer"));
+      window.location.href = "mailto:" + cfg.contactEmail + "?subject=" + subject + "&body=" + body;
+      askOut.textContent = t("ask.opened").replace("{email}", cfg.contactEmail);
+      askOut.className = "form-msg ok";
+    });
   }
 
   // ---------- Menu à 3 barres (téléphone) ----------

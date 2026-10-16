@@ -13,6 +13,10 @@ window.CICLIFT_I18N.nl = {
   },
   ui: {
     "cfg.missing": "[nog in te vullen]",
+    "ask.empty": "Schrijf je vraag (minstens een paar woorden).",
+    "ask.subject": "Vraag over Ciclift",
+    "ask.footer": "Verzonden via ciclift.fr",
+    "ask.opened": "Je e-mailapp is geopend. Verschijnt er niets? Schrijf dan rechtstreeks naar {email}.",
     "photo.ai": "Door AI gegenereerde illustratie",
     "consent.title": "Jouw cookiekeuzes",
     "consent.text": "We willen het bezoek aan de site anoniem meten (zonder cookies, je IP-adres wordt niet bewaard) om te zien of Ciclift interesse wekt. Zonder jouw toestemming wordt niets ingeschakeld.",
@@ -46,6 +50,12 @@ window.CICLIFT_I18N.nl = {
     "nav.how": "Hoe het werkt",
     "nav.opinion": "Jouw mening",
     "nav.versions": "De versies",
+    "ask.title": "Heb je een vraag?",
+    "ask.text": "Schrijf hem hier: we antwoorden je persoonlijk per e-mail.",
+    "ask.label": "Je vraag",
+    "ask.placeholder": "Bijvoorbeeld: werkt het ook met een bakfiets?",
+    "ask.send": "Mijn vraag versturen",
+    "ask.note": "Je e-mailapp opent met het bericht klaar voor <span data-cfg=\"contactEmail\"></span>. Je adres wordt alleen gebruikt om je te antwoorden.",
     "nav.menu": "Menu",
     "nav.bikes": "Voor elke fiets",
     "nav.faq": "Veelgestelde vragen",
@@ -237,9 +247,9 @@ window.CICLIFT_I18N.nl = {
       <h2>1. Verwerkingsverantwoordelijke</h2>
       <p><strong data-cfg="ownerName"></strong>, uitgever van de website. Contact voor alle vragen over je gegevens: <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>.</p>
       <h2>2. Verzamelde gegevens</h2>
-      <ul>
+      <ul><li><strong>Bewijs van toestemming
         <li><strong>Inschrijving voor de lancering</strong>: je e-mailadres, de weergavetaal van de site en de datum en tijd van je toestemming (bewijs van je akkoord).</li>
-        <li><strong>Enquête en knop "Ja, interessant"</strong>: je antwoorden, anoniem en geaggregeerd geteld. Ze worden nooit gekoppeld aan je e-mailadres of je identiteit.</li>
+        <li><strong>Vragen per e-mail</strong>: als je ons schrijft (knop "Mijn vraag versturen" of contact@), ontvangen we je e-mailadres en je bericht, uitsluitend om je te antwoorden.</li><li><strong>Enquête en knop "Ja, interessant"</strong>: je antwoorden, anoniem en geaggregeerd geteld. Ze worden nooit gekoppeld aan je e-mailadres of je identiteit.</li>
         <li><strong>Bezoekersmeting</strong> (alleen als je die accepteert): aantal bezoeken, bekeken pagina's, verwijzende site, type browser en apparaat, schermgrootte, taal en geschat land. Er wordt geen cookie geplaatst en je IP-adres wordt niet bewaard.</li>
         <li><strong>Technische logbestanden van de hostingprovider</strong>: zoals bij elke website registreert de hostingprovider technische verbindingsgegevens (waaronder het IP-adres) om de veiligheid en werking van de dienst te garanderen.</li>
       </ul>
