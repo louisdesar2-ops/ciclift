@@ -160,7 +160,7 @@ window.CICLIFT_I18N.es = {
 
     "opinion.eyebrow": "Tu opinión",
     "opinion.title": "Ayúdanos a crear Ciclift",
-    "opinion.text": "Ciclift está en desarrollo. Tus respuestas, totalmente anónimas, nos ayudan a saber si el proyecto responde a una necesidad real.",
+    "opinion.text": "Ciclift todavía está en desarrollo. Responde a unas pocas preguntas en 30 segundos: tus respuestas, totalmente anónimas, nos permitirán saber si el proyecto responde a una necesidad real.",
     "interest.q": "¿Te interesa este producto?",
     "interest.yes": "👍 Sí, me interesa",
     "interest.no": "No es para mí",

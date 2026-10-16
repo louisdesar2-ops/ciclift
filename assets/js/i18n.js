@@ -74,12 +74,35 @@
     });
   }
 
+  // Typographie française : espace insécable avant ? ! : ; » et après «
+  // (le signe ne passe jamais seul à la ligne, surtout sur téléphone)
+  function nbsp(text) {
+    return String(text).replace(/ ([?!:;»])/g, " $1").replace(/« /g, "« ");
+  }
+  function nbspPage() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var tag = n.parentNode && n.parentNode.nodeName;
+        return tag === "SCRIPT" || tag === "STYLE" || tag === "TEXTAREA" ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while ((node = walker.nextNode())) {
+      var fixed = nbsp(node.nodeValue);
+      if (fixed !== node.nodeValue) node.nodeValue = fixed;
+    }
+  }
+
   // Texte d'interface (bandeau cookies, messages…) : langue courante, sinon français
   function t(key) {
     var d = dicts[current] && dicts[current].ui;
-    if (d && d[key] != null) return d[key];
-    var fr = dicts.fr && dicts.fr.ui;
-    return fr && fr[key] != null ? fr[key] : key;
+    var val;
+    if (d && d[key] != null) val = d[key];
+    else {
+      var fr = dicts.fr && dicts.fr.ui;
+      val = fr && fr[key] != null ? fr[key] : key;
+    }
+    return current === DEFAULT ? nbsp(val) : val;
   }
 
   function fillConfig(root) {
@@ -128,6 +151,7 @@
       b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
     });
     fillConfig();
+    if (lang === DEFAULT) nbspPage();
 
     var url = new URL(location.href);
     if (lang === DEFAULT) url.searchParams.delete("lang"); else url.searchParams.set("lang", lang);
