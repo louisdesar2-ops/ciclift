@@ -78,7 +78,7 @@ window.CICLIFT_I18N.nl = {
     "vv.imgLabel": "Verticale versie: de fiets hangt rechtop, hoog langs de muur",
     "vv.title": "Ciclift Verticaal",
     "vv.text": "De fiets wordt verticaal opgeborgen, hoog langs de muur. Een eenvoudige, compacte oplossing, ideaal bij een hoog plafond.",
-    "vv.l1": "Eenvoudig, compact ontwerp",
+    "vv.l1": "Voorwiel boven of onder, naar keuze",
     "vv.l2": "Ideaal bij een flinke plafondhoogte",
     "vv.l3": "Neemt heel weinig ruimte in, op de vloer én in de breedte",
     "vh.badge": "Voor lage plafonds",

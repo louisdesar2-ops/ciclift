@@ -78,7 +78,7 @@ window.CICLIFT_I18N.en = {
     "vv.imgLabel": "Vertical version: the bike is stored upright, up high, along the wall",
     "vv.title": "Ciclift Vertical",
     "vv.text": "The bike is stored vertically, up high, along the wall. A simple, compact solution, ideal when the ceiling is high.",
-    "vv.l1": "Simple, compact design",
+    "vv.l1": "Front wheel up or down, your choice",
     "vv.l2": "Ideal with a good ceiling height",
     "vv.l3": "Takes up very little room, on the floor and in width",
     "vh.badge": "Made for low ceilings",

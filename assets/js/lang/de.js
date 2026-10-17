@@ -78,7 +78,7 @@ window.CICLIFT_I18N.de = {
     "vv.imgLabel": "Vertikale Version: das Fahrrad hängt aufrecht, weit oben an der Wand",
     "vv.title": "Ciclift Vertikal",
     "vv.text": "Das Fahrrad wird senkrecht, weit oben an der Wand verstaut. Eine einfache, kompakte Lösung, ideal bei hohen Decken.",
-    "vv.l1": "Einfaches, kompaktes Design",
+    "vv.l1": "Vorderrad oben oder unten, ganz nach Wunsch",
     "vv.l2": "Ideal bei ausreichender Deckenhöhe",
     "vv.l3": "Braucht kaum Platz – weder am Boden noch in der Breite",
     "vh.badge": "Für niedrige Decken",

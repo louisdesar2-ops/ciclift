@@ -78,7 +78,7 @@ window.CICLIFT_I18N.es = {
     "vv.imgLabel": "Versión vertical: la bici se guarda de pie, en alto, junto a la pared",
     "vv.title": "Ciclift Vertical",
     "vv.text": "La bici se guarda en vertical, en alto, junto a la pared. Una solución sencilla y compacta, ideal si el techo es alto.",
-    "vv.l1": "Diseño sencillo y compacto",
+    "vv.l1": "Rueda delantera arriba o abajo, a elegir",
     "vv.l2": "Ideal si tienes buena altura de techo",
     "vv.l3": "Ocupa muy poco espacio, en el suelo y a lo ancho",
     "vh.badge": "Para techos bajos",
