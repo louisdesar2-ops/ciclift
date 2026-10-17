@@ -235,6 +235,7 @@ window.CICLIFT_I18N.de = {
       <p>Die Website wird gehostet von GitHub, Inc. (Dienst GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Website: <a href="https://github.com" rel="noopener">github.com</a> — Kontakt: <a href="https://support.github.com/contact" rel="noopener">support.github.com/contact</a>.</p>
       <h2>3. Geistiges Eigentum</h2>
       <p>Der Name Ciclift, das Logo, die Texte, die Illustrationen und alle Inhalte der Website sind, sofern nicht anders angegeben, Eigentum des Herausgebers. Jede vollständige oder teilweise Vervielfältigung, Darstellung, Änderung oder Nutzung ohne vorherige schriftliche Genehmigung ist untersagt.</p>
+      <p>Die Schriftart Sora (© The Sora Project Authors) wird unter der SIL Open Font License 1.1 verwendet und auf dieser Website gehostet.</p>
       <h2>4. Art der Website und Haftung</h2>
       <p>Die Website stellt ein Produktprojekt in Entwicklung vor. Es wird nichts verkauft. Informationen, Eigenschaften und Abbildungen sind unverbindlich und können sich ändern. Der Herausgeber bemüht sich um korrekte Informationen, kann jedoch nicht garantieren, dass die Website frei von Fehlern oder Unterbrechungen ist.</p>
       <h2>5. Personenbezogene Daten und Cookies</h2>

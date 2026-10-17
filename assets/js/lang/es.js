@@ -235,6 +235,7 @@ window.CICLIFT_I18N.es = {
       <p>El Sitio está alojado por GitHub, Inc. (servicio GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, Estados Unidos. Web: <a href="https://github.com" rel="noopener">github.com</a> — Contacto: <a href="https://support.github.com/contact" rel="noopener">support.github.com/contact</a>.</p>
       <h2>3. Propiedad intelectual</h2>
       <p>El nombre Ciclift, el logotipo, los textos, las ilustraciones y todos los contenidos del Sitio son propiedad del editor, salvo indicación contraria. Queda prohibida cualquier reproducción, representación, modificación o explotación, total o parcial, sin autorización previa por escrito.</p>
+      <p>La tipografía Sora (© The Sora Project Authors) se utiliza bajo la licencia SIL Open Font License 1.1 y está alojada en este Sitio.</p>
       <h2>4. Naturaleza del Sitio y responsabilidad</h2>
       <p>El Sitio presenta un proyecto de producto en desarrollo. No vende nada. La información, las características y las imágenes son orientativas, no contractuales y pueden cambiar. El editor procura ofrecer información exacta, pero no puede garantizar la ausencia de errores o interrupciones del Sitio.</p>
       <h2>5. Datos personales y cookies</h2>
