@@ -73,7 +73,7 @@ window.CICLIFT_I18N.nl = {
 
     "versions.eyebrow": "Twee versies",
     "versions.title": "Verticaal of horizontaal: jij kiest",
-    "versions.text": "Afhankelijk van je plafondhoogte en budget komt Ciclift in twee versies.",
+    "versions.text": "Afhankelijk van je plafondhoogte komt Ciclift in twee versies.",
     "vv.badge": "Extra compact",
     "vv.imgLabel": "Verticale versie: de fiets hangt rechtop, hoog langs de muur",
     "vv.title": "Ciclift Verticaal",

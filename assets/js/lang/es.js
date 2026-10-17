@@ -73,7 +73,7 @@ window.CICLIFT_I18N.es = {
 
     "versions.eyebrow": "Dos versiones",
     "versions.title": "Vertical u horizontal: tú eliges",
-    "versions.text": "Según la altura del techo y tu presupuesto, Ciclift tendrá dos versiones.",
+    "versions.text": "Según la altura del techo, Ciclift tendrá dos versiones.",
     "vv.badge": "Ultracompacta",
     "vv.imgLabel": "Versión vertical: la bici se guarda de pie, en alto, junto a la pared",
     "vv.title": "Ciclift Vertical",

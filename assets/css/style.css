@@ -493,3 +493,69 @@ main { overflow-x: clip; }
   .bg-fx::before, .bg-fx::after { transform: none; }
   .ribbon-track { animation-duration: 45s; }
 }
+/* =========================================================
+   Audit design du 17/10/2026 (inspiré d'Impeccable, Taste et Emil Kowalski)
+   Tout est regroupé ici : supprimer un paragraphe suffit pour revenir en arrière.
+   ========================================================= */
+
+/* A1 — Le premier écran se lit tout de suite (pas de fondu ni de flou à l'arrivée) */
+.js .hero .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+
+/* A3 — Apparitions plus nettes : sans flou, petit déplacement, départ rapide puis ralenti (ease-out) */
+.js .reveal { filter: none; transform: translateY(16px); transition: opacity .6s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1); }
+/* Sondage : plus de petit rebond quand on choisit une réponse */
+@keyframes pop { from { transform: scale(.96); } to { transform: scale(1); } }
+
+/* A2 — Téléphone : pas de flash au toucher, pas d'effet de survol « coincé » après un appui */
+html { -webkit-tap-highlight-color: transparent; }
+@media (hover: none) {
+  .btn-primary:hover { transform: none; }
+  .card:hover, .version:hover, .bike-type:hover, .poll:hover { transform: none; box-shadow: none; background: linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(var(--line), var(--line)) border-box; }
+  .poll-options button:hover:not([disabled]) { border-color: var(--line); background: rgba(255, 255, 255, .04); }
+}
+/* Hauteur réelle de l'écran du téléphone (la barre d'adresse ne cache plus le bas) */
+.consent { max-height: calc(100dvh - 24px); }
+.mobile-menu { max-height: calc(100dvh - 64px); }
+/* Zones à toucher plus grandes (sans changer la mise en page) */
+.lang-switch button { min-height: 40px; }
+.hero-actions > a:not(.btn) { padding-block: 10px; }
+.consent a, .ask-text a, .form a, .hero-points a { padding-block: 10px; }
+
+/* B7 — Le dégradé vert → bleu est réservé au bouton principal, au logo et au bandeau défilant */
+.eyebrow, .grad-text, .hero h1 .hl, .poll-feedback, .legal h1, .simple .big { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--green); }
+.legal h1 { color: var(--ink); }
+.js .section-head.is-visible h2 { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--ink); animation: none; }
+.lang-switch button[aria-pressed="true"] { background: var(--green); }
+.hero-points li::before, .version li::before, .tag-after, .step-num, .poll-options button[aria-pressed="true"] { background: var(--green); }
+.hero-visual, .ask { background: var(--surface); border: 1px solid var(--line); }
+.card:hover, .version:hover, .bike-type:hover, .poll:hover { background: linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(rgba(34, 197, 139, .45), rgba(34, 197, 139, .45)) border-box; }
+.btn-primary::after { display: none; }
+
+/* B8 — Moins de halos colorés : des ombres neutres, la couleur reste sur les formes */
+.progress, .hero-points li::before, .step-num, .poll-options button[aria-pressed="true"] { box-shadow: none; }
+.btn-primary { box-shadow: 0 6px 20px rgba(0, 0, 0, .35); }
+.btn-primary:hover { box-shadow: 0 10px 28px rgba(0, 0, 0, .45); }
+.hero-visual { box-shadow: 0 30px 80px rgba(0, 0, 0, .55); }
+.card:hover, .version:hover, .bike-type:hover, .poll:hover { box-shadow: var(--shadow); }
+.signup { box-shadow: none; }
+.card::before, .version::before, .bike-type::before, .poll::before { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(56, 189, 248, .07), transparent 60%); }
+
+/* C9 — Avantages : une ligne de 4 colonnes éditoriales au lieu de 4 cartes avec icône carrée */
+.cards-4 > .card { background: none; border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 22px 0 0; }
+.cards-4 > .card::before { display: none; }
+.cards-4 > .card:hover { background: none; transform: none; box-shadow: none; border-top-color: var(--green); }
+.cards-4 .card-icon, .cards > .card:nth-child(even) .card-icon { width: auto; height: auto; background: none; box-shadow: none; border-radius: 0; display: block; margin-bottom: 12px; }
+.cards-4 .card-icon { display: flex; justify-content: flex-start; }
+.cards-4 .card-icon svg { width: 26px; height: 26px; stroke-width: 1.8; margin: 0; }
+@media (max-width: 719px) {
+  /* Téléphone : une liste simple qu'on lit en descendant, plus besoin de faire glisser */
+  .cards.cards-4 { display: grid; overflow: visible; margin: 0; padding: 0; gap: 22px; }
+  .cards.cards-4 > * { flex: none; }
+  .cards-4 + .swipe-hint { display: none; }
+}
+
+/* C10 — Téléphone et tablette : un voile sombre derrière le texte d'accroche pour qu'il reste lisible sur les roues */
+@media (max-width: 899px) {
+  .hero .container > .reveal:first-child { position: relative; }
+  .hero .container > .reveal:first-child::before { content: ""; position: absolute; inset: -28px -16px; z-index: -1; pointer-events: none; background: radial-gradient(ellipse 90% 70% at 40% 45%, rgba(7, 11, 16, .82), rgba(7, 11, 16, .5) 60%, rgba(7, 11, 16, 0) 85%); }
+}

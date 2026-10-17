@@ -73,7 +73,7 @@ window.CICLIFT_I18N.en = {
 
     "versions.eyebrow": "Two versions",
     "versions.title": "Vertical or horizontal: your choice",
-    "versions.text": "Depending on your ceiling height and budget, Ciclift will come in two versions.",
+    "versions.text": "Depending on your ceiling height, Ciclift will come in two versions.",
     "vv.badge": "Ultra compact",
     "vv.imgLabel": "Vertical version: the bike is stored upright, up high, along the wall",
     "vv.title": "Ciclift Vertical",

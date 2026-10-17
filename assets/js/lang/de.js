@@ -73,7 +73,7 @@ window.CICLIFT_I18N.de = {
 
     "versions.eyebrow": "Zwei Versionen",
     "versions.title": "Vertikal oder horizontal: du hast die Wahl",
-    "versions.text": "Je nach Deckenhöhe und Budget wird es Ciclift in zwei Versionen geben.",
+    "versions.text": "Je nach Deckenhöhe wird es Ciclift in zwei Versionen geben.",
     "vv.badge": "Besonders kompakt",
     "vv.imgLabel": "Vertikale Version: das Fahrrad hängt aufrecht, weit oben an der Wand",
     "vv.title": "Ciclift Vertikal",

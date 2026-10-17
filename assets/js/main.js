@@ -186,7 +186,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610171207"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610171431"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -198,7 +198,8 @@
         fig.className = "photo";
         var img = document.createElement("img");
         img.src = document.documentElement.getAttribute("data-root") + "assets/img/photos/" + file + (PHOTO_VER ? "?v=" + PHOTO_VER : "");
-        img.loading = "lazy";
+        // Accroche et avant/après : chargées tout de suite (pas de cadre vide en faisant défiler vite)
+        img.loading = /^(hero|before|after)$/.test(box.getAttribute("data-photo")) ? "eager" : "lazy";
         img.decoding = "async";
         fig.appendChild(img);
         fig.appendChild(document.createElement("figcaption"));
