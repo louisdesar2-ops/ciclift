@@ -595,3 +595,4 @@ h3 { letter-spacing: -.02em; }
 .founder-text > p:not(.eyebrow) { color: #c6d3dc; }
 @media (min-width: 900px) { .founder-text { background: rgba(7, 11, 16, .82); border: 1px solid var(--line); border-radius: 22px; padding: 30px 34px; } }
 .photo figcaption { backdrop-filter: none; background: rgba(7, 11, 16, .78); }
+.bg-fx::before { animation: none; }

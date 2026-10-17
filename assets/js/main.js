@@ -186,7 +186,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610171553"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610171557"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -398,7 +398,8 @@
     var max = document.documentElement.scrollHeight - window.innerHeight;
     var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
     bar.style.transform = "scaleX(" + p + ")";
-    if (!touch) document.documentElement.style.setProperty("--p", p.toFixed(4));
+    // Variable posée sur le fond seulement (et pas sur toute la page) : le navigateur ne recalcule que le fond
+    if (!touch) fx.style.setProperty("--p", p.toFixed(4));
     // Sur téléphone : le halo de chaque carte visible glisse pendant le défilement
     if (false) {
       var h = window.innerHeight;
