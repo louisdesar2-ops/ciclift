@@ -182,7 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610162228"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610171027"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -258,53 +258,45 @@
 
   var touch = window.matchMedia && window.matchMedia("(hover: none)").matches;
 
-  // ---------- Constellation animée (étoiles reliées par des traits lumineux) ----------
-  (function constellation() {
-    var slow = 1;
+  // ---------- Roues à rayons (grandes roues de vélo très fines qui tournent lentement) ----------
+  (function rayons() {
     var canvas = document.createElement("canvas");
     canvas.className = "stars";
     fx.appendChild(canvas);
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
-    // Téléphone : moins de points, pas de halo flou (coûteux) et résolution limitée pour rester fluide
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Téléphone : moins de roues et résolution limitée pour rester fluide
     var dpr = Math.min(window.devicePixelRatio || 1, touch ? 1 : 2);
-    var W = 0, H = 0, stars = [], dust = [], mouse = null, last = 0;
-    var COLORS = ["110, 231, 183", "125, 211, 252", "230, 245, 255"];
-    var LINK = touch ? 125 : 140;
+    var W = 0, H = 0, wheels = [], mouse = null, mx = 0, my = 0, last = 0;
+    var GREEN = "34, 197, 139", BLUE = "56, 189, 248", WHITE = "230, 245, 255";
 
     function resize() {
       var newW = window.innerWidth, newH = window.innerHeight;
       // Sur téléphone, la barre d'adresse qui apparaît/disparaît change seulement la hauteur :
-      // on agrandit la zone de dessin sans recréer les étoiles (sinon elles « sautent »)
+      // on agrandit la zone de dessin sans recréer les roues (sinon elles « sautent »)
       if (W && newW === W) {
         H = newH; canvas.height = H * dpr; canvas.style.height = H + "px"; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        if (reduced) frame(0);
         return;
       }
       W = newW; H = newH;
       canvas.width = W * dpr; canvas.height = H * dpr;
       canvas.style.width = W + "px"; canvas.style.height = H + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var count = (touch ? Math.round(Math.min(75, Math.max(55, W * H / 4500))) : Math.round(Math.min(170, Math.max(60, W * H / 8000))));
-      stars = [];
-      for (var i = 0; i < count; i++) {
-        stars.push({
-          x: Math.random() * W, y: Math.random() * H * 1.6,
-          vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18,
-          r: Math.random() * 1.8 + .7, c: COLORS[i % 3],
-          depth: Math.random() * .7 + .3, tw: Math.random() * Math.PI * 2
+      var n = touch ? 6 : 9, base = Math.min(W, H);
+      wheels = [];
+      for (var i = 0; i < n; i++) {
+        var depth = Math.random() * .7 + .3;
+        wheels.push({
+          x: Math.random() * W, y: Math.random() * H, r: base * (.12 + depth * .28), depth: depth,
+          a: Math.random() * 6, v: (Math.random() < .5 ? -1 : 1) * (.0006 + Math.random() * .0008), boost: 0,
+          spokes: Math.random() < .5 ? 28 : 36, c: i % 3 === 0 ? BLUE : GREEN
         });
       }
-      // Poussière d'étoiles : beaucoup de petits points qui montent doucement et scintillent
-      var n = (touch ? Math.round(Math.min(170, Math.max(130, W * H / 1900))) : Math.round(Math.min(650, Math.max(180, W * H / 2200))));
-      dust = [];
-      for (var q = 0; q < n; q++) {
-        dust.push({
-          x: Math.random() * W, y: Math.random() * H,
-          vx: (Math.random() - .5) * .08, vy: -(Math.random() * .12 + .03),
-          r: Math.random() * 1.3 + .3, c: COLORS[q % 3], a: Math.random() * .5 + .3,
-          depth: Math.random() * .5 + .1, tw: Math.random() * Math.PI * 2, ox: 0, oy: 0
-        });
-      }
+      // Les roues lointaines d'abord, les proches par-dessus
+      wheels.sort(function (a, b) { return a.depth - b.depth; });
+      if (reduced) frame(0);
     }
 
     // Téléphone : on met l'animation en pause pendant le défilement (le défilement reste parfaitement fluide)
@@ -312,79 +304,58 @@
     if (touch) window.addEventListener("scroll", function () { scrolling = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(function () { scrolling = false; }, 180); }, { passive: true });
 
     function frame(time) {
-      // Téléphone : 30 images/s suffisent, et rien n'est redessiné pendant le défilement
-      if (touch && (scrolling || time - last < 32)) { requestAnimationFrame(frame); return; }
-      var dt = Math.min(50, time - last || 16); last = time;
-      // Téléphone : pas d'effet de profondeur lié au défilement (évite que les étoiles « sautent » à la reprise)
-      var scroll = touch ? 0 : (window.scrollY || 0);
+      if (!reduced) {
+        // Téléphone : 30 images/s suffisent, et rien n'est redessiné pendant le défilement
+        if (touch && (scrolling || time - last < 32)) { requestAnimationFrame(frame); return; }
+      }
+      var dt = reduced ? 0 : Math.min(3, (time - last || 16) / 16); last = time;
+      // Ordinateur : les roues suivent légèrement la souris (effet de profondeur)
+      var tx = mouse && !touch ? mouse.x / W - .5 : 0, ty = mouse && !touch ? mouse.y / H - .5 : 0;
+      mx += (tx - mx) * .04; my += (ty - my) * .04;
       ctx.clearRect(0, 0, W, H);
-      // Poussière (sans halo, très légère à dessiner), qui s'écarte doucement de la souris
-      for (var u = 0; u < dust.length; u++) {
-        var g = dust[u];
-        g.x += g.vx * dt / 16; g.y += g.vy * dt / 16; g.tw += .03;
-        if (g.y < -10) { g.y = H + 10; g.x = Math.random() * W; }
-        if (g.x < -10) g.x = W + 10; else if (g.x > W + 10) g.x = -10;
-        var gy = ((g.y - scroll * g.depth * .25) % (H + 20) + H + 20) % (H + 20) - 10;
-        if (mouse) {
-          var ex = g.x + g.ox - mouse.x, ey = gy + g.oy - mouse.y, ed = Math.sqrt(ex * ex + ey * ey);
-          if (ed < 120 && ed > 0) { g.ox += ex / ed * (120 - ed) * .04; g.oy += ey / ed * (120 - ed) * .04; }
+      for (var i = 0; i < wheels.length; i++) {
+        var w = wheels[i];
+        var cx = w.x - mx * 60 * w.depth, cy = w.y - my * 60 * w.depth;
+        // La roue sous la souris (ou touchée du doigt) accélère, puis ralentit doucement
+        if (mouse && Math.sqrt((mouse.x - cx) * (mouse.x - cx) + (mouse.y - cy) * (mouse.y - cy)) < w.r) w.boost = Math.min(.02, w.boost + .0006);
+        w.boost *= .985;
+        w.a += (w.v + (w.v < 0 ? -w.boost : w.boost)) * dt;
+        var al = .08 + w.depth * .2 + w.boost * 10;
+        // Jante (double cercle)
+        ctx.strokeStyle = "rgba(" + w.c + "," + al.toFixed(3) + ")";
+        ctx.lineWidth = 1 + w.depth * 1.5;
+        ctx.beginPath(); ctx.arc(cx, cy, w.r, 0, Math.PI * 2); ctx.stroke();
+        ctx.lineWidth = .6 + w.depth * .6;
+        ctx.beginPath(); ctx.arc(cx, cy, w.r * .93, 0, Math.PI * 2); ctx.stroke();
+        // Rayons croisés : ils partent du moyeu légèrement décalés, comme sur une vraie roue
+        ctx.strokeStyle = "rgba(" + WHITE + "," + (al * .55).toFixed(3) + ")";
+        ctx.lineWidth = .5 + w.depth * .4;
+        ctx.beginPath();
+        for (var k = 0; k < w.spokes; k++) {
+          var off = k % 2 ? .18 : -.18, ang = w.a + k / w.spokes * Math.PI * 2;
+          ctx.moveTo(cx + Math.cos(ang + off) * w.r * .07, cy + Math.sin(ang + off) * w.r * .07);
+          ctx.lineTo(cx + Math.cos(ang) * w.r * .93, cy + Math.sin(ang) * w.r * .93);
         }
-        g.ox *= .94; g.oy *= .94;
-        ctx.fillStyle = "rgba(" + g.c + "," + (g.a * (.6 + Math.sin(g.tw) * .4)).toFixed(3) + ")";
-        ctx.fillRect(g.x + g.ox, gy + g.oy, g.r * 1.6, g.r * 1.6);
+        ctx.stroke();
+        // Moyeu
+        ctx.fillStyle = "rgba(" + WHITE + "," + (al * .9).toFixed(3) + ")";
+        ctx.beginPath(); ctx.arc(cx, cy, Math.max(2, w.r * .05), 0, Math.PI * 2); ctx.fill();
       }
-      var pts = [];
-      for (var i = 0; i < stars.length; i++) {
-        var s = stars[i];
-        s.x += s.vx * slow * dt / 16; s.y += s.vy * slow * dt / 16; s.tw += .02 * slow;
-        if (s.x < -20) s.x = W + 20; else if (s.x > W + 20) s.x = -20;
-        var span = H * 1.6;
-        if (s.y < -20) s.y = span; else if (s.y > span) s.y = -20;
-        // Effet de profondeur : les étoiles proches défilent plus vite que les lointaines
-        var y = ((s.y - scroll * s.depth * .35) % span + span) % span - H * .3;
-        pts.push({ x: s.x, y: y, s: s });
-      }
-      // Traits entre étoiles proches
-      for (var a = 0; a < pts.length; a++) {
-        for (var b = a + 1; b < pts.length; b++) {
-          var dx = pts[a].x - pts[b].x, dy = pts[a].y - pts[b].y, d = dx * dx + dy * dy;
-          if (d < LINK * LINK) {
-            var al = (1 - Math.sqrt(d) / LINK) * (touch ? .6 : .55);
-            ctx.strokeStyle = "rgba(" + (touch ? "235, 245, 255" : pts[a].s.c) + "," + al.toFixed(3) + ")"; // traits blancs sur téléphone
-            ctx.lineWidth = .9;
-            ctx.beginPath(); ctx.moveTo(pts[a].x, pts[a].y); ctx.lineTo(pts[b].x, pts[b].y); ctx.stroke();
-          }
-        }
-        // Traits vers la souris
-        if (mouse) {
-          var mx = pts[a].x - mouse.x, my = pts[a].y - mouse.y, md = Math.sqrt(mx * mx + my * my);
-          if (md < LINK * 1.4) {
-            ctx.strokeStyle = "rgba(125, 211, 252," + ((1 - md / (LINK * 1.4)) * .5).toFixed(3) + ")";
-            ctx.lineWidth = .8;
-            ctx.beginPath(); ctx.moveTo(pts[a].x, pts[a].y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
-          }
-        }
-      }
-      // Étoiles (avec léger scintillement)
-      for (var k = 0; k < pts.length; k++) {
-        var p = pts[k], tw = .65 + Math.sin(p.s.tw) * .35;
-        ctx.fillStyle = "rgba(" + p.s.c + "," + (.85 * tw).toFixed(3) + ")";
-        ctx.shadowColor = "rgba(" + p.s.c + ",.9)";
-        ctx.shadowBlur = touch ? 0 : 8;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.s.r, 0, Math.PI * 2); ctx.fill();
-      }
-      ctx.shadowBlur = 0;
-      requestAnimationFrame(frame);
+      if (!reduced) requestAnimationFrame(frame);
     }
 
     resize();
     window.addEventListener("resize", resize);
-    // Souris (ordinateur uniquement) : les étoiles s'y relient et la poussière s'écarte
-    if (!touch) {
-      window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
-      document.addEventListener("pointerleave", function () { mouse = null; });
+    if (!reduced) {
+      if (!touch) {
+        window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+        document.addEventListener("pointerleave", function () { mouse = null; });
+      } else {
+        // Téléphone : un appui sur une roue la fait accélérer (sans gêner le défilement)
+        window.addEventListener("pointerdown", function (e) { mouse = { x: e.clientX, y: e.clientY }; setTimeout(function () { mouse = null; }, 600); }, { passive: true });
+      }
+      requestAnimationFrame(frame);
     }
-    requestAnimationFrame(frame);
   })();
   var glowEls = document.querySelectorAll(".card, .version, .bike-type, .poll");
 
