@@ -155,11 +155,11 @@ var DATA = /*DATA*/null;
 
   // ---------- Cartes du sondage ----------
   var pbox = document.getElementById("polls");
-  function barCard(title, meta, entries) {
+  function barCard(title, meta, entries, emptyText) {
     var c = el("section", "card"); c.appendChild(el("h2", null, title));
     var m = el("p", "meta"); m.textContent = meta; c.appendChild(m);
     var total = entries.reduce(function (a, e) { return a + e.n; }, 0);
-    if (!total) { c.appendChild(el("p", "empty", "Pas encore de réponse.")); return c; }
+    if (!total) { c.appendChild(el("p", "empty", emptyText || "Pas encore de réponse.")); return c; }
     var max = Math.max.apply(null, entries.map(function (e) { return e.n; }));
     var bars = el("div", "bars");
     entries.forEach(function (e) {
@@ -196,11 +196,11 @@ var DATA = /*DATA*/null;
 
   // Sources de trafic
   var refs = (DATA.refs || []).map(function (r) { return { name: r.name, n: r.n }; });
-  pbox.appendChild(barCard("D'où viennent les visiteurs", "liens ?ref=… du kit de partage, sites et réseaux", refs));
+  pbox.appendChild(barCard("D'où viennent les visiteurs", "liens ?ref=… du kit de partage, sites et réseaux", refs, "Pas encore de visite venue d'un lien partagé (les visites directes n'apparaissent pas ici)."));
 
   // Inscrits par jour
   var bd = (DATA.brevo && DATA.brevo.days) || [];
-  pbox.appendChild(barCard("Inscriptions par jour", (DATA.brevo ? DATA.brevo.subscribers : 0) + " inscrits confirmés", bd.map(function (d) { return { name: fmtDay(d.day), n: d.n }; })));
+  pbox.appendChild(barCard("Inscriptions par jour", (DATA.brevo ? DATA.brevo.subscribers : 0) + " inscrits confirmés", bd.map(function (d) { return { name: fmtDay(d.day), n: d.n }; }), "Pas encore d'inscription."));
 })();
 </script>
 </body>

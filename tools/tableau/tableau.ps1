@@ -26,24 +26,44 @@ $hBrevo = @{ "api-key" = (EnClair $cles.Brevo); accept = "application/json" }
 $fin = (Get-Date).ToString("yyyy-MM-dd")
 $erreurs = New-Object System.Collections.ArrayList
 $data = [ordered]@{ generatedAt = (Get-Date).ToString("yyyy-MM-ddTHH:mm"); start = $DEBUT; end = $fin }
+# GoatCounter attend des dates avec l'heure ; la fin est exclue, donc on va jusqu'a demain 00:00
+$periode = "start=${DEBUT}T00:00:00Z&end=" + (Get-Date).ToUniversalTime().AddDays(1).ToString("yyyy-MM-dd") + "T00:00:00Z"
+
+# GoatCounter limite le nombre d'appels par seconde : petite pause et nouvel essai si besoin
+function Goat($chemin) {
+  for ($essai = 1; $essai -le 4; $essai++) {
+    Start-Sleep -Milliseconds 700
+    try { return Invoke-RestMethod -Uri "$GOAT$chemin" -Headers $hGoat }
+    catch { if ($_.Exception.Response -and [int]$_.Exception.Response.StatusCode -eq 429 -and $essai -lt 4) { Start-Sleep -Seconds 3 } else { throw } }
+  }
+}
 
 # ---------- GoatCounter ----------
 try {
   Write-Host "GoatCounter : visites..."
-  $tot = Invoke-RestMethod -Uri "$GOAT/stats/total?start=$DEBUT&end=$fin" -Headers $hGoat
+  $tot = Goat "/stats/total?$periode"
   $jours = @()
-  foreach ($s in $tot.stats) { $jours += [ordered]@{ day = ([string]$s.day).Substring(0, 10); n = [int]$s.daily } }
-  $data.visits = [ordered]@{ total = [int]$tot.total; days = $jours }
+  foreach ($s in $tot.stats) { $d = ([string]$s.day).Substring(0, 10); if ($d -le $fin) { $jours += [ordered]@{ day = $d; n = [int]$s.daily } } }
+  # « total » compte aussi les evenements (votes, inscriptions) : on les retire pour avoir les visites
+  $data.visits = [ordered]@{ total = [int]$tot.total - [int]$tot.total_events; days = $jours }
 
   Write-Host "GoatCounter : reponses au sondage..."
   $hits = @(); $after = $null
   do {
-    $u = "$GOAT/stats/hits?start=$DEBUT&end=$fin&limit=100"
+    $u = "/stats/hits?$periode&limit=100"
     if ($after) { $u += "&exclude_paths=" + ($after -join ",") }
-    $r = Invoke-RestMethod -Uri $u -Headers $hGoat
+    $r = Goat $u
     $hits += $r.hits
     $after = @($hits | ForEach-Object { $_.path_id })
   } while ($r.more -and $hits.Count -lt 1000)
+
+  # Visites par jour : uniquement les pages vues (les votes et inscriptions sont des evenements)
+  $parJourVisites = @{}
+  foreach ($h in $hits) {
+    if ($h.event) { continue }
+    foreach ($s in $h.stats) { $d = ([string]$s.day).Substring(0, 10); $parJourVisites[$d] = [int]$s.daily + [int]$parJourVisites[$d] }
+  }
+  $data.visits.days = @($data.visits.days | ForEach-Object { [ordered]@{ day = $_.day; n = [int]$parJourVisites[$_.day] } })
 
   $polls = @{}; $inscriptions = 0; $questions = 0
   foreach ($h in $hits) {
@@ -60,7 +80,7 @@ try {
   $data.questions = $questions
 
   Write-Host "GoatCounter : sources..."
-  $refs = Invoke-RestMethod -Uri "$GOAT/stats/toprefs?start=$DEBUT&end=$fin&limit=20" -Headers $hGoat
+  $refs = Goat "/stats/toprefs?$periode&limit=20"
   $data.refs = @($refs.stats | ForEach-Object { [ordered]@{ name = $(if ($_.name) { [string]$_.name } else { "(direct)" }); n = [int]$_.count } })
 } catch {
   [void]$erreurs.Add("GoatCounter : " + $_.Exception.Message)
