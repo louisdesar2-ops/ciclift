@@ -2,35 +2,56 @@
 
 Site vitrine pour mesurer l'intérêt du public pour Ciclift (rangement vélo motorisé au plafond).
 On y montre le **résultat** (vélo rangé en hauteur, sol libéré), **jamais le mécanisme**.
+Rien n'est vendu et on ne parle pas de prix.
+
+**En ligne depuis le 17/10/2026** sur https://ciclift.fr (GitHub Pages, HTTPS obligatoire).
 
 ## Ce que fait le site
-- Présentation du concept, des avantages et du fonctionnement (en 3 étapes, sans détail technique)
+- Présentation du concept, des avantages, des versions verticale et horizontale (dès 2,10 m sous plafond)
+  et du fonctionnement en 3 étapes, sans détail technique
 - Bouton « Ça m'intéresse » + mini-sondage (prix, nombre de vélos, lieu de rangement, type de vélo) — réponses anonymes
-- Inscription par email pour être prévenu du lancement (via Brevo, double confirmation)
+- Inscription par email pour être prévenu du lancement (Brevo, double confirmation, retour sur `confirme.html`)
+- Formulaire « Vous avez une question ? » (Web3Forms, les questions arrivent par email)
 - Statistiques de visite sans cookie (GoatCounter), activées **uniquement après accord**
 - 5 langues (FR, EN, DE, NL, ES) avec sélecteur en haut de page
 - Pages légales : mentions légales, politique de confidentialité (RGPD), politique cookies, CGU
 
-## Avant la mise en ligne publique : à compléter dans `assets/js/config.js`
-| Champ | Quoi mettre |
-|---|---|
-| `ownerName` | Ton prénom et nom (éditeur du site, obligatoire) |
-| `contactEmail` | Une adresse email de contact (idéalement dédiée au projet) |
-| `goatcounterCode` | Le code de ton compte GoatCounter (gratuit) |
-| `brevoFormAction` | L'adresse du formulaire Brevo (gratuit) |
+## Réglages : `assets/js/config.js`
+C'est le seul fichier où se trouvent le nom de l'éditeur, l'email de contact, les codes des services
+(GoatCounter, Brevo, Web3Forms), la date des pages légales et les noms des photos.
+Attention : l'adresse `brevoFormAction` se termine par « == » ; si elle est coupée, Brevo répond « Invalid token ».
 
-Tant qu'un champ est vide, le site affiche « [à compléter] » ou désactive la fonction concernée.
+## Design
+- Thème sombre, vert `#22c58b` et bleu `#38bdf8`
+- Fond animé « roues à rayons » + poussière lumineuse (réagit à la souris, allégé sur téléphone)
+- Police des titres **Sora**, hébergée sur le site (`assets/fonts`, licence OFL citée dans les mentions légales).
+  Aucune police Google Fonts.
+- Sur téléphone : menu à 3 barres et carrousels
+- Les retouches de l'audit design sont regroupées à la fin de `assets/css/style.css`
+  (bloc « Audit design du 17/10/2026 », puis bloc « B6 » pour la police Sora)
 
-## Images générées par IA
-Les prompts et les règles sont dans `assets/img/photos/PROMPTS.md`. Dépose l'image dans `assets/img/photos/`,
-puis écris son nom dans `photos` de `config.js` : elle remplace automatiquement l'illustration dessinée
-et porte la mention « Illustration générée par IA ».
+## Photos générées par IA
+Les prompts et les règles sont dans `assets/img/photos/PROMPTS.md`. Les photos portent la pastille « IA ».
+Format : 1600 px de large, moins de 300 Ko. Dépose l'image dans `assets/img/photos/`,
+puis écris son nom dans `photos` de `config.js`.
 
 ## Voir le site en local
 ```
 powershell -ExecutionPolicy Bypass -File tools\serve.ps1
 ```
 puis ouvrir http://localhost:8080/
+
+## Publier une modification
+```
+powershell -ExecutionPolicy Bypass -File tools\publish.ps1 "message"
+```
+Le script met à jour le numéro de version anti-cache, récupère les changements de GitHub, envoie et vérifie.
+Le site est à jour 1 à 2 minutes après.
+
+## Tableau de bord des résultats
+Le tableau de bord tourne sur le PC (dossier `Documents\Ciclift`, double-clic sur « Ouvrir le tableau de bord »).
+Une copie des scripts, **sans les clés**, est dans `tools/tableau`. Les clés API (GoatCounter en lecture seule,
+Brevo « contacts en lecture ») sont chiffrées dans `cles.xml` sur le PC et ne doivent jamais aller dans le dépôt.
 
 ## Structure
 ```
@@ -40,16 +61,22 @@ confidentialite.html    Politique de confidentialité (RGPD)
 cookies.html            Politique cookies (CNIL)
 cgu.html                Conditions générales d'utilisation
 merci.html              Page après inscription
+confirme.html           Page après la confirmation de l'email (lien reçu de Brevo)
 404.html                Page d'erreur
-assets/css/style.css    Style (polices système, mode sombre automatique)
-assets/js/config.js     ⚙️ Réglages à compléter
+assets/css/style.css    Style
+assets/fonts/           Police Sora + sa licence OFL
+assets/js/config.js     ⚙️ Réglages
 assets/js/i18n.js       Gestion des langues
-assets/js/lang/*.js     Traductions (fr = textes d'interface uniquement)
+assets/js/lang/*.js     Traductions (fr = textes d'interface uniquement ; pages légales dans les clés legal.*)
 assets/js/consent.js    Bandeau cookies + statistiques
-assets/js/main.js       Sondage + formulaire
+assets/js/main.js       Sondage, formulaires, animations
 assets/img/             Logo, icônes, image de partage réseaux sociaux
-tools/make-images.ps1   Regénère les images PNG
+assets/img/photos/      Photos IA + PROMPTS.md
+tools/publish.ps1       Publication (à utiliser à chaque fois)
+tools/version.ps1       Numéro de version anti-cache (appelé par publish.ps1)
 tools/serve.ps1         Serveur d'aperçu local
+tools/make-images.ps1   Regénère les images PNG
+tools/tableau/          Scripts du tableau de bord (sans les clés)
 ```
 
 ## Checklist « 20 points avant de lancer un site »
@@ -57,17 +84,17 @@ tools/serve.ps1         Serveur d'aperçu local
 |---|---|---|
 | 1 | Page RGPD | ✅ `confidentialite.html` |
 | 2 | Page CGU | ✅ `cgu.html` |
-| 3 | Aucune clé secrète dans le code | ✅ aucune clé (GoatCounter et Brevo n'en exposent pas) |
-| 4 | HTTPS forcé | ✅ GitHub Pages, « Enforce HTTPS » coché (redirection automatique http → https) |
+| 3 | Aucune clé secrète dans le code | ✅ seulement des codes publics (GoatCounter, Brevo, Web3Forms) |
+| 4 | HTTPS forcé | ✅ GitHub Pages, « Enforce HTTPS » coché ; certificat renouvelé automatiquement (vérifier le cadenas mi-janvier 2027) |
 | 5 | Bannière cookies | ✅ refus aussi simple que l'acceptation, choix redemandé tous les 6 mois |
 | 6 | Meta title | ✅ par page et par langue |
 | 7 | Image réseaux sociaux | ✅ `og-image.png` 1200×630 |
 | 8 | Favicon | ✅ SVG + PNG + icône Apple |
-| 9 | Sitemap + robots.txt | ✅ |
-| 10 | Textes alternatifs des images | ✅ illustrations décrites, traduites |
-| 11 | Images compressées | ✅ illustrations en SVG (très légères) |
-| 12 | Vitesse | ✅ aucune librairie externe, langues chargées à la demande |
-| 13 | Contraste | ✅ couleurs vérifiées, mode sombre |
+| 9 | Sitemap + robots.txt | ✅ sitemap envoyé à Google Search Console le 17/10/2026 |
+| 10 | Textes alternatifs des images | ✅ décrits et traduits |
+| 11 | Images compressées | ✅ photos à 1600 px, moins de 300 Ko |
+| 12 | Vitesse | ✅ aucune librairie externe, police hébergée, langues chargées à la demande |
+| 13 | Contraste | ✅ couleurs vérifiées |
 | 14 | Responsive | ✅ testé en 375 px (mobile) et 1280 px |
 | 15 | Page 404 personnalisée | ✅ |
 | 16 | Liens cassés | ✅ vérifiés |
