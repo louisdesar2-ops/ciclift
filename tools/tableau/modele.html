@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Résultats Ciclift</title>
+<style>
+/* Tableau de bord : résumé en tuiles, puis visites par jour, puis une carte par question du sondage. */
+:root {
+  --bg: #f3f6f5; --surface: #ffffff; --fg: #11201b; --muted: #5a6b64; --faint: #8a9a93;
+  --line: #dde6e2; --track: #e8efec; --accent: #0f9d6c; --accent-2: #0b78b8; --neutral: #b7c3be;
+  --warn-bg: #fff4e5; --warn-fg: #8a4b00;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: ui-monospace, Consolas, "Liberation Mono", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0a1017; --surface: #111b24; --fg: #e8f1f6; --muted: #9fb2bf; --faint: #6f8291;
+    --line: #223241; --track: #1a2733; --accent: #22c58b; --accent-2: #38bdf8; --neutral: #4b5d6b;
+    --warn-bg: #2b1f0c; --warn-fg: #f5c37a; color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 15px; line-height: 1.5; padding: 28px max(16px, 3vw) 60px; }
+.wrap { max-width: 1100px; margin: 0 auto; display: grid; gap: 22px; }
+header { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+h1 { margin: 0; font-size: 1.7rem; letter-spacing: -.01em; }
+.sub { color: var(--muted); font-size: .9rem; }
+.warn { background: var(--warn-bg); color: var(--warn-fg); border-radius: 12px; padding: 12px 16px; font-size: .92rem; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 4px; }
+.tile .label { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.tile .value { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.tile .note { font-size: .82rem; color: var(--faint); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.card h2 { margin: 0; font-size: 1rem; }
+.card .meta { font-size: .82rem; color: var(--muted); margin-top: -8px; }
+.bars { display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: minmax(90px, 38%) 1fr auto; gap: 10px; align-items: center; font-size: .9rem; }
+.row .name { color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .track { background: var(--track); border-radius: 4px; height: 12px; position: relative; }
+.row .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; }
+.row .num { font-variant-numeric: tabular-nums; min-width: 64px; text-align: right; }
+.row .num small { color: var(--faint); }
+.empty { color: var(--faint); font-size: .9rem; }
+.split { display: flex; height: 18px; border-radius: 4px; overflow: hidden; gap: 2px; background: var(--surface); }
+.split div { height: 100%; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: .88rem; color: var(--muted); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.timeline { display: flex; align-items: flex-end; gap: 2px; height: 140px; border-bottom: 1px solid var(--line); }
+.timeline .col { flex: 1; max-width: 48px; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; position: relative; }
+.timeline .bar { background: var(--accent); border-radius: 4px 4px 0 0; min-height: 2px; }
+.timeline .col:hover .bar { background: var(--accent-2); }
+.axis { display: flex; justify-content: space-between; font-size: .78rem; color: var(--faint); }
+#tip { position: fixed; pointer-events: none; background: var(--fg); color: var(--bg); font-size: .82rem; padding: 6px 9px; border-radius: 6px; opacity: 0; transition: opacity .1s; white-space: nowrap; z-index: 10; }
+footer { color: var(--faint); font-size: .82rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Résultats Ciclift</h1>
+      <div class="sub" id="period"></div>
+    </div>
+    <div class="sub">Pour actualiser : double-clique sur « Ouvrir le tableau de bord ».</div>
+  </header>
+  <div id="errors"></div>
+  <section class="tiles" id="tiles"></section>
+  <section class="card" id="visits-card">
+    <h2>Visiteurs par jour</h2>
+    <p class="meta">Seulement les visiteurs qui ont accepté les statistiques.</p>
+    <div class="timeline" id="timeline"></div>
+    <div class="axis" id="axis"></div>
+  </section>
+  <section class="grid" id="polls"></section>
+  <footer>Données : GoatCounter (visites, sondage, sources) et Brevo (inscrits). Aucune adresse email n'est enregistrée dans cette page.</footer>
+</div>
+<div id="tip" role="tooltip"></div>
+<script>
+var DATA = /*DATA*/null;
+(function () {
+  "use strict";
+  if (!DATA) { document.body.innerHTML = "<p style='padding:24px'>Pas de données : lance « Ouvrir le tableau de bord ».</p>"; return; }
+  var tip = document.getElementById("tip");
+  function showTip(e, text) { tip.textContent = text; tip.style.opacity = 1; tip.style.left = Math.min(e.clientX + 12, innerWidth - tip.offsetWidth - 8) + "px"; tip.style.top = (e.clientY - 34) + "px"; }
+  function hideTip() { tip.style.opacity = 0; }
+  function bindTip(el, text) { el.addEventListener("mousemove", function (e) { showTip(e, text); }); el.addEventListener("mouseleave", hideTip); }
+  function fmtDay(d) { var p = d.split("-"); return p[2] + "/" + p[1]; }
+  function pct(a, b) { return b ? Math.round(a / b * 100) : 0; }
+  function el(tag, cls, html) { var x = document.createElement(tag); if (cls) x.className = cls; if (html != null) x.innerHTML = html; return x; }
+
+  var LABELS = {
+    interet: { title: "Intérêt", order: ["oui", "non"], names: { oui: "Oui, ça m'intéresse", non: "Pas pour moi" } },
+    prix: { title: "Prix accepté pour ranger un vélo", order: ["moins-150", "150-250", "250-400", "plus-400"], names: { "moins-150": "Moins de 150 €", "150-250": "150 à 250 €", "250-400": "250 à 400 €", "plus-400": "Plus de 400 €" } },
+    version: { title: "Version préférée", order: ["verticale", "horizontale", "les-deux", "ne-sait-pas"], names: { verticale: "Verticale", horizontale: "Horizontale", "les-deux": "Les deux", "ne-sait-pas": "Ne sait pas" } },
+    hauteur: { title: "Hauteur sous plafond", order: ["< 2,10 m", "2,10 à 2,49 m", "2,50 à 2,99 m", "3,00 à 3,49 m", "3,50 m et plus", "Ne sait pas"], names: {} },
+    nombre: { title: "Nombre de vélos à ranger", order: ["1", "2", "3", "4-plus"], names: { "4-plus": "4 ou plus" } },
+    lieu: { title: "Lieu de rangement", order: ["garage", "cave", "local", "appartement", "abri"], names: { garage: "Garage", cave: "Cave ou cellier", local: "Local vélo / parking", appartement: "Appartement", abri: "Abri de jardin" } },
+    type: { title: "Vélo principal", order: ["vae", "vtt", "route", "ville"], names: { vae: "Électrique (VAE)", vtt: "VTT", route: "Route", ville: "Ville / loisir" } }
+  };
+
+  // Hauteurs : les réponses (« 2.55m ») sont regroupées par tranches
+  var polls = DATA.polls || {};
+  if (polls.hauteur) {
+    var bins = {};
+    Object.keys(polls.hauteur).forEach(function (v) {
+      var n = polls.hauteur[v], m = /^(\d+(?:\.\d+)?)m$/.exec(v), k;
+      if (!m) k = "Ne sait pas";
+      else { var h = parseFloat(m[1]); k = h < 2.1 ? "< 2,10 m" : h < 2.5 ? "2,10 à 2,49 m" : h < 3 ? "2,50 à 2,99 m" : h < 3.5 ? "3,00 à 3,49 m" : "3,50 m et plus"; }
+      bins[k] = (bins[k] || 0) + n;
+    });
+    polls.hauteur = bins;
+  }
+  function sum(o) { return Object.keys(o || {}).reduce(function (a, k) { return a + o[k]; }, 0); }
+
+  // ---------- Période, erreurs ----------
+  document.getElementById("period").textContent = "Du " + fmtDay(DATA.start) + " au " + fmtDay(DATA.end) + " · mis à jour le " + fmtDay(DATA.generatedAt.slice(0, 10)) + " à " + DATA.generatedAt.slice(11, 16);
+  if (DATA.errors && DATA.errors.length) {
+    var w = el("div", "warn"); w.textContent = "Certaines données n'ont pas pu être lues : " + DATA.errors.join(" · ");
+    document.getElementById("errors").appendChild(w);
+  }
+
+  // ---------- Tuiles de résumé ----------
+  var visitors = DATA.visits ? DATA.visits.total : null;
+  var yes = (polls.interet || {}).oui || 0, no = (polls.interet || {}).non || 0;
+  var subs = DATA.brevo ? DATA.brevo.subscribers : null;
+  var tiles = [
+    { label: "Visiteurs", value: visitors == null ? "–" : visitors, note: "avec statistiques acceptées" },
+    { label: "Intéressés", value: (yes + no) ? pct(yes, yes + no) + " %" : "–", note: yes + " oui sur " + (yes + no) + " réponses" },
+    { label: "Inscrits au lancement", value: subs == null ? "–" : subs, note: "confirmés dans Brevo" },
+    { label: "Conversion", value: (visitors && subs != null) ? (subs / visitors * 100).toFixed(1).replace(".", ",") + " %" : "–", note: "inscrits ÷ visiteurs" },
+    { label: "Questions reçues", value: DATA.questions == null ? "–" : DATA.questions, note: "à lire dans la Gmail" }
+  ];
+  var tbox = document.getElementById("tiles");
+  tiles.forEach(function (t) {
+    var d = el("div", "tile");
+    d.appendChild(el("div", "label", t.label));
+    var v = el("div", "value"); v.textContent = t.value; d.appendChild(v);
+    var n = el("div", "note"); n.textContent = t.note; d.appendChild(n);
+    tbox.appendChild(d);
+  });
+
+  // ---------- Visiteurs par jour ----------
+  var days = (DATA.visits && DATA.visits.days) || [];
+  var tl = document.getElementById("timeline"), ax = document.getElementById("axis");
+  if (!days.length) { document.getElementById("visits-card").appendChild(el("p", "empty", "Pas encore de visites.")); }
+  var maxD = Math.max.apply(null, days.map(function (d) { return d.n; }).concat([1]));
+  days.forEach(function (d) {
+    var col = el("div", "col"), bar = el("div", "bar");
+    bar.style.height = (d.n / maxD * 100) + "%";
+    col.appendChild(bar); tl.appendChild(col);
+    bindTip(col, fmtDay(d.day) + " : " + d.n + " visiteur" + (d.n > 1 ? "s" : ""));
+  });
+  if (days.length) { ax.appendChild(el("span", null, fmtDay(days[0].day))); ax.appendChild(el("span", null, "max " + maxD + " / jour")); ax.appendChild(el("span", null, fmtDay(days[days.length - 1].day))); }
+
+  // ---------- Cartes du sondage ----------
+  var pbox = document.getElementById("polls");
+  function barCard(title, meta, entries) {
+    var c = el("section", "card"); c.appendChild(el("h2", null, title));
+    var m = el("p", "meta"); m.textContent = meta; c.appendChild(m);
+    var total = entries.reduce(function (a, e) { return a + e.n; }, 0);
+    if (!total) { c.appendChild(el("p", "empty", "Pas encore de réponse.")); return c; }
+    var max = Math.max.apply(null, entries.map(function (e) { return e.n; }));
+    var bars = el("div", "bars");
+    entries.forEach(function (e) {
+      var r = el("div", "row");
+      var nm = el("span", "name"); nm.textContent = e.name; r.appendChild(nm);
+      var tr = el("div", "track"), f = el("div", "fill"); f.style.width = (e.n / max * 100) + "%"; tr.appendChild(f); r.appendChild(tr);
+      var num = el("span", "num"); num.innerHTML = e.n + " <small>" + pct(e.n, total) + " %</small>"; r.appendChild(num);
+      bindTip(r, e.name + " : " + e.n + " (" + pct(e.n, total) + " %)");
+      bars.appendChild(r);
+    });
+    c.appendChild(bars);
+    return c;
+  }
+
+  // Intérêt : une barre partagée oui / non, avec légende (jamais la couleur seule)
+  (function () {
+    var c = el("section", "card"); c.appendChild(el("h2", null, "Intérêt pour Ciclift"));
+    var m = el("p", "meta"); m.textContent = (yes + no) + " réponses"; c.appendChild(m);
+    if (!(yes + no)) { c.appendChild(el("p", "empty", "Pas encore de réponse.")); pbox.appendChild(c); return; }
+    var s = el("div", "split");
+    var a = el("div"); a.style.width = pct(yes, yes + no) + "%"; a.style.background = "var(--accent)"; bindTip(a, "Oui : " + yes);
+    var b = el("div"); b.style.flex = "1"; b.style.background = "var(--neutral)"; bindTip(b, "Pas pour moi : " + no);
+    s.appendChild(a); s.appendChild(b); c.appendChild(s);
+    c.appendChild(el("div", "legend", "<span><i style='background:var(--accent)'></i>Oui, ça m'intéresse · " + yes + " (" + pct(yes, yes + no) + " %)</span><span><i style='background:var(--neutral)'></i>Pas pour moi · " + no + "</span>"));
+    pbox.appendChild(c);
+  })();
+
+  ["prix", "version", "hauteur", "nombre", "lieu", "type"].forEach(function (q) {
+    var L = LABELS[q], data = polls[q] || {};
+    var keys = L.order.slice(); Object.keys(data).forEach(function (k) { if (keys.indexOf(k) < 0) keys.push(k); });
+    var entries = keys.map(function (k) { return { name: L.names[k] || k, n: data[k] || 0 }; });
+    pbox.appendChild(barCard(L.title, sum(data) + " réponses", entries));
+  });
+
+  // Sources de trafic
+  var refs = (DATA.refs || []).map(function (r) { return { name: r.name, n: r.n }; });
+  pbox.appendChild(barCard("D'où viennent les visiteurs", "liens ?ref=… du kit de partage, sites et réseaux", refs));
+
+  // Inscrits par jour
+  var bd = (DATA.brevo && DATA.brevo.days) || [];
+  pbox.appendChild(barCard("Inscriptions par jour", (DATA.brevo ? DATA.brevo.subscribers : 0) + " inscrits confirmés", bd.map(function (d) { return { name: fmtDay(d.day), n: d.n }; })));
+})();
+</script>
+</body>
+</html>

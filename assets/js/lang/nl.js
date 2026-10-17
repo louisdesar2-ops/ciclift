@@ -141,7 +141,7 @@ window.CICLIFT_I18N.nl = {
     "benefits.eyebrow": "Voordelen",
     "benefits.title": "Ontworpen voor het echte leven",
     "b1.title": "Eén knop, opgeborgen",
-    "b1.text": "Eén druk op de afstandsbediening: de fiets gaat vanzelf omhoog. Nog een druk: hij komt weer naar beneden, binnen handbereik.",
+    "b1.text": "Eén druk op de afstandsbediening: de fiets gaat vanzelf omhoog. Nog een druk: hij komt weer naar beneden, binnen handbereik. Een smartphone-app wordt ook onderzocht.",
     "b2.title": "Ook zware fietsen",
     "b2.text": "E-bike, mountainbike, stadsfiets: nooit meer 25 kg boven je hoofd tillen.",
     "b3.title": "Meerdere fietsen, één afstandsbediening",

@@ -141,7 +141,7 @@ window.CICLIFT_I18N.es = {
     "benefits.eyebrow": "Ventajas",
     "benefits.title": "Pensado para la vida real",
     "b1.title": "Un botón y listo",
-    "b1.text": "Una pulsación en el mando: la bici sube sola. Otra pulsación: vuelve a bajar a la altura de la mano.",
+    "b1.text": "Una pulsación en el mando: la bici sube sola. Otra pulsación: vuelve a bajar a la altura de la mano. También estudiamos una aplicación para el móvil.",
     "b2.title": "Incluso bicis pesadas",
     "b2.text": "Bici eléctrica, de montaña o de ciudad: se acabó levantar 25 kg por encima de la cabeza.",
     "b3.title": "Varias bicis, un solo mando",

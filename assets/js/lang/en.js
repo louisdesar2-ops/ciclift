@@ -141,7 +141,7 @@ window.CICLIFT_I18N.en = {
     "benefits.eyebrow": "Benefits",
     "benefits.title": "Designed for real life",
     "b1.title": "One button, it's stored",
-    "b1.text": "One press on the remote: the bike goes up by itself. Another press: it comes back down within easy reach.",
+    "b1.text": "One press on the remote: the bike goes up by itself. Another press: it comes back down within easy reach. A smartphone app is also being considered.",
     "b2.title": "Even heavy bikes",
     "b2.text": "E-bike, mountain bike, city bike: no more lifting 25 kg above your head.",
     "b3.title": "Several bikes, one remote",

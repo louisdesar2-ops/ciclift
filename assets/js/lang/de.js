@@ -141,7 +141,7 @@ window.CICLIFT_I18N.de = {
     "benefits.eyebrow": "Vorteile",
     "benefits.title": "Für den Alltag gemacht",
     "b1.title": "Ein Knopf, schon verstaut",
-    "b1.text": "Ein Druck auf die Fernbedienung: Das Fahrrad fährt von selbst nach oben. Noch ein Druck: Es kommt wieder auf Griffhöhe herunter.",
+    "b1.text": "Ein Druck auf die Fernbedienung: Das Fahrrad fährt von selbst nach oben. Noch ein Druck: Es kommt wieder auf Griffhöhe herunter. Eine Smartphone-App ist ebenfalls in Planung.",
     "b2.title": "Auch schwere Fahrräder",
     "b2.text": "E-Bike, Mountainbike, Stadtrad: Nie mehr 25 kg über den Kopf heben.",
     "b3.title": "Mehrere Räder, eine Fernbedienung",
