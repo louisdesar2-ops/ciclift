@@ -604,3 +604,7 @@ h3 { letter-spacing: -.02em; }
 
 /* Fluidité ordinateur : la poussière du fond ne suit plus le défilement (zone très grande à repeindre à chaque mouvement) */
 .bg-fx::before, .bg-fx::after { transform: none; }
+
+/* Accroche : la phrase verte passe à la ligne sous la phrase blanche */
+.hero h1 .hl { display: block; }
+@media (min-width: 900px) { .hero h1 { font-size: clamp(2.3rem, 3.85vw, 3.1rem); } }
