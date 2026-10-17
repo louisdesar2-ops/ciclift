@@ -15,7 +15,7 @@ window.CICLIFT_CONFIG = {
   goatcounterCode: "ciclift",
 
   // Formulaire d'inscription Brevo : adresse « action » du formulaire fourni par Brevo
-  brevoFormAction: "https://9c59becb.sibforms.com/serve/MUIFAEu3Sxm55NQOIXCwMOSAfTZt0gaUxFyjINW94tf_Bt7JdQ0g7guI5hp3BEkQFA9rFsNGJUqfC2Ncm_2FgvtGDFj7yPYHdtbjFEZrtCfD-54hUbcbA-v4qB4oSJDrHrFjIm1q3hzcapOaIy2NLZiQmdANFS5_OIf48kPKBEzu0xgS-FAschMgYRzWuCUqIB4ml9Y4rGFdtyTXoA",
+  brevoFormAction: "https://9c59becb.sibforms.com/serve/MUIFAEu3Sxm55NQOIXCwMOSAfTZt0gaUxFyjINW94tf_Bt7JdQ0g7guI5hp3BEkQFA9rFsNGJUqfC2Ncm_2FgvtGDFj7yPYHdtbjFEZrtCfD-54hUbcbA-v4qB4oSJDrHrFjIm1q3hzcapOaIy2NLZiQmdANFS5_OIf48kPKBEzu0xgS-FAschMgYRzWuCUqIB4ml9Y4rGFdtyTXoA==",
 
   // Formulaire « Vous avez une question ? » : clé publique Web3Forms (reçue par email sur web3forms.com)
   // Vide = repli : l'application email du visiteur s'ouvre avec la question prête.

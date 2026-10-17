@@ -167,11 +167,15 @@
       data.append("EMAIL", value);
       data.append("email_address_check", "");
       data.append("locale", I.lang());
+      data.append("html_type", "simple");
       submit.disabled = true;
       setMsg("form.sending", "");
 
-      fetch(cfg.brevoFormAction, { method: "POST", body: data, mode: "no-cors" })
-        .then(function () {
+      // Brevo répond {"success":true} si l'inscription est acceptée : on vérifie la réponse au lieu de supposer
+      fetch(cfg.brevoFormAction, { method: "POST", body: data })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res || !res.success) throw new Error("brevo");
           C.track("inscription");
           var root = document.documentElement.getAttribute("data-root");
           location.href = root + "merci.html" + (I.lang() === "fr" ? "" : "?lang=" + I.lang());
@@ -182,7 +186,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610171043"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610171106"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
