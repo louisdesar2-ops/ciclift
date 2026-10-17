@@ -564,3 +564,16 @@ html { -webkit-tap-highlight-color: transparent; }
 @font-face { font-family: "Sora"; src: url("../fonts/sora-latin-wght-normal.woff2") format("woff2"); font-weight: 100 800; font-style: normal; font-display: swap; }
 h1, h2, h3, .logo, .simple .big { font-family: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; letter-spacing: -.035em; }
 h3 { letter-spacing: -.02em; }
+
+/* Qui porte le projet ? — vraies photos (pas de pastille IA) */
+.founder { display: grid; gap: 32px; align-items: center; }
+@media (min-width: 900px) { .founder { grid-template-columns: 1fr 1.05fr; gap: 56px; } }
+.founder-photo { margin: 0; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0, 0, 0, .5); }
+.founder-photo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.founder-text > p:not(.eyebrow) { color: var(--muted); max-width: 60ch; margin: 0 0 14px; }
+.founder-text > p strong { color: var(--ink); }
+.founder-id { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; }
+.founder-id p { margin: 0; display: grid; line-height: 1.35; }
+.founder-id strong { font-family: "Sora", system-ui, sans-serif; font-size: 1.05rem; color: var(--ink); }
+.founder-id span { color: var(--muted); font-size: .92rem; }
+.founder-avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--green); }
