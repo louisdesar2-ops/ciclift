@@ -427,7 +427,7 @@ main { overflow-x: clip; }
 .version-visual .photo figcaption { right: 4px; bottom: 4px; }
 .bt-visual .photo figcaption { right: 6px; bottom: 6px; }
 /* Roues à rayons (dessinées par main.js) */
-.bg-fx .stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .9; }
+.bg-fx .stars { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 /* =========================================================
    Menu à 3 barres (téléphone et tablette)

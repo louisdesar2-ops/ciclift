@@ -182,7 +182,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610171027"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610171039"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -258,7 +258,7 @@
 
   var touch = window.matchMedia && window.matchMedia("(hover: none)").matches;
 
-  // ---------- Roues à rayons (grandes roues de vélo très fines qui tournent lentement) ----------
+  // ---------- Roues à rayons (grandes roues de vélo fines qui tournent) + poussière lumineuse ----------
   (function rayons() {
     var canvas = document.createElement("canvas");
     canvas.className = "stars";
@@ -266,10 +266,11 @@
     var ctx = canvas.getContext("2d");
     if (!ctx) return;
     var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Téléphone : moins de roues et résolution limitée pour rester fluide
+    // Téléphone : moins de roues, moins de poussière et résolution limitée pour rester fluide
     var dpr = Math.min(window.devicePixelRatio || 1, touch ? 1 : 2);
-    var W = 0, H = 0, wheels = [], mouse = null, mx = 0, my = 0, last = 0;
+    var W = 0, H = 0, wheels = [], dust = [], mouse = null, mx = 0, my = 0, last = 0;
     var GREEN = "34, 197, 139", BLUE = "56, 189, 248", WHITE = "230, 245, 255";
+    var COLORS = ["110, 231, 183", "125, 211, 252", WHITE];
 
     function resize() {
       var newW = window.innerWidth, newH = window.innerHeight;
@@ -290,12 +291,21 @@
         var depth = Math.random() * .7 + .3;
         wheels.push({
           x: Math.random() * W, y: Math.random() * H, r: base * (.12 + depth * .28), depth: depth,
-          a: Math.random() * 6, v: (Math.random() < .5 ? -1 : 1) * (.0006 + Math.random() * .0008), boost: 0,
+          a: Math.random() * 6, v: (Math.random() < .5 ? -1 : 1) * (.0012 + Math.random() * .0012), boost: 0, hover: 0,
           spokes: Math.random() < .5 ? 28 : 36, c: i % 3 === 0 ? BLUE : GREEN
         });
       }
       // Les roues lointaines d'abord, les proches par-dessus
       wheels.sort(function (a, b) { return a.depth - b.depth; });
+      // Poussière lumineuse : beaucoup de petits points qui montent doucement et scintillent
+      var m = touch ? Math.round(Math.min(160, Math.max(120, W * H / 2200))) : Math.round(Math.min(520, Math.max(180, W * H / 2600)));
+      dust = [];
+      for (var q = 0; q < m; q++) {
+        dust.push({
+          x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .08, vy: -(Math.random() * .12 + .03),
+          r: Math.random() * 1.3 + .3, c: COLORS[q % 3], a: Math.random() * .5 + .3, tw: Math.random() * 6, ox: 0, oy: 0
+        });
+      }
       if (reduced) frame(0);
     }
 
@@ -309,27 +319,45 @@
         if (touch && (scrolling || time - last < 32)) { requestAnimationFrame(frame); return; }
       }
       var dt = reduced ? 0 : Math.min(3, (time - last || 16) / 16); last = time;
-      // Ordinateur : les roues suivent légèrement la souris (effet de profondeur)
+      // Ordinateur : les roues suivent la souris (effet de profondeur)
       var tx = mouse && !touch ? mouse.x / W - .5 : 0, ty = mouse && !touch ? mouse.y / H - .5 : 0;
-      mx += (tx - mx) * .04; my += (ty - my) * .04;
+      mx += (tx - mx) * .05; my += (ty - my) * .05;
       ctx.clearRect(0, 0, W, H);
+
+      // Poussière (dessinée en premier, derrière les roues), qui s'écarte de la souris
+      for (var u = 0; u < dust.length; u++) {
+        var g = dust[u];
+        g.x += g.vx * dt; g.y += g.vy * dt; g.tw += .03 * (dt || 1);
+        if (g.y < -10) { g.y = H + 10; g.x = Math.random() * W; }
+        if (g.x < -10) g.x = W + 10; else if (g.x > W + 10) g.x = -10;
+        if (mouse) {
+          var ex = g.x + g.ox - mouse.x, ey = g.y + g.oy - mouse.y, ed = Math.sqrt(ex * ex + ey * ey);
+          if (ed < 130 && ed > 0) { g.ox += ex / ed * (130 - ed) * .05; g.oy += ey / ed * (130 - ed) * .05; }
+        }
+        g.ox *= .94; g.oy *= .94;
+        ctx.fillStyle = "rgba(" + g.c + "," + (g.a * (.6 + Math.sin(g.tw) * .4)).toFixed(3) + ")";
+        ctx.fillRect(g.x + g.ox, g.y + g.oy, g.r * 1.6, g.r * 1.6);
+      }
+
       for (var i = 0; i < wheels.length; i++) {
         var w = wheels[i];
-        var cx = w.x - mx * 60 * w.depth, cy = w.y - my * 60 * w.depth;
-        // La roue sous la souris (ou touchée du doigt) accélère, puis ralentit doucement
-        if (mouse && Math.sqrt((mouse.x - cx) * (mouse.x - cx) + (mouse.y - cy) * (mouse.y - cy)) < w.r) w.boost = Math.min(.02, w.boost + .0006);
+        var cx = w.x - mx * 110 * w.depth, cy = w.y - my * 110 * w.depth;
+        // La roue survolée (ou touchée du doigt) s'allume et accélère, puis ralentit doucement
+        var over = mouse && Math.sqrt((mouse.x - cx) * (mouse.x - cx) + (mouse.y - cy) * (mouse.y - cy)) < w.r * 1.05;
+        w.hover += ((over ? 1 : 0) - w.hover) * .08;
+        if (over) w.boost = Math.min(.035, w.boost + .0015);
         w.boost *= .985;
         w.a += (w.v + (w.v < 0 ? -w.boost : w.boost)) * dt;
-        var al = .08 + w.depth * .2 + w.boost * 10;
+        var al = Math.min(.9, .13 + w.depth * .27 + w.hover * .3);
         // Jante (double cercle)
         ctx.strokeStyle = "rgba(" + w.c + "," + al.toFixed(3) + ")";
-        ctx.lineWidth = 1 + w.depth * 1.5;
+        ctx.lineWidth = 1.2 + w.depth * 1.6 + w.hover;
         ctx.beginPath(); ctx.arc(cx, cy, w.r, 0, Math.PI * 2); ctx.stroke();
-        ctx.lineWidth = .6 + w.depth * .6;
+        ctx.lineWidth = .7 + w.depth * .6;
         ctx.beginPath(); ctx.arc(cx, cy, w.r * .93, 0, Math.PI * 2); ctx.stroke();
         // Rayons croisés : ils partent du moyeu légèrement décalés, comme sur une vraie roue
-        ctx.strokeStyle = "rgba(" + WHITE + "," + (al * .55).toFixed(3) + ")";
-        ctx.lineWidth = .5 + w.depth * .4;
+        ctx.strokeStyle = "rgba(" + WHITE + "," + (al * .65).toFixed(3) + ")";
+        ctx.lineWidth = .55 + w.depth * .45;
         ctx.beginPath();
         for (var k = 0; k < w.spokes; k++) {
           var off = k % 2 ? .18 : -.18, ang = w.a + k / w.spokes * Math.PI * 2;
@@ -338,7 +366,7 @@
         }
         ctx.stroke();
         // Moyeu
-        ctx.fillStyle = "rgba(" + WHITE + "," + (al * .9).toFixed(3) + ")";
+        ctx.fillStyle = "rgba(" + WHITE + "," + Math.min(1, al * 1.1).toFixed(3) + ")";
         ctx.beginPath(); ctx.arc(cx, cy, Math.max(2, w.r * .05), 0, Math.PI * 2); ctx.fill();
       }
       if (!reduced) requestAnimationFrame(frame);
@@ -349,10 +377,10 @@
     if (!reduced) {
       if (!touch) {
         window.addEventListener("pointermove", function (e) { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
-        document.addEventListener("pointerleave", function () { mouse = null; });
+        document.documentElement.addEventListener("mouseleave", function () { mouse = null; });
       } else {
-        // Téléphone : un appui sur une roue la fait accélérer (sans gêner le défilement)
-        window.addEventListener("pointerdown", function (e) { mouse = { x: e.clientX, y: e.clientY }; setTimeout(function () { mouse = null; }, 600); }, { passive: true });
+        // Téléphone : un appui sur une roue l'allume et la fait accélérer (sans gêner le défilement)
+        window.addEventListener("pointerdown", function (e) { mouse = { x: e.clientX, y: e.clientY }; setTimeout(function () { mouse = null; }, 700); }, { passive: true });
       }
       requestAnimationFrame(frame);
     }
