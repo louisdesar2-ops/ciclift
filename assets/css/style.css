@@ -596,3 +596,11 @@ h3 { letter-spacing: -.02em; }
 @media (min-width: 900px) { .founder-text { background: rgba(7, 11, 16, .82); border: 1px solid var(--line); border-radius: 22px; padding: 30px 34px; } }
 .photo figcaption { backdrop-filter: none; background: rgba(7, 11, 16, .78); }
 .bg-fx::before { animation: none; }
+
+/* Avantages : fond sombre discret et texte plus clair, pour bien lire par-dessus les roues */
+.cards-4 > .card p { color: #c6d3dc; }
+@media (min-width: 720px) { .cards.cards-4 { background: rgba(7, 11, 16, .82); border: 1px solid var(--line); border-radius: 22px; padding: 30px 32px; } }
+@media (max-width: 719px) { .cards.cards-4 { background: rgba(7, 11, 16, .72); border-radius: 18px; padding: 20px 18px; } }
+
+/* Fluidité ordinateur : la poussière du fond ne suit plus le défilement (zone très grande à repeindre à chaque mouvement) */
+.bg-fx::before, .bg-fx::after { transform: none; }

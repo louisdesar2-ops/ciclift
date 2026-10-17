@@ -186,7 +186,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610171557"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610171602"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -240,7 +240,18 @@
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
     revealEls.forEach(function (el) { io.observe(el); });
-    window.addEventListener("scroll", checkInView, { passive: true });
+    // Secours au défilement : au plus une fois par image, et arrêt dès que tout est affiché
+    var checkQueued = false;
+    var onScrollCheck = function () {
+      if (checkQueued) return;
+      checkQueued = true;
+      requestAnimationFrame(function () {
+        checkQueued = false;
+        checkInView();
+        if (revealEls.every(function (el) { return el.classList.contains("is-visible"); })) window.removeEventListener("scroll", onScrollCheck);
+      });
+    };
+    window.addEventListener("scroll", onScrollCheck, { passive: true });
     // Sécurité : si l'observateur ne répond jamais (navigateur ancien, capture d'écran…), on affiche tout
     setTimeout(function () { if (!ioFired) showAll(); }, 2500);
   } else {
@@ -272,7 +283,7 @@
     if (!ctx) return;
     var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Téléphone : moins de roues, moins de poussière et résolution limitée pour rester fluide
-    var dpr = Math.min(window.devicePixelRatio || 1, touch ? 1 : 2);
+    var dpr = Math.min(window.devicePixelRatio || 1, touch ? 1 : 1.5);
     var W = 0, H = 0, wheels = [], dust = [], mouse = null, mx = 0, my = 0, last = 0;
     var GREEN = "34, 197, 139", BLUE = "56, 189, 248", WHITE = "230, 245, 255";
     var COLORS = ["110, 231, 183", "125, 211, 252", WHITE];
