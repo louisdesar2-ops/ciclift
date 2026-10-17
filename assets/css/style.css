@@ -577,3 +577,21 @@ h3 { letter-spacing: -.02em; }
 .founder-id strong { font-family: "Sora", system-ui, sans-serif; font-size: 1.05rem; color: var(--ink); }
 .founder-id span { color: var(--muted); font-size: .92rem; }
 .founder-avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--green); }
+
+/* Fluidité sur ordinateur : mêmes effets allégés que sur téléphone (plus de grands flous recalculés pendant le défilement) */
+.bg-fx .orb { filter: none; opacity: .5; animation: none; }
+.bg-fx .w1 .orb { background: radial-gradient(circle, rgba(15, 157, 108, .55), transparent 65%); }
+.bg-fx .w2 .orb { background: radial-gradient(circle, rgba(11, 120, 184, .55), transparent 65%); }
+.bg-fx .w3 .orb { background: radial-gradient(circle, rgba(20, 184, 166, .4), transparent 65%); }
+.bg-fx .orb-wrap { transition: none; }
+.bg-fx::after { filter: none; }
+.hero::before, .hero::after { filter: none; animation: none; opacity: .35; }
+.hero::before { background: radial-gradient(circle, #0f8f63, transparent 65%); }
+.hero::after { background: radial-gradient(circle, #0b6fa8, transparent 65%); }
+.site-header { backdrop-filter: none; background: rgba(7, 11, 16, .94); }
+.bg-fx, .bg-fx .stars { will-change: transform; transform: translateZ(0); }
+
+/* Histoire du porteur : texte plus clair et fond sombre derrière, pour bien lire par-dessus les roues */
+.founder-text > p:not(.eyebrow) { color: #c6d3dc; }
+@media (min-width: 900px) { .founder-text { background: rgba(7, 11, 16, .82); border: 1px solid var(--line); border-radius: 22px; padding: 30px 34px; } }
+.photo figcaption { backdrop-filter: none; background: rgba(7, 11, 16, .78); }

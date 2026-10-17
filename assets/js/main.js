@@ -186,7 +186,7 @@
 
   // ---------- Images (photos / images IA) déclarées dans config.js ----------
   var photos = (window.CICLIFT_CONFIG || {}).photos || {};
-  var PHOTO_VER = "202610171542"; // mis à jour par tools/version.ps1 (anti-cache)
+  var PHOTO_VER = "202610171553"; // mis à jour par tools/version.ps1 (anti-cache)
   function renderPhotos() {
     document.querySelectorAll("[data-photo]").forEach(function (box) {
       var file = photos[box.getAttribute("data-photo")];
@@ -303,7 +303,7 @@
       // Les roues lointaines d'abord, les proches par-dessus
       wheels.sort(function (a, b) { return a.depth - b.depth; });
       // Poussière lumineuse : beaucoup de petits points qui montent doucement et scintillent
-      var m = touch ? Math.round(Math.min(160, Math.max(120, W * H / 2200))) : Math.round(Math.min(520, Math.max(180, W * H / 2600)));
+      var m = touch ? Math.round(Math.min(160, Math.max(120, W * H / 2200))) : Math.round(Math.min(320, Math.max(160, W * H / 3600)));
       dust = [];
       for (var q = 0; q < m; q++) {
         dust.push({
@@ -316,12 +316,13 @@
 
     // Téléphone : on met l'animation en pause pendant le défilement (le défilement reste parfaitement fluide)
     var scrolling = false, scrollTimer = null;
-    if (touch) window.addEventListener("scroll", function () { scrolling = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(function () { scrolling = false; }, 180); }, { passive: true });
+    // Pause pendant le défilement (téléphone ET ordinateur) : le défilement reste parfaitement fluide
+    window.addEventListener("scroll", function () { scrolling = true; clearTimeout(scrollTimer); scrollTimer = setTimeout(function () { scrolling = false; }, 180); }, { passive: true });
 
     function frame(time) {
       if (!reduced) {
         // Téléphone : 30 images/s suffisent, et rien n'est redessiné pendant le défilement
-        if (touch && (scrolling || time - last < 32)) { requestAnimationFrame(frame); return; }
+        if (scrolling || (touch && time - last < 32)) { requestAnimationFrame(frame); return; }
       }
       var dt = reduced ? 0 : Math.min(3, (time - last || 16) / 16); last = time;
       // Ordinateur : les roues suivent la souris (effet de profondeur)
