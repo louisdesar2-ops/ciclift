@@ -115,7 +115,7 @@ window.CICLIFT_I18N.de = {
     "version.o2": "Horizontal (niedrige Decke)",
     "version.o3": "Beide passen mir",
     "version.o4": "Weiß nicht",
-    "height.q": "Wie hoch ist die Decke dort, wo du deine Fahrräder abstellst?",
+    "height.q": "Welche Deckenhöhe steht dir zur Verfügung?",
     "height.o1": "Unter 2,40 m",
     "height.o2": "2,40 bis 2,70 m",
     "height.o3": "Über 2,70 m",

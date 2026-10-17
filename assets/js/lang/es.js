@@ -115,7 +115,7 @@ window.CICLIFT_I18N.es = {
     "version.o2": "Horizontal (techo bajo)",
     "version.o3": "Me valen las dos",
     "version.o4": "No lo sé",
-    "height.q": "¿Qué altura tiene el techo donde guardas tus bicis?",
+    "height.q": "¿De qué altura de techo dispones?",
     "height.o1": "Menos de 2,40 m",
     "height.o2": "De 2,40 a 2,70 m",
     "height.o3": "Más de 2,70 m",

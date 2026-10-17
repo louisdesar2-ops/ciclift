@@ -115,7 +115,7 @@ window.CICLIFT_I18N.en = {
     "version.o2": "Horizontal (low ceiling)",
     "version.o3": "Either suits me",
     "version.o4": "I don't know",
-    "height.q": "What is the ceiling height where you store your bikes?",
+    "height.q": "How much ceiling height do you have?",
     "height.o1": "Less than 2.40 m",
     "height.o2": "2.40 to 2.70 m",
     "height.o3": "More than 2.70 m",

@@ -115,7 +115,7 @@ window.CICLIFT_I18N.nl = {
     "version.o2": "Horizontaal (laag plafond)",
     "version.o3": "Beide zijn goed",
     "version.o4": "Weet ik niet",
-    "height.q": "Hoe hoog is het plafond waar je je fietsen bewaart?",
+    "height.q": "Over welke plafondhoogte beschik je?",
     "height.o1": "Minder dan 2,40 m",
     "height.o2": "2,40 tot 2,70 m",
     "height.o3": "Meer dan 2,70 m",
