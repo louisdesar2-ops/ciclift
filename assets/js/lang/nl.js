@@ -77,7 +77,7 @@ window.CICLIFT_I18N.nl = {
     "founder.eyebrow": "De persoon achter het project",
     "founder.title": "Wie zit er achter het project?",
     "founder.role": "Bedenker van Ciclift · Lyon",
-    "founder.p1": "Ik heet Louis, ik woon in Lyon en Ciclift is ontstaan in mijn eigen garage. Ik ben een fervent mountainbiker en heb onder meer de Megavalanche in Alpe d'Huez gereden.",
+    "founder.p1": "Ik heet Louis, ik woon in Lyon en Ciclift is ontstaan in mijn eigen garage. Ik ben een fervent mountainbiker en heb de Megavalanche in Alpe d'Huez meerdere keren gereden.",
     "founder.p2": "De fietsen die we bijna nooit gebruiken, heb ik naar de zolder gesjouwd. Dat is omslachtig, maar we hebben ze zelden nodig. Voor de fietsen die we elk weekend pakken, zocht ik iets anders: opslag die in het dagelijks leven niet in de weg staat, maar de fiets moeiteloos teruggeeft zodra je wilt rijden.",
     "founder.p3": "Een deel van mijn garage had bijna 4 meter vrije hoogte. Ik dacht: wat als de fiets daar vanzelf naartoe gaat, en met één druk op de knop weer naar beneden komt?",
     "founder.p4": "Voordat ik verder ga, wil ik weten of dit idee jou ook kan helpen. <strong>Ik lees elk antwoord en elke vraag.</strong>",

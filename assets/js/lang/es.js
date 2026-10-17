@@ -77,7 +77,7 @@ window.CICLIFT_I18N.es = {
     "founder.eyebrow": "La persona detrás del proyecto",
     "founder.title": "¿Quién está detrás del proyecto?",
     "founder.role": "Creador de Ciclift · Lyon",
-    "founder.p1": "Me llamo Louis, vivo en Lyon y Ciclift nació en mi propio garaje. Soy un apasionado del BTT y he corrido, entre otras, la Megavalanche en Alpe d'Huez.",
+    "founder.p1": "Me llamo Louis, vivo en Lyon y Ciclift nació en mi propio garaje. Soy un apasionado del BTT y he corrido varias veces la Megavalanche en Alpe d'Huez.",
     "founder.p2": "Las bicis que casi nunca usamos las subí al desván. Es incómodo, pero rara vez las necesitamos. Para las que cogemos todos los fines de semana necesitaba otra cosa: un almacenamiento que no moleste en el día a día, pero que te devuelva la bici sin esfuerzo en cuanto quieras salir a rodar.",
     "founder.p3": "Una parte de mi garaje tenía casi 4 metros de altura libre. Pensé: ¿y si la bici subiera sola hasta ahí arriba y bajara con solo pulsar un botón?",
     "founder.p4": "Antes de seguir adelante, quiero saber si esta idea también puede ayudarte. <strong>Leo todas tus respuestas y todas tus preguntas.</strong>",

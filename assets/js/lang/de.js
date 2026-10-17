@@ -77,7 +77,7 @@ window.CICLIFT_I18N.de = {
     "founder.eyebrow": "Der Mensch hinter dem Projekt",
     "founder.title": "Wer steckt hinter dem Projekt?",
     "founder.role": "Gründer von Ciclift · Lyon",
-    "founder.p1": "Ich heiße Louis, wohne in Lyon, und Ciclift ist in meiner eigenen Garage entstanden. Ich bin begeisterter Mountainbiker und bin unter anderem die Megavalanche in Alpe d'Huez gefahren.",
+    "founder.p1": "Ich heiße Louis, wohne in Lyon, und Ciclift ist in meiner eigenen Garage entstanden. Ich bin begeisterter Mountainbiker und bin die Megavalanche in Alpe d'Huez schon mehrmals gefahren.",
     "founder.p2": "Die Fahrräder, die wir fast nie benutzen, habe ich auf den Dachboden getragen. Das ist umständlich, aber wir brauchen sie selten. Für die Räder, die wir jedes Wochenende fahren, brauchte ich etwas anderes: einen Platz, der im Alltag nicht stört, das Rad aber mühelos freigibt, sobald man losfahren will.",
     "founder.p3": "Ein Teil meiner Garage hatte fast 4 Meter freie Höhe. Ich dachte mir: Was, wenn das Rad von selbst dort hinauffährt und auf Knopfdruck wieder herunterkommt?",
     "founder.p4": "Bevor ich weitermache, möchte ich wissen, ob diese Idee auch dir helfen kann. <strong>Ich lese jede Antwort und jede Frage.</strong>",
