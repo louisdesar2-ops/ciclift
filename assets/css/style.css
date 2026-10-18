@@ -608,3 +608,11 @@ h3 { letter-spacing: -.02em; }
 /* Accroche : la phrase verte passe à la ligne sous la phrase blanche */
 .hero h1 .hl { display: block; }
 @media (min-width: 900px) { .hero h1 { font-size: clamp(2.3rem, 3.85vw, 3.1rem); } }
+
+/* Petit message d'information sur la mesure d'audience (première visite) : discret, sans flou pour rester fluide */
+.notice { position: fixed; z-index: 90; left: 12px; right: 12px; bottom: 12px; max-width: 470px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 10px 12px 10px 16px; background: rgba(15, 23, 32, .97); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 10px 30px rgba(0, 0, 0, .45); font-size: .86rem; color: var(--muted); }
+.notice p { margin: 0; flex: 1 1 230px; }
+.notice .row { display: flex; gap: 8px; margin-left: auto; }
+.notice .btn { min-height: 36px; padding: 6px 14px; font-size: .85rem; }
+@media (min-width: 720px) { .notice { left: 24px; right: auto; bottom: 24px; margin: 0; } }
+@media print { .notice { display: none; } }

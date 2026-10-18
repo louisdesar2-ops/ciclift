@@ -83,6 +83,7 @@
     var before = hasAnalytics();
     saveChoice(analytics);
     close();
+    removeNotice();
     if (analytics) loadGoat();
     listeners.forEach(function (fn) { fn(analytics); });
     // Retirer un accord déjà donné : on recharge pour décharger le script de mesure
@@ -162,7 +163,38 @@
     if (el) { e.preventDefault(); open(true); }
   });
 
-  I.onChange(function () { if (banner && !banner.hidden) render(!banner.querySelector(".consent-prefs").hidden); });
+  I.onChange(function () { if (banner && !banner.hidden) render(!banner.querySelector(".consent-prefs").hidden); if (notice) renderNotice(); });
+
+  // ---------- Petit message d'information (première visite, tant qu'aucun choix n'est enregistré) ----------
+  var notice = null;
+
+  function renderNotice() {
+    notice.innerHTML = "";
+    var p = document.createElement("p");
+    p.textContent = t("notice.text") + " ";
+    var a = document.createElement("a");
+    var lang = I.lang();
+    a.href = document.documentElement.getAttribute("data-root") + "cookies.html" + (lang === "fr" ? "" : "?lang=" + lang);
+    a.textContent = t("consent.more");
+    p.appendChild(a);
+    var row = document.createElement("div");
+    row.className = "row";
+    row.appendChild(btn("btn-outline", "notice.refuse", function () { decide(false); }));
+    row.appendChild(btn("btn-primary", "notice.ok", function () { saveChoice(true); removeNotice(); }));
+    notice.appendChild(p);
+    notice.appendChild(row);
+  }
+
+  function showNotice() {
+    notice = document.createElement("div");
+    notice.className = "notice";
+    notice.setAttribute("role", "region");
+    notice.setAttribute("aria-label", t("consent.analytics"));
+    renderNotice();
+    document.body.appendChild(notice);
+  }
+
+  function removeNotice() { if (notice) { notice.remove(); notice = null; } }
 
   window.CicliftConsent = {
     hasAnalytics: hasAnalytics,
@@ -172,8 +204,9 @@
     onChange: function (fn) { listeners.push(fn); }
   };
 
-  // Pas de bandeau à l'arrivée : la page est comptée sauf opposition
+  // Pas de bandeau de consentement : la page est comptée sauf opposition, avec un petit message d'information à la première visite
   I.ready.then(function () {
     if (hasAnalytics()) loadGoat();
+    if (!readChoice()) showNotice();
   });
 })();
