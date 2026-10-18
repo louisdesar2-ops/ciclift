@@ -11,7 +11,7 @@ window.CICLIFT_I18N.fr = {
     "ask.sent": "Merci ! Votre question est bien envoyée. Nous vous répondons par email, en général sous quelques jours.",
     "photo.ai": "Illustration générée par IA",
     "consent.title": "Vos choix sur les cookies",
-    "consent.text": "Nous aimerions mesurer l'audience du site de façon anonyme (sans cookie, sans conserver votre adresse IP) pour savoir si Ciclift intéresse. Rien n'est activé sans votre accord.",
+    "consent.text": "Nous mesurons l'audience du site de façon anonyme (sans cookie, sans conserver votre adresse IP), comme l'autorise la CNIL, pour savoir si Ciclift intéresse. Vous pouvez vous y opposer à tout moment.",
     "consent.more": "En savoir plus",
     "consent.accept": "Tout accepter",
     "consent.reject": "Tout refuser",

@@ -21,7 +21,7 @@ window.CICLIFT_I18N.nl = {
     "ask.sent": "Bedankt! Je vraag is verzonden. We antwoorden je per e-mail, meestal binnen een paar dagen.",
     "photo.ai": "Door AI gegenereerde illustratie",
     "consent.title": "Jouw cookiekeuzes",
-    "consent.text": "We willen het bezoek aan de site anoniem meten (zonder cookies, je IP-adres wordt niet bewaard) om te zien of Ciclift interesse wekt. Zonder jouw toestemming wordt niets ingeschakeld.",
+    "consent.text": "We meten het bezoek aan de site anoniem (zonder cookies, je IP-adres wordt niet bewaard), zoals de Franse privacytoezichthouder CNIL toestaat, om te zien of Ciclift interesse wekt. Je kunt op elk moment bezwaar maken.",
     "consent.more": "Meer informatie",
     "consent.accept": "Alles accepteren",
     "consent.reject": "Alles weigeren",
@@ -190,7 +190,7 @@ window.CICLIFT_I18N.nl = {
     "type.o2": "Mountainbike",
     "type.o3": "Racefiets",
     "type.o4": "Stads- / recreatiefiets",
-    "poll.note": "Anonieme antwoorden, nooit gekoppeld aan je e-mailadres. Ze worden alleen geteld als je de bezoekersmeting accepteert. <a href=\"confidentialite.html\" data-keep-lang>Meer informatie</a>",
+    "poll.note": "Anonieme antwoorden, nooit gekoppeld aan je e-mailadres en geteld zonder cookies. <a href=\"confidentialite.html\" data-keep-lang>Meer informatie</a>",
 
     "signup.eyebrow": "Lancering",
     "signup.title": "Hoor het als een van de eersten",
@@ -260,10 +260,10 @@ window.CICLIFT_I18N.nl = {
       <h2>1. Verwerkingsverantwoordelijke</h2>
       <p><strong data-cfg="ownerName"></strong>, uitgever van de website. Contact voor alle vragen over je gegevens: <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>.</p>
       <h2>2. Verzamelde gegevens</h2>
-      <ul><li><strong>Bewijs van toestemming
+      <ul>
         <li><strong>Inschrijving voor de lancering</strong>: je e-mailadres, de weergavetaal van de site en de datum en tijd van je toestemming (bewijs van je akkoord).</li>
         <li><strong>Vragen per e-mail</strong>: als je ons schrijft (knop "Mijn vraag versturen" of contact@), ontvangen we je e-mailadres en je bericht, uitsluitend om je te antwoorden.</li><li><strong>Enquête en knop "Ja, interessant"</strong>: je antwoorden, anoniem en geaggregeerd geteld. Ze worden nooit gekoppeld aan je e-mailadres of je identiteit.</li>
-        <li><strong>Bezoekersmeting</strong> (alleen als je die accepteert): aantal bezoeken, bekeken pagina's, verwijzende site, type browser en apparaat, schermgrootte, taal en geschat land. Er wordt geen cookie geplaatst en je IP-adres wordt niet bewaard.</li>
+        <li><strong>Bezoekersmeting</strong> (zonder cookies, vrijgesteld van toestemming, je kunt bezwaar maken): aantal bezoeken, bekeken pagina's, verwijzende site, type browser en apparaat, schermgrootte, taal en geschat land. Er wordt geen cookie geplaatst en je IP-adres wordt niet bewaard.</li>
         <li><strong>Technische logbestanden van de hostingprovider</strong>: zoals bij elke website registreert de hostingprovider technische verbindingsgegevens (waaronder het IP-adres) om de veiligheid en werking van de dienst te garanderen.</li>
       </ul>
       <p>Er worden geen gevoelige gegevens verzameld. Er vindt geen geautomatiseerde besluitvorming of profilering plaats.</p>
@@ -272,7 +272,7 @@ window.CICLIFT_I18N.nl = {
         <thead><tr><th>Doel</th><th>Gegevens</th><th>Rechtsgrond (AVG)</th></tr></thead>
         <tbody>
           <tr><td>Je informeren over de lancering van Ciclift</td><td>E-mail, taal, bewijs van toestemming</td><td>Jouw toestemming (art. 6, lid 1, a)</td></tr>
-          <tr><td>Anoniem marktonderzoek (enquête, bezoekstatistieken)</td><td>Anonieme antwoorden en statistieken</td><td>Jouw toestemming (art. 6, lid 1, a)</td></tr>
+          <tr><td>Anoniem marktonderzoek (enquête, bezoekstatistieken)</td><td>Anonieme antwoorden en statistieken</td><td>Gerechtvaardigd belang van de uitgever (art. 6, lid 1, f): bezoekersmeting vrijgesteld van toestemming volgens de voorwaarden van de CNIL (artikel 82 van de Franse privacywet); je kunt op elk moment bezwaar maken</td></tr>
           <tr><td>Beveiliging en werking van de site</td><td>Technische logbestanden</td><td>Gerechtvaardigd belang van de uitgever (art. 6, lid 1, f)</td></tr>
         </tbody>
       </table></div>
@@ -280,8 +280,8 @@ window.CICLIFT_I18N.nl = {
       <ul>
         <li><strong>E-mailadres</strong>: tot je je uitschrijft, en uiterlijk 3 jaar na je inschrijving of je laatste contact met ons.</li>
         <li><strong>Bewijs van toestemming</strong>: even lang als het e-mailadres.</li>
-        <li><strong>Statistieken en enquêteantwoorden</strong>: anonieme, geaggregeerde gegevens, bewaard zolang het marktonderzoek duurt.</li>
-        <li><strong>Je cookiekeuzes</strong>: 6 maanden, daarna wordt het je opnieuw gevraagd.</li>
+        <li><strong>Statistieken en enquêteantwoorden</strong>: anonieme, geaggregeerde gegevens, bewaard zolang het marktonderzoek duurt, en maximaal 25 maanden.</li>
+        <li><strong>Je cookiekeuzes</strong>: op je apparaat, tot je ze wijzigt of verwijdert.</li>
       </ul>
       <h2>5. Ontvangers en verwerkers</h2>
       <p>Je gegevens zijn alleen toegankelijk voor de uitgever. Ze worden nooit verkocht, verhuurd of overgedragen. De volgende dienstverleners handelen namens de uitgever, in overeenstemming met de AVG:</p>
@@ -320,17 +320,18 @@ window.CICLIFT_I18N.nl = {
       <div class="table-wrap"><table>
         <thead><tr><th>Naam</th><th>Doel</th><th>Categorie</th><th>Duur</th></tr></thead>
         <tbody>
-          <tr><td>ciclift_consent</td><td>Onthoudt je cookiekeuzes</td><td>Strikt noodzakelijk (lokale opslag)</td><td>6 maanden</td></tr>
+          <tr><td>ciclift_consent</td><td>Onthoudt je cookiekeuzes</td><td>Strikt noodzakelijk (lokale opslag)</td><td>Tot je het verwijdert</td></tr>
           <tr><td>ciclift_lang</td><td>Onthoudt de gekozen taal</td><td>Strikt noodzakelijk (lokale opslag)</td><td>Tot je het verwijdert</td></tr>
           <tr><td>ciclift_votes</td><td>Voorkomt dat je enquêteantwoord twee keer wordt geteld</td><td>Strikt noodzakelijk (lokale opslag)</td><td>Tot je het verwijdert</td></tr>
-          <tr><td>GoatCounter</td><td>Anonieme bezoekstatistieken en telling van enquêteantwoorden. Plaatst geen cookie en bewaart je IP-adres niet.</td><td>Bezoekersmeting — <strong>alleen met jouw toestemming</strong></td><td>Niets opgeslagen op je apparaat</td></tr>
+          <tr><td>GoatCounter</td><td>Anonieme bezoekstatistieken en telling van enquêteantwoorden. Plaatst geen cookie en bewaart je IP-adres niet.</td><td>Bezoekersmeting — <strong>vrijgesteld van toestemming</strong>, bezwaar mogelijk</td><td>Niets opgeslagen op je apparaat</td></tr>
         </tbody>
       </table></div>
       <p>"Strikt noodzakelijke" elementen zijn vrijgesteld van toestemming, omdat ze alleen dienen om de dienst te leveren die je vraagt. Ze blijven op je apparaat en worden met niemand gedeeld.</p>
+      <p>Ook de bezoekersmeting is vrijgesteld van toestemming, omdat ze voldoet aan de voorwaarden van de Franse privacytoezichthouder CNIL: ze dient alleen om anonieme statistieken te maken voor de uitgever van de site, plaatst geen cookie, bewaart je IP-adres niet, volgt je niet op andere sites, en de gegevens worden niet verkocht of hergebruikt. Je kunt er toch op elk moment bezwaar tegen maken.</p>
       <h2>3. Je keuzes wijzigen</h2>
-      <p>Je kunt de bezoekersmeting op elk moment accepteren of weigeren, net zo eenvoudig als je toestemming gaf:</p>
+      <p>Om op elk moment bezwaar te maken tegen de bezoekersmeting, of ze weer in te schakelen:</p>
       <p><button type="button" class="btn btn-primary" data-consent-open>Mijn keuzes wijzigen</button></p>
-      <p>Je kunt de door de site opgeslagen gegevens ook verwijderen via de instellingen van je browser ("Cookies en sitegegevens"). Je keuzes worden elke 6 maanden opnieuw gevraagd.</p>
+      <p>Je kunt de door de site opgeslagen gegevens ook verwijderen via de instellingen van je browser ("Cookies en sitegegevens").</p>
       <h2>4. Meer informatie</h2>
       <p>Meer informatie over je gegevens vind je in het <a href="confidentialite.html" data-keep-lang>privacybeleid</a> of op de website van de CNIL: <a href="https://www.cnil.fr/en/tag/Cookies+and+tracking+devices" rel="noopener">cnil.fr</a>.</p>`,
 

@@ -1,17 +1,16 @@
 /*
  * Ciclift — gestion du consentement (recommandations CNIL) et mesure d'audience.
- * - Rien n'est chargé avant le choix de l'internaute.
- * - « Tout refuser » est aussi simple et visible que « Tout accepter ».
- * - Le choix est conservé 6 mois, puis redemandé. Il est modifiable à tout moment (« Gérer mes cookies »).
- * - La mesure d'audience (GoatCounter) ne dépose aucun cookie et ne conserve pas les adresses IP ;
- *   elle n'est malgré tout activée qu'avec l'accord de l'internaute.
+ * - La mesure d'audience (GoatCounter) ne dépose aucun cookie et ne conserve pas les adresses IP : elle remplit
+ *   les conditions d'exemption de consentement de la CNIL et se charge donc sans bandeau.
+ * - Droit d'opposition : « Gérer mes cookies » (pied de page) permet de refuser en un clic ; le refus est conservé
+ *   sur l'appareil jusqu'à ce que l'internaute le change. Le signal « Global Privacy Control » vaut opposition.
+ * - Aucun autre traceur n'est utilisé.
  */
 (function () {
   "use strict";
 
   var KEY = "ciclift_consent";
   var VERSION = 1;
-  var MAX_AGE_DAYS = 182;
   var I = window.CicliftI18n;
   var t = I.t;
   var banner = null;
@@ -23,7 +22,6 @@
     try {
       var raw = JSON.parse(localStorage.getItem(KEY) || "null");
       if (!raw || raw.v !== VERSION) return null;
-      if ((Date.now() - new Date(raw.date).getTime()) / 864e5 > MAX_AGE_DAYS) return null;
       return raw;
     } catch (e) { return null; }
   }
@@ -34,7 +32,12 @@
     return choice;
   }
 
-  function hasAnalytics() { var c = readChoice(); return !!(c && c.analytics); }
+  // Mesure exemptée de consentement : active sauf opposition (choix enregistré, ou signal Global Privacy Control)
+  function hasAnalytics() {
+    var c = readChoice();
+    if (c) return !!c.analytics;
+    return navigator.globalPrivacyControl !== true;
+  }
 
   // ---------- Mesure d'audience (GoatCounter) ----------
   function loadGoat() {
@@ -57,7 +60,7 @@
     }
   }
 
-  // Enregistre un événement anonyme (vote, inscription…) si l'internaute a accepté
+  // Enregistre un événement anonyme (vote, inscription…) sauf opposition de l'internaute
   function track(name) {
     if (!hasAnalytics()) return false;
     queue.push(name);
@@ -99,7 +102,6 @@
     var root = document.documentElement.getAttribute("data-root");
     var lang = I.lang();
     var cookiesUrl = root + "cookies.html" + (lang === "fr" ? "" : "?lang=" + lang);
-    var current = readChoice();
 
     banner.innerHTML = "";
     var h = document.createElement("h2");
@@ -131,7 +133,7 @@
     var inputs = prefs.querySelectorAll("input");
     inputs[0].setAttribute("aria-label", t("consent.necessary"));
     inputs[1].setAttribute("aria-label", t("consent.analytics"));
-    inputs[1].checked = !!(current && current.analytics);
+    inputs[1].checked = hasAnalytics();
     banner.appendChild(prefs);
 
     var actions = document.createElement("div");
@@ -151,7 +153,7 @@
   function close() { if (banner) banner.hidden = true; }
 
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && banner && !banner.hidden && readChoice()) close();
+    if (e.key === "Escape" && banner && !banner.hidden) close();
   });
 
   // Boutons « Gérer mes cookies » présents dans les pages
@@ -170,9 +172,8 @@
     onChange: function (fn) { listeners.push(fn); }
   };
 
+  // Pas de bandeau à l'arrivée : la page est comptée sauf opposition
   I.ready.then(function () {
-    var choice = readChoice();
-    if (!choice) render(false);
-    else if (choice.analytics) loadGoat();
+    if (hasAnalytics()) loadGoat();
   });
 })();

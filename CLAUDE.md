@@ -5,7 +5,9 @@ Propriétaire : débutant, francophone — répondre en français, simplement.
 
 ## Règles
 - Confidentialité produit : montrer le résultat/bénéfice, jamais le mécanisme (pas de schéma, vidéo, détail technique).
-- Conformité stricte RGPD/CNIL/LCEN : rien ne se charge avant consentement, pas de Google Fonts ni service tiers non déclaré.
+- Conformité stricte RGPD/CNIL/LCEN : pas de Google Fonts ni service tiers non déclaré. Seule exception au consentement :
+  la mesure d'audience GoatCounter (sans cookie, IP non conservée), chargée sans bandeau au titre de l'exemption CNIL,
+  avec droit d'opposition (« Gérer mes cookies », signal Global Privacy Control respecté). Tout autre service reste soumis à accord.
   Tout nouveau service ou stockage local doit être ajouté à `confidentialite.html`, `cookies.html` ET aux 4 traductions.
 - Pas de build : HTML/CSS/JS purs. CSP stricte : aucun script ou style inline (pas d'attribut `style=`).
 - Français = texte écrit dans le HTML. Toute modif de texte doit être reportée dans `assets/js/lang/{en,de,nl,es}.js`

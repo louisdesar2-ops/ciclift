@@ -21,7 +21,7 @@ window.CICLIFT_I18N.en = {
     "ask.sent": "Thank you! Your question has been sent. We'll reply by email, usually within a few days.",
     "photo.ai": "AI-generated illustration",
     "consent.title": "Your cookie choices",
-    "consent.text": "We would like to measure site traffic anonymously (no cookies, your IP address is not stored) to find out whether Ciclift interests people. Nothing is enabled without your consent.",
+    "consent.text": "We measure site traffic anonymously (no cookies, your IP address is not stored), as permitted by the French data protection authority (CNIL), to find out whether Ciclift interests people. You can opt out at any time.",
     "consent.more": "Learn more",
     "consent.accept": "Accept all",
     "consent.reject": "Reject all",
@@ -190,7 +190,7 @@ window.CICLIFT_I18N.en = {
     "type.o2": "Mountain bike",
     "type.o3": "Road bike",
     "type.o4": "City / leisure",
-    "poll.note": "Anonymous answers, never linked to your email address. They are only counted if you accept audience measurement. <a href=\"confidentialite.html\" data-keep-lang>Learn more</a>",
+    "poll.note": "Anonymous answers, never linked to your email address and counted without cookies. <a href=\"confidentialite.html\" data-keep-lang>Learn more</a>",
 
     "signup.eyebrow": "Launch",
     "signup.title": "Be among the first to know",
@@ -260,10 +260,10 @@ window.CICLIFT_I18N.en = {
       <h2>1. Data controller</h2>
       <p><strong data-cfg="ownerName"></strong>, publisher of the site. Contact for any question about your data: <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>.</p>
       <h2>2. Data collected</h2>
-      <ul><li><strong>Proof of consent
+      <ul>
         <li><strong>Launch sign-up</strong>: your email address, the display language of the site, and the date and time of your consent (proof of your agreement).</li>
         <li><strong>Questions sent by email</strong>: if you write to us ("Send my question" button or contact@), we receive your email address and your message, only in order to reply to you.</li><li><strong>Survey and "I'm interested" button</strong>: your answers, counted anonymously and in aggregate. They are never linked to your email address or your identity.</li>
-        <li><strong>Audience measurement</strong> (only if you accept it): number of visits, pages viewed, referring site, browser and device type, screen size, language and approximate country. No cookie is set and your IP address is not stored.</li>
+        <li><strong>Audience measurement</strong> (cookie-free, exempt from consent, you can opt out): number of visits, pages viewed, referring site, browser and device type, screen size, language and approximate country. No cookie is set and your IP address is not stored.</li>
         <li><strong>Host's technical logs</strong>: as for any website, the host records technical connection data (including IP address) to ensure the security and proper operation of the service.</li>
       </ul>
       <p>No sensitive data is collected. No automated decision-making or profiling takes place.</p>
@@ -272,7 +272,7 @@ window.CICLIFT_I18N.en = {
         <thead><tr><th>Purpose</th><th>Data</th><th>Legal basis (GDPR)</th></tr></thead>
         <tbody>
           <tr><td>Notifying you of the Ciclift launch</td><td>Email, language, proof of consent</td><td>Your consent (Art. 6(1)(a))</td></tr>
-          <tr><td>Anonymous market research (survey, visit statistics)</td><td>Anonymous answers and statistics</td><td>Your consent (Art. 6(1)(a))</td></tr>
+          <tr><td>Anonymous market research (survey, visit statistics)</td><td>Anonymous answers and statistics</td><td>Legitimate interest of the publisher (Art. 6(1)(f)): audience measurement exempt from consent under the CNIL conditions (Article 82 of the French Data Protection Act); you can opt out at any time</td></tr>
           <tr><td>Security and operation of the site</td><td>Technical logs</td><td>Legitimate interest of the publisher (Art. 6(1)(f))</td></tr>
         </tbody>
       </table></div>
@@ -280,8 +280,8 @@ window.CICLIFT_I18N.en = {
       <ul>
         <li><strong>Email address</strong>: until you unsubscribe, and at the latest 3 years after you sign up or last contact us.</li>
         <li><strong>Proof of consent</strong>: for the same period as the email address.</li>
-        <li><strong>Statistics and survey answers</strong>: anonymous, aggregated data kept for the duration of the market research.</li>
-        <li><strong>Your cookie choices</strong>: 6 months, after which you will be asked again.</li>
+        <li><strong>Statistics and survey answers</strong>: anonymous, aggregated data kept for the duration of the market research, and for 25 months at most.</li>
+        <li><strong>Your cookie choices</strong>: on your device, until you change or delete them.</li>
       </ul>
       <h2>5. Recipients and processors</h2>
       <p>Your data is only accessible to the publisher. It is never sold, rented or transferred. The following providers act on behalf of the publisher, in compliance with the GDPR:</p>
@@ -320,17 +320,18 @@ window.CICLIFT_I18N.en = {
       <div class="table-wrap"><table>
         <thead><tr><th>Name</th><th>Purpose</th><th>Category</th><th>Duration</th></tr></thead>
         <tbody>
-          <tr><td>ciclift_consent</td><td>Remembers your cookie choices</td><td>Strictly necessary (local storage)</td><td>6 months</td></tr>
+          <tr><td>ciclift_consent</td><td>Remembers your cookie choices</td><td>Strictly necessary (local storage)</td><td>Until you delete it</td></tr>
           <tr><td>ciclift_lang</td><td>Remembers the language you chose</td><td>Strictly necessary (local storage)</td><td>Until you delete it</td></tr>
           <tr><td>ciclift_votes</td><td>Prevents your survey answer from being counted twice</td><td>Strictly necessary (local storage)</td><td>Until you delete it</td></tr>
-          <tr><td>GoatCounter</td><td>Anonymous visit statistics and survey answer counts. Sets no cookie and does not store your IP address.</td><td>Audience measurement — <strong>only with your consent</strong></td><td>Nothing stored on your device</td></tr>
+          <tr><td>GoatCounter</td><td>Anonymous visit statistics and survey answer counts. Sets no cookie and does not store your IP address.</td><td>Audience measurement — <strong>exempt from consent</strong>, you can opt out</td><td>Nothing stored on your device</td></tr>
         </tbody>
       </table></div>
       <p>"Strictly necessary" items are exempt from consent because they are only used to provide the service you request. They stay on your device and are not sent to anyone.</p>
+      <p>Audience measurement is also exempt from consent, because it meets the conditions set by the CNIL (the French data protection authority): it is only used to produce anonymous statistics for the site's publisher, sets no cookie, does not store your IP address, does not track you on other sites, and its data is neither sold nor reused. You can still opt out at any time.</p>
       <h2>3. Changing your choices</h2>
-      <p>You can accept or refuse audience measurement at any time, as easily as you gave your consent:</p>
+      <p>To opt out of audience measurement, or turn it back on, at any time:</p>
       <p><button type="button" class="btn btn-primary" data-consent-open>Change my choices</button></p>
-      <p>You can also delete the data stored by the site from your browser settings ("Cookies and site data"). You will be asked for your choices again every 6 months.</p>
+      <p>You can also delete the data stored by the site from your browser settings ("Cookies and site data").</p>
       <h2>4. Learn more</h2>
       <p>For more information about your data, see the <a href="confidentialite.html" data-keep-lang>privacy policy</a> or the CNIL website: <a href="https://www.cnil.fr/en/tag/Cookies+and+tracking+devices" rel="noopener">cnil.fr</a>.</p>`,
 

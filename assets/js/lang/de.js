@@ -21,7 +21,7 @@ window.CICLIFT_I18N.de = {
     "ask.sent": "Danke! Deine Frage wurde gesendet. Wir antworten dir per E-Mail, meist innerhalb weniger Tage.",
     "photo.ai": "KI-generierte Illustration",
     "consent.title": "Deine Cookie-Einstellungen",
-    "consent.text": "Wir möchten die Nutzung der Website anonym messen (ohne Cookies, deine IP-Adresse wird nicht gespeichert), um herauszufinden, ob Ciclift auf Interesse stößt. Ohne deine Zustimmung wird nichts aktiviert.",
+    "consent.text": "Wir messen die Nutzung der Website anonym (ohne Cookies, deine IP-Adresse wird nicht gespeichert), wie es die französische Datenschutzbehörde CNIL erlaubt, um herauszufinden, ob Ciclift auf Interesse stößt. Du kannst jederzeit widersprechen.",
     "consent.more": "Mehr erfahren",
     "consent.accept": "Alle akzeptieren",
     "consent.reject": "Alle ablehnen",
@@ -190,7 +190,7 @@ window.CICLIFT_I18N.de = {
     "type.o2": "Mountainbike",
     "type.o3": "Rennrad",
     "type.o4": "Stadt / Freizeit",
-    "poll.note": "Anonyme Antworten, nie mit deiner E-Mail-Adresse verknüpft. Sie werden nur gezählt, wenn du der Reichweitenmessung zustimmst. <a href=\"confidentialite.html\" data-keep-lang>Mehr erfahren</a>",
+    "poll.note": "Anonyme Antworten, nie mit deiner E-Mail-Adresse verknüpft und ohne Cookies gezählt. <a href=\"confidentialite.html\" data-keep-lang>Mehr erfahren</a>",
 
     "signup.eyebrow": "Marktstart",
     "signup.title": "Erfahre es als Erste:r",
@@ -260,10 +260,10 @@ window.CICLIFT_I18N.de = {
       <h2>1. Verantwortlicher</h2>
       <p><strong data-cfg="ownerName"></strong>, Herausgeber der Website. Kontakt für alle Fragen zu deinen Daten: <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>.</p>
       <h2>2. Erhobene Daten</h2>
-      <ul><li><strong>Einwilligungsnachweis
+      <ul>
         <li><strong>Anmeldung zum Marktstart</strong>: deine E-Mail-Adresse, die Anzeigesprache der Website sowie Datum und Uhrzeit deiner Einwilligung (Nachweis deiner Zustimmung).</li>
         <li><strong>Per E-Mail gesendete Fragen</strong>: Wenn du uns schreibst (Button „Frage senden" oder contact@), erhalten wir deine E-Mail-Adresse und deine Nachricht, ausschließlich um dir zu antworten.</li><li><strong>Umfrage und Button „Das interessiert mich"</strong>: deine Antworten, anonym und zusammengefasst gezählt. Sie werden niemals mit deiner E-Mail-Adresse oder deiner Identität verknüpft.</li>
-        <li><strong>Reichweitenmessung</strong> (nur mit deiner Zustimmung): Anzahl der Besuche, aufgerufene Seiten, verweisende Website, Browser- und Gerätetyp, Bildschirmgröße, Sprache und ungefähres Land. Es wird kein Cookie gesetzt und deine IP-Adresse wird nicht gespeichert.</li>
+        <li><strong>Reichweitenmessung</strong> (ohne Cookies, einwilligungsfrei, Widerspruch jederzeit möglich): Anzahl der Besuche, aufgerufene Seiten, verweisende Website, Browser- und Gerätetyp, Bildschirmgröße, Sprache und ungefähres Land. Es wird kein Cookie gesetzt und deine IP-Adresse wird nicht gespeichert.</li>
         <li><strong>Technische Protokolle des Hosters</strong>: Wie bei jeder Website speichert der Hoster technische Verbindungsdaten (einschließlich der IP-Adresse), um Sicherheit und Betrieb des Dienstes zu gewährleisten.</li>
       </ul>
       <p>Es werden keine sensiblen Daten erhoben. Es findet keine automatisierte Entscheidungsfindung und kein Profiling statt.</p>
@@ -272,7 +272,7 @@ window.CICLIFT_I18N.de = {
         <thead><tr><th>Zweck</th><th>Daten</th><th>Rechtsgrundlage (DSGVO)</th></tr></thead>
         <tbody>
           <tr><td>Benachrichtigung über den Marktstart von Ciclift</td><td>E-Mail, Sprache, Einwilligungsnachweis</td><td>Deine Einwilligung (Art. 6 Abs. 1 lit. a)</td></tr>
-          <tr><td>Anonyme Marktforschung (Umfrage, Besuchsstatistiken)</td><td>Anonyme Antworten und Statistiken</td><td>Deine Einwilligung (Art. 6 Abs. 1 lit. a)</td></tr>
+          <tr><td>Anonyme Marktforschung (Umfrage, Besuchsstatistiken)</td><td>Anonyme Antworten und Statistiken</td><td>Berechtigtes Interesse des Herausgebers (Art. 6 Abs. 1 lit. f): einwilligungsfreie Reichweitenmessung gemäß den Bedingungen der CNIL (Artikel 82 des französischen Datenschutzgesetzes); du kannst jederzeit widersprechen</td></tr>
           <tr><td>Sicherheit und Betrieb der Website</td><td>Technische Protokolle</td><td>Berechtigtes Interesse des Herausgebers (Art. 6 Abs. 1 lit. f)</td></tr>
         </tbody>
       </table></div>
@@ -280,8 +280,8 @@ window.CICLIFT_I18N.de = {
       <ul>
         <li><strong>E-Mail-Adresse</strong>: bis zu deiner Abmeldung, spätestens 3 Jahre nach deiner Anmeldung oder deinem letzten Kontakt mit uns.</li>
         <li><strong>Einwilligungsnachweis</strong>: so lange wie die E-Mail-Adresse.</li>
-        <li><strong>Statistiken und Umfrageantworten</strong>: anonyme, zusammengefasste Daten, gespeichert für die Dauer der Marktforschung.</li>
-        <li><strong>Deine Cookie-Auswahl</strong>: 6 Monate, danach wirst du erneut gefragt.</li>
+        <li><strong>Statistiken und Umfrageantworten</strong>: anonyme, zusammengefasste Daten, gespeichert für die Dauer der Marktforschung, höchstens 25 Monate.</li>
+        <li><strong>Deine Cookie-Auswahl</strong>: auf deinem Gerät, bis du sie änderst oder löschst.</li>
       </ul>
       <h2>5. Empfänger und Auftragsverarbeiter</h2>
       <p>Deine Daten sind nur für den Herausgeber zugänglich. Sie werden niemals verkauft, vermietet oder weitergegeben. Folgende Dienstleister handeln im Auftrag des Herausgebers und im Einklang mit der DSGVO:</p>
@@ -320,17 +320,18 @@ window.CICLIFT_I18N.de = {
       <div class="table-wrap"><table>
         <thead><tr><th>Name</th><th>Zweck</th><th>Kategorie</th><th>Dauer</th></tr></thead>
         <tbody>
-          <tr><td>ciclift_consent</td><td>Speichert deine Cookie-Auswahl</td><td>Unbedingt erforderlich (lokaler Speicher)</td><td>6 Monate</td></tr>
+          <tr><td>ciclift_consent</td><td>Speichert deine Cookie-Auswahl</td><td>Unbedingt erforderlich (lokaler Speicher)</td><td>Bis du sie löschst</td></tr>
           <tr><td>ciclift_lang</td><td>Speichert die gewählte Sprache</td><td>Unbedingt erforderlich (lokaler Speicher)</td><td>Bis du ihn löschst</td></tr>
           <tr><td>ciclift_votes</td><td>Verhindert, dass deine Umfrageantwort doppelt gezählt wird</td><td>Unbedingt erforderlich (lokaler Speicher)</td><td>Bis du ihn löschst</td></tr>
-          <tr><td>GoatCounter</td><td>Anonyme Besuchsstatistiken und Zählung der Umfrageantworten. Setzt kein Cookie und speichert deine IP-Adresse nicht.</td><td>Reichweitenmessung — <strong>nur mit deiner Zustimmung</strong></td><td>Keine Speicherung auf deinem Gerät</td></tr>
+          <tr><td>GoatCounter</td><td>Anonyme Besuchsstatistiken und Zählung der Umfrageantworten. Setzt kein Cookie und speichert deine IP-Adresse nicht.</td><td>Reichweitenmessung — <strong>einwilligungsfrei</strong>, Widerspruch möglich</td><td>Keine Speicherung auf deinem Gerät</td></tr>
         </tbody>
       </table></div>
       <p>„Unbedingt erforderliche" Elemente sind von der Einwilligung ausgenommen, da sie nur dazu dienen, den von dir angeforderten Dienst bereitzustellen. Sie bleiben auf deinem Gerät und werden an niemanden übermittelt.</p>
+      <p>Auch die Reichweitenmessung ist einwilligungsfrei, da sie die Bedingungen der französischen Datenschutzbehörde CNIL erfüllt: Sie dient ausschließlich dazu, anonyme Statistiken für den Herausgeber der Website zu erstellen, setzt kein Cookie, speichert deine IP-Adresse nicht, verfolgt dich nicht auf anderen Websites, und ihre Daten werden weder verkauft noch weiterverwendet. Du kannst ihr dennoch jederzeit widersprechen.</p>
       <h2>3. Auswahl ändern</h2>
-      <p>Du kannst die Reichweitenmessung jederzeit annehmen oder ablehnen – genauso einfach, wie du zugestimmt hast:</p>
+      <p>Um der Reichweitenmessung jederzeit zu widersprechen oder sie wieder zu aktivieren:</p>
       <p><button type="button" class="btn btn-primary" data-consent-open>Auswahl ändern</button></p>
-      <p>Du kannst die von der Website gespeicherten Daten auch in den Einstellungen deines Browsers löschen („Cookies und Websitedaten"). Deine Auswahl wird alle 6 Monate erneut abgefragt.</p>
+      <p>Du kannst die von der Website gespeicherten Daten auch in den Einstellungen deines Browsers löschen („Cookies und Websitedaten").</p>
       <h2>4. Mehr erfahren</h2>
       <p>Weitere Informationen zu deinen Daten findest du in der <a href="confidentialite.html" data-keep-lang>Datenschutzerklärung</a> oder auf der Website der CNIL: <a href="https://www.cnil.fr/en/tag/Cookies+and+tracking+devices" rel="noopener">cnil.fr</a>.</p>`,
 

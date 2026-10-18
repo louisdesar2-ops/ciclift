@@ -22,7 +22,7 @@ window.CICLIFT_CONFIG = {
   web3formsKey: "c27d7de1-7ec7-4d8c-bf3e-b29e32251fe9",
 
   // Date de dernière mise à jour des pages légales (AAAA-MM-JJ)
-  legalUpdated: "2026-10-17",
+  legalUpdated: "2026-10-18",
 
   // Images (générées par IA ou photos) : déposer le fichier dans assets/img/photos/ puis écrire son nom ici.
   // Tant qu'un nom est vide, c'est l'illustration dessinée qui s'affiche. Voir assets/img/photos/PROMPTS.md

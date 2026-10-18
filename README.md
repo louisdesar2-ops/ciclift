@@ -86,7 +86,7 @@ tools/tableau/          Scripts du tableau de bord (sans les clés)
 | 2 | Page CGU | ✅ `cgu.html` |
 | 3 | Aucune clé secrète dans le code | ✅ seulement des codes publics (GoatCounter, Brevo, Web3Forms) |
 | 4 | HTTPS forcé | ✅ GitHub Pages, « Enforce HTTPS » coché ; certificat renouvelé automatiquement (vérifier le cadenas mi-janvier 2027) |
-| 5 | Bannière cookies | ✅ refus aussi simple que l'acceptation, choix redemandé tous les 6 mois |
+| 5 | Cookies | ✅ aucun cookie ; mesure d'audience exemptée de consentement (conditions CNIL), opposition en un clic via « Gérer mes cookies » |
 | 6 | Meta title | ✅ par page et par langue |
 | 7 | Image réseaux sociaux | ✅ `og-image.png` 1200×630 |
 | 8 | Favicon | ✅ SVG + PNG + icône Apple |

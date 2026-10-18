@@ -21,7 +21,7 @@ window.CICLIFT_I18N.es = {
     "ask.sent": "¡Gracias! Tu pregunta se ha enviado. Te responderemos por correo, normalmente en unos días.",
     "photo.ai": "Ilustración generada por IA",
     "consent.title": "Tus preferencias de cookies",
-    "consent.text": "Nos gustaría medir la audiencia del sitio de forma anónima (sin cookies y sin guardar tu dirección IP) para saber si Ciclift interesa. No se activa nada sin tu consentimiento.",
+    "consent.text": "Medimos la audiencia del sitio de forma anónima (sin cookies y sin guardar tu dirección IP), como permite la autoridad francesa de protección de datos (CNIL), para saber si Ciclift interesa. Puedes oponerte en cualquier momento.",
     "consent.more": "Más información",
     "consent.accept": "Aceptar todo",
     "consent.reject": "Rechazar todo",
@@ -190,7 +190,7 @@ window.CICLIFT_I18N.es = {
     "type.o2": "Montaña",
     "type.o3": "Carretera",
     "type.o4": "Ciudad / paseo",
-    "poll.note": "Respuestas anónimas, nunca vinculadas a tu correo electrónico. Solo se cuentan si aceptas la medición de audiencia. <a href=\"confidentialite.html\" data-keep-lang>Más información</a>",
+    "poll.note": "Respuestas anónimas, nunca vinculadas a tu correo electrónico y contadas sin cookies. <a href=\"confidentialite.html\" data-keep-lang>Más información</a>",
 
     "signup.eyebrow": "Lanzamiento",
     "signup.title": "Sé de los primeros en enterarte",
@@ -260,10 +260,10 @@ window.CICLIFT_I18N.es = {
       <h2>1. Responsable del tratamiento</h2>
       <p><strong data-cfg="ownerName"></strong>, editor del sitio. Contacto para cualquier pregunta sobre tus datos: <a data-cfg-mailto><span data-cfg="contactEmail"></span></a>.</p>
       <h2>2. Datos recogidos</h2>
-      <ul><li><strong>Prueba del consentimiento
+      <ul>
         <li><strong>Suscripción al lanzamiento</strong>: tu correo electrónico, el idioma de visualización del sitio y la fecha y hora de tu consentimiento (prueba de tu aceptación).</li>
         <li><strong>Preguntas enviadas por correo</strong>: si nos escribes (botón «Enviar mi pregunta» o contact@), recibimos tu correo electrónico y tu mensaje, únicamente para responderte.</li><li><strong>Encuesta y botón «Sí, me interesa»</strong>: tus respuestas, contadas de forma anónima y agregada. Nunca se vinculan a tu correo electrónico ni a tu identidad.</li>
-        <li><strong>Medición de audiencia</strong> (solo si la aceptas): número de visitas, páginas vistas, sitio de procedencia, tipo de navegador y dispositivo, tamaño de pantalla, idioma y país aproximado. No se instala ninguna cookie y tu dirección IP no se conserva.</li>
+        <li><strong>Medición de audiencia</strong> (sin cookies, exenta de consentimiento, puedes oponerte): número de visitas, páginas vistas, sitio de procedencia, tipo de navegador y dispositivo, tamaño de pantalla, idioma y país aproximado. No se instala ninguna cookie y tu dirección IP no se conserva.</li>
         <li><strong>Registros técnicos del proveedor de alojamiento</strong>: como en cualquier sitio web, el proveedor registra datos técnicos de conexión (incluida la dirección IP) para garantizar la seguridad y el funcionamiento del servicio.</li>
       </ul>
       <p>No se recogen datos sensibles. No se toman decisiones automatizadas ni se elaboran perfiles.</p>
@@ -272,7 +272,7 @@ window.CICLIFT_I18N.es = {
         <thead><tr><th>Finalidad</th><th>Datos</th><th>Base jurídica (RGPD)</th></tr></thead>
         <tbody>
           <tr><td>Avisarte del lanzamiento de Ciclift</td><td>Correo, idioma, prueba del consentimiento</td><td>Tu consentimiento (art. 6.1.a)</td></tr>
-          <tr><td>Estudio de mercado anónimo (encuesta, estadísticas de visitas)</td><td>Respuestas y estadísticas anónimas</td><td>Tu consentimiento (art. 6.1.a)</td></tr>
+          <tr><td>Estudio de mercado anónimo (encuesta, estadísticas de visitas)</td><td>Respuestas y estadísticas anónimas</td><td>Interés legítimo del editor (art. 6.1.f): medición de audiencia exenta de consentimiento según las condiciones de la CNIL (artículo 82 de la ley francesa de protección de datos); puedes oponerte en cualquier momento</td></tr>
           <tr><td>Seguridad y funcionamiento del sitio</td><td>Registros técnicos</td><td>Interés legítimo del editor (art. 6.1.f)</td></tr>
         </tbody>
       </table></div>
@@ -280,8 +280,8 @@ window.CICLIFT_I18N.es = {
       <ul>
         <li><strong>Correo electrónico</strong>: hasta que te des de baja y, como máximo, 3 años después de tu suscripción o de tu último contacto con nosotros.</li>
         <li><strong>Prueba del consentimiento</strong>: durante el mismo plazo que el correo electrónico.</li>
-        <li><strong>Estadísticas y respuestas a la encuesta</strong>: datos anónimos y agregados, conservados mientras dure el estudio de mercado.</li>
-        <li><strong>Tus preferencias de cookies</strong>: 6 meses, tras los cuales se te volverán a pedir.</li>
+        <li><strong>Estadísticas y respuestas a la encuesta</strong>: datos anónimos y agregados, conservados mientras dure el estudio de mercado, y como máximo 25 meses.</li>
+        <li><strong>Tus preferencias de cookies</strong>: en tu dispositivo, hasta que las cambies o las borres.</li>
       </ul>
       <h2>5. Destinatarios y encargados del tratamiento</h2>
       <p>Tus datos solo son accesibles para el editor. Nunca se venden, alquilan ni ceden. Los siguientes proveedores actúan por cuenta del editor, conforme al RGPD:</p>
@@ -320,17 +320,18 @@ window.CICLIFT_I18N.es = {
       <div class="table-wrap"><table>
         <thead><tr><th>Nombre</th><th>Función</th><th>Categoría</th><th>Duración</th></tr></thead>
         <tbody>
-          <tr><td>ciclift_consent</td><td>Recuerda tus preferencias de cookies</td><td>Estrictamente necesaria (almacenamiento local)</td><td>6 meses</td></tr>
+          <tr><td>ciclift_consent</td><td>Recuerda tus preferencias de cookies</td><td>Estrictamente necesaria (almacenamiento local)</td><td>Hasta que la borres</td></tr>
           <tr><td>ciclift_lang</td><td>Recuerda el idioma elegido</td><td>Estrictamente necesaria (almacenamiento local)</td><td>Hasta que la borres</td></tr>
           <tr><td>ciclift_votes</td><td>Evita que tu respuesta a la encuesta se cuente dos veces</td><td>Estrictamente necesaria (almacenamiento local)</td><td>Hasta que la borres</td></tr>
-          <tr><td>GoatCounter</td><td>Estadísticas anónimas de visitas y recuento de respuestas a la encuesta. No instala cookies ni guarda tu dirección IP.</td><td>Medición de audiencia — <strong>solo con tu consentimiento</strong></td><td>Nada almacenado en tu dispositivo</td></tr>
+          <tr><td>GoatCounter</td><td>Estadísticas anónimas de visitas y recuento de respuestas a la encuesta. No instala cookies ni guarda tu dirección IP.</td><td>Medición de audiencia — <strong>exenta de consentimiento</strong>, puedes oponerte</td><td>Nada almacenado en tu dispositivo</td></tr>
         </tbody>
       </table></div>
       <p>Los elementos «estrictamente necesarios» están exentos de consentimiento porque solo sirven para prestar el servicio que solicitas. Permanecen en tu dispositivo y no se envían a nadie.</p>
+      <p>La medición de audiencia también está exenta de consentimiento, porque cumple las condiciones fijadas por la autoridad francesa de protección de datos (CNIL): solo sirve para elaborar estadísticas anónimas para el editor del sitio, no instala cookies, no guarda tu dirección IP, no te sigue en otros sitios y sus datos no se venden ni se reutilizan. Aun así, puedes oponerte en cualquier momento.</p>
       <h2>3. Cambiar tus preferencias</h2>
-      <p>Puedes aceptar o rechazar la medición de audiencia en cualquier momento, con la misma facilidad con la que diste tu consentimiento:</p>
+      <p>Para oponerte a la medición de audiencia, o volver a activarla, en cualquier momento:</p>
       <p><button type="button" class="btn btn-primary" data-consent-open>Cambiar mis preferencias</button></p>
-      <p>También puedes borrar los datos guardados por el sitio desde la configuración de tu navegador («Cookies y datos de sitios»). Se te volverán a pedir tus preferencias cada 6 meses.</p>
+      <p>También puedes borrar los datos guardados por el sitio desde la configuración de tu navegador («Cookies y datos de sitios»).</p>
       <h2>4. Más información</h2>
       <p>Para más información sobre tus datos, consulta la <a href="confidentialite.html" data-keep-lang>política de privacidad</a> o la web de la CNIL: <a href="https://www.cnil.fr/en/tag/Cookies+and+tracking+devices" rel="noopener">cnil.fr</a>.</p>`,
 
