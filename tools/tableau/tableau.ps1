@@ -29,12 +29,12 @@ $data = [ordered]@{ generatedAt = (Get-Date).ToString("yyyy-MM-ddTHH:mm"); start
 # GoatCounter attend des dates avec l'heure ; la fin est exclue, donc on va jusqu'a demain 00:00
 $periode = "start=${DEBUT}T00:00:00Z&end=" + (Get-Date).ToUniversalTime().AddDays(1).ToString("yyyy-MM-dd") + "T00:00:00Z"
 
-# GoatCounter limite le nombre d'appels par seconde : petite pause et nouvel essai si besoin
+# GoatCounter limite le nombre d'appels par seconde et renvoie parfois une erreur 404 au premier appel : petite pause et nouvel essai
 function Goat($chemin) {
   for ($essai = 1; $essai -le 4; $essai++) {
     Start-Sleep -Milliseconds 700
     try { return Invoke-RestMethod -Uri "$GOAT$chemin" -Headers $hGoat }
-    catch { if ($_.Exception.Response -and [int]$_.Exception.Response.StatusCode -eq 429 -and $essai -lt 4) { Start-Sleep -Seconds 3 } else { throw } }
+    catch { if ($_.Exception.Response -and [int]$_.Exception.Response.StatusCode -in 404, 429 -and $essai -lt 4) { Start-Sleep -Seconds 3 } else { throw } }
   }
 }
 
