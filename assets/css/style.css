@@ -616,3 +616,6 @@ h3 { letter-spacing: -.02em; }
 .notice .btn { min-height: 36px; padding: 6px 14px; font-size: .85rem; }
 @media (min-width: 720px) { .notice { left: 24px; right: auto; bottom: 24px; margin: 0; } }
 @media print { .notice { display: none; } }
+
+/* Section « Qui porte le projet ? » : le logo remplace le portrait (pas de photo du visage en ligne) */
+svg.founder-avatar { background: var(--bg); padding: 9px; box-sizing: border-box; overflow: visible; }
