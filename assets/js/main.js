@@ -362,7 +362,8 @@
         // La roue survolée (ou touchée du doigt) s'allume et accélère, puis ralentit doucement
         var over = mouse && Math.sqrt((mouse.x - cx) * (mouse.x - cx) + (mouse.y - cy) * (mouse.y - cy)) < w.r * 1.05;
         w.hover += ((over ? 1 : 0) - w.hover) * .08;
-        if (over) w.boost = Math.min(.035, w.boost + .0015);
+        // Ordinateur : la souris est toujours sur une roue, donc accélération très douce (juste un peu plus vite)
+        if (over) w.boost = touch ? Math.min(.035, w.boost + .0015) : Math.min(.004, w.boost + .0002);
         w.boost *= .985;
         w.a += (w.v + (w.v < 0 ? -w.boost : w.boost)) * dt;
         var al = Math.min(.9, .13 + w.depth * .27 + w.hover * .3);
