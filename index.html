@@ -111,6 +111,20 @@
       </div>
     </section>
 
+    <!-- ===== Question rapide, juste sous l'accroche ===== -->
+    <section class="quick-poll">
+      <div class="container">
+        <div class="poll poll-interest" data-poll="interet">
+          <p data-i18n="interest.q">Ce produit vous intéresse ?</p>
+          <div class="poll-options">
+            <button type="button" data-value="oui" data-i18n="interest.yes">👍 Oui, ça m'intéresse</button>
+            <button type="button" data-value="non" data-i18n="interest.no">Pas pour moi</button>
+          </div>
+          <p class="poll-feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== Bandeau défilant ===== -->
     <div class="ribbon" aria-hidden="true">
       <div class="ribbon-track">
@@ -325,15 +339,6 @@
           <p class="lead" data-i18n="opinion.text">Ciclift est encore en développement. Répondez à quelques questions en 30 secondes : vos réponses, totalement anonymes, nous permettront de savoir si le projet répond à un vrai besoin.</p>
         </div>
         <div class="poll-grid">
-          <div class="poll poll-interest reveal zoom" data-poll="interet">
-            <p data-i18n="interest.q">Ce produit vous intéresse ?</p>
-            <div class="poll-options">
-              <button type="button" data-value="oui" data-i18n="interest.yes">👍 Oui, ça m'intéresse</button>
-              <button type="button" data-value="non" data-i18n="interest.no">Pas pour moi</button>
-            </div>
-            <p class="poll-feedback" aria-live="polite"></p>
-          </div>
-
           <div class="poll reveal" data-poll="prix">
             <fieldset>
               <legend data-i18n="price.q">Combien seriez-vous prêt à payer pour ranger un vélo avec Ciclift ?</legend>

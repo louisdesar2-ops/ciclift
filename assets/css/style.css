@@ -619,3 +619,9 @@ h3 { letter-spacing: -.02em; }
 
 /* Section « Qui porte le projet ? » : le logo remplace le portrait (pas de photo du visage en ligne) */
 svg.founder-avatar { background: var(--bg); padding: 9px; box-sizing: border-box; overflow: visible; }
+
+/* Question rapide « Ce produit vous intéresse ? » juste sous l'accroche (26/10/2026) : visible sans défiler */
+.quick-poll { padding: 8px 0 36px; position: relative; z-index: 1; }
+.quick-poll .poll-interest { border-color: rgba(34, 197, 139, .45); background: rgba(7, 11, 16, .86); }
+@media (min-width: 900px) { .quick-poll .poll-interest { max-width: 820px; } }
+@media (max-width: 599px) { .quick-poll .poll-interest { padding: 18px; } .quick-poll .poll-options { width: 100%; } .quick-poll .poll-options button { flex: 1 1 auto; } }
